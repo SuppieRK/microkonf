@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: ru.kugnn.microkonf
+testFramework: junit
+sourceLanguage: kotlin
+buildTool: gradle
+features: [annotation-api, app-name, docker, graalvm, gradle, http-client, jmx, junit, kotlin, kotlin-application, kotlin-extension-functions, logback, netty-server, readme, security-oauth2, shade, views-thymeleaf, yaml]

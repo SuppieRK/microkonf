@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <div class="container px-0 pb-4" id="partners">
+            <div class="row mx-auto">
+                <!--/*@thymesVar id="constants" type="io.suppie.kotlin.conference.site.config.SiteConstants"*/-->
+                <h1 class="container-title" th:text="${constants.partnersDescriptionTitle}"></h1>
+            </div>
+            <!--/*@thymesVar id="partnerSection" type="io.suppie.kotlin.conference.site.config.blocks.PartnerSection"*/-->
+            <th:block th:each="partnerSection : ${partners}">
+                <div class="row mx-auto">
+                    <h6 class="w-100" th:text="${partnerSection.name}"></h6>
+                </div>
+                <div class="row mx-auto">
+                    <div class="col-12 col-sm-6 col-lg-3" th:each="partner: ${partnerSection.items}">
+                        <div class="card partnersCard mb-4 border border-primary">
+                            <img class="card-img partnersImg" th:src="${partner.logo}" th:alt="${partner.name}">
+                            <a class="stretched-link" target="_blank" th:href="${partner.url}"></a>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+            <div class="row mx-auto">
+                <!--/*@thymesVar id="constants" type="io.suppie.kotlin.conference.site.config.SiteConstants"*/-->
+                <a class="btn btn-primary" target="_blank" href="#" th:text="${constants.partnersJoin}"></a>
+            </div>
+        </div>
+    </body>
+</html>

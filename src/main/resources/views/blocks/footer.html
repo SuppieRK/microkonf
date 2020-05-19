@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <footer class="footer pt-3">
+            <div class="container">
+                <div class="row mx-auto justify-content-around">
+                    <!--/*@thymesVar id="organizers" type="io.suppie.kotlin.conference.site.config.blocks.OrganizerProperties"*/-->
+                    <div class="d-flex flex-column flex-lg-row col-12 col-sm mb-3"
+                         th:each="entry: ${organizers.userGroups}">
+                        <span class="font-weight-bold align-self-center mr-0 mr-lg-4" th:text="|FOLLOW ${entry.shortName}|"></span>
+                        <ul class="nav align-self-center">
+                            <li class="nav-item" th:each="item : ${entry.links}">
+                                <a style="font-size: 30px !important; line-height: 30px !important;"
+                                   target="_blank"
+                                   class="nav-link"
+                                   th:href="${item.url}"
+                                   th:if="${!item.featured}">
+                                    <i th:class="|fa fa-${item.type} mr-sm-1|"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mx-auto justify-content-around footerSection">
+                    <div class="col-12 col-sm-6 mb-3">
+                        <span class="font-weight-bold align-self-center" th:text="|About|"></span>
+                        <ul class="nav flex-column pt-2">
+                            <li class="nav-item">
+                                <!--/*@thymesVar id="conference" type="io.suppie.kotlin.conference.site.config.blocks.ConferenceProperties"*/-->
+                                <a class="nav-link px-0 py-2"
+                                   target="_blank"
+                                   th:if="${conference.series != null}"
+                                   th:href="${conference.series.url}"
+                                   th:text="${conference.series.name}"></a>
+                            </li>
+                            <!--/*@thymesVar id="organizers" type="io.suppie.kotlin.conference.site.config.blocks.OrganizerProperties"*/-->
+                            <li class="nav-item" th:each="entry: ${organizers.userGroups}">
+                                <a class="nav-link px-0 py-2"
+                                   target="_blank"
+                                   th:href="${entry.organizationUrl}"
+                                   th:text="${entry.shortName}"></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-sm-6 mb-3">
+                        <span class="font-weight-bold align-self-center" th:text="|Event Resources|"></span>
+                        <ul class="nav flex-column pt-2">
+                            <!--/*@thymesVar id="item" type="io.suppie.kotlin.conference.site.config.blocks.EventResource"*/-->
+                            <li class="nav-item" th:each="item: ${resources}">
+                                <a class="nav-link px-0 py-2"
+                                   target="_blank"
+                                   th:href="${item.url}"
+                                   th:text="${item.name}"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mx-auto justify-content-around footerSection pb-3">
+                    <!--/*@thymesVar id="organizers" type="io.suppie.kotlin.conference.site.config.blocks.OrganizerProperties"*/-->
+                    <div class="col-12 col-sm d-flex align-items-center justify-content-center" th:each="entry: ${organizers.userGroups}">
+                        <a target="_blank" th:href="${entry.organizationUrl}">
+                            <img class="footerLogo" th:src="${entry.logo}"/>
+                        </a>
+                    </div>
+                    <div class="col-12 col-sm d-flex align-items-center justify-content-center text-center footerLogo">
+                        <!--/*@thymesVar id="constants" type="io.suppie.kotlin.conference.site.config.SiteConstants"*/-->
+                        <span th:text="|&copy; ${#dates.year(#dates.createNow())} ${constants.copyright}|"></span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

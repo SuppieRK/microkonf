@@ -1,0 +1,28 @@
+enabled: true
+free: false
+orderUrl: "#"
+items:
+  - title: EDU
+    price: $80
+    featureText: "Save 75% today"
+    startDate: "01-09-2019"
+    endDate: "20-09-2019"
+    note: "Required valid student/lecturer ID"
+  - title: Pre Early Bird
+    price: $100
+    featureText: "Save 50% today"
+    startDate: "20-09-2019"
+    endDate: "01-10-2019"
+    note: "On first 50 tickets"
+  - title: Early Bird
+    price: $120
+    featureText: "Save 25% today"
+    startDate: "01-10-2019"
+    endDate: "25-10-2019"
+    note: "On first 200 tickets"
+  - title: Regular
+    price: $160
+    featureText: "Save 10% today"
+    startDate: "25-10-2019"
+    endDate: "21-11-2019"
+    note: ""

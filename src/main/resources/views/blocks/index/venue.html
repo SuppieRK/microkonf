@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <!--/*@thymesVar id="venue" type="io.suppie.kotlin.conference.site.config.blocks.VenueProperties"*/-->
+        <div class="container px-0 pb-4" id="venue" th:if="${venue.enabled}">
+            <div class="row mx-auto">
+                <!--/*@thymesVar id="constants" type="io.suppie.kotlin.conference.site.config.SiteConstants"*/-->
+                <h1 class="container-title w-100" th:text="${constants.venueTitle}"></h1>
+            </div>
+            <div class="row mx-auto">
+                <div class="col-12">
+                    <div class="card h-100">
+                        <img class="card-img-top venueImg" th:src="${venue.image}">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${venue.name}"></h5>
+                            <p class="card-text text-justify" th:text="${venue.description}"></p>
+                            <a class="btn btn-primary mt-auto"
+                               target="_blank"
+                               th:href="${venue.mapLink()}"
+                               th:text="${venue.address}"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

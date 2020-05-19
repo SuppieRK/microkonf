@@ -1,0 +1,52 @@
+description: |
+  GDG Nizhny Novgorod and Kotlin Nizhny Novgorod User Group, non-profit organisations created in 2015 and 2019.
+  This conference is community based and is 100% run by volunteers.
+userGroups:
+  - shortName: KUG
+    fullName: Kotlin Nizhny Novgorod User Group
+    logo: https://kotlin-everywhere.kugnn.ru/images/organizer-logo-kug.svg
+    photo: /static/images/organizers/kug.jpg
+    eMail: nn.kotlin.usergroup@gmail.com
+    description: |
+      KUG stands for Kotlin User Group and is an open community and a place to share experience between
+      Kotlin programmers and to get newcomers excited about the language
+    organizationUrl: https://kotlinlang.org/user-groups/user-group-list.html
+    links:
+      - type: telegram
+        url: https://tglink.ru/kotlin_nn
+        featured: true
+      - type: vk
+        url: https://vk.com/kotlin_nn
+        featured: true
+      - type: twitter
+        url: https://twitter.com/kotlin_nn
+        featured: true
+      - type: meetup
+        url: https://www.meetup.com/kotlin_nn/
+  - shortName: GDG
+    fullName: Kotlin Nizhny Novgorod User Group
+    logo: https://kotlin-everywhere.kugnn.ru/images/organizer-logo-gdg.svg
+    photo: /static/images/organizers/gdg.jpg
+    eMail: nn.kotlin.usergroup@gmail.com
+    description: |
+      Google Developers Groups (GDGs) are communities of volunteers who create exciting projects and share experiences
+      about Google technologies.
+    organizationUrl: https://developers.google.com/groups/
+    links:
+      - type: telegram
+        url: https://tglink.ru/kotlin_nn
+        featured: true
+      - type: vk
+        url: https://vk.com/kotlin_nn
+        featured: true
+      - type: twitter
+        url: https://twitter.com/kotlin_nn
+        featured: true
+      - type: meetup
+        url: https://www.meetup.com/kotlin_nn/
+      - type: facebook
+        url: https://www.facebook.com/gdgnizhny/
+      - type: instagram
+        url: https://www.instagram.com/gdgnizhny
+      - type: youtube
+        url: https://www.youtube.com/channel/UC9ZDzE6h-K84Eg7-K1y1TCA

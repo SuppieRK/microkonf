@@ -1,0 +1,9 @@
+enabled: true
+name: Technopark Ankudinovka
+description: |
+  Technopark Ankudinovka is a new modernized venue, combining a business center, a technopark in the sphere of high
+  technologies, conference facilities and exhibition opportunities
+address: Akademika Saharova St. 4, Nizhny Novgorod, Russia
+image: /static/images/assets/ankudinovka-venue.jpg
+latitude: 56.2682679
+longitude: 44.0237823

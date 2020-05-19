@@ -1,0 +1,10 @@
+enabled: true
+items:
+  - number: 200
+    label: Expected attendees
+  - number: 1
+    label: Day
+  - number: 2
+    label: Codelab days
+  - number: 8
+    label: Sessions

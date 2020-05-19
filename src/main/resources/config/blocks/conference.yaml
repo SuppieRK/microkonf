@@ -1,0 +1,9 @@
+name: Kotlin/Everywhere Gorky
+city: Nizhny Novgorod
+startDate: "21-09-2019"
+description: |
+  Kotlin/Everywhere is a global series of community-led events, where developers can learn the essentials and
+  best practices in Android, Google Cloud Platform, and multi-platform development
+series:
+  name: Kotlin/Everywhere
+  url: https://events.withgoogle.com/kotlin-everywhere/

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+
+        <!-- Optional meta tags -->
+        <meta content="" name="description">
+        <meta content="" name="author">
+
+        <!-- Font -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans" rel="stylesheet"
+              type="text/css">
+
+        <!-- Bootstrap CSS -->
+        <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+              rel="stylesheet">
+
+        <!-- Icons -->
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/static/css/flickity.min.css"/>
+        <link rel="stylesheet" href="/static/css/custom.css"/>
+
+<!--        <link href="/favicon.ico" rel="icon"/>-->
+
+        <!-- Homescreen icons. -->
+        <link href="/static/images/assets/manifest/icons/icon-48.png" rel="apple-touch-icon">
+        <link href="/static/images/assets/manifest/icons/icon-72.png" rel="apple-touch-icon" sizes="72x72">
+        <link href="/static/images/assets/manifest/icons/icon-96.png" rel="apple-touch-icon" sizes="96x96">
+        <link href="/static/images/assets/manifest/icons/icon-144.png" rel="apple-touch-icon" sizes="144x144">
+        <link href="/static/images/assets/manifest/icons/icon-192.png" rel="apple-touch-icon" sizes="192x192">
+
+        <!-- Tile icon for Win8 (144x144 + tile color) -->
+        <meta th:content="#{/images/assets/manifest/icon-144.png}" name="msapplication-TileImage">
+        <meta content="#00aba9" name="msapplication-TileColor">
+        <meta content="no" name="msapplication-tap-highlight">
+
+        <!--/*@thymesVar id="conference" type="io.suppie.kotlin.conference.site.config.blocks.ConferenceProperties"*/-->
+        <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE" th:text="${conference.name}"></title>
+    </head>
+    <body>
+        <th:block th:replace="/blocks/navigation.html"/>
+        <th:block th:replace="/blocks/welcome.html"/>
+        <div class="page-content container">
+            <div layout:fragment="content"></div>
+        </div>
+        <th:block th:replace="/blocks/footer.html"/>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script crossorigin="anonymous"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script crossorigin="anonymous"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script crossorigin="anonymous"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <script src="/static/js/flickity.pkgd.min.js"></script>
+        <script src="/static/js/custom.js" defer></script>
+        <script src="/static/js/sidenav.js" defer></script>
+    </body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <div class="container px-0 pb-4" id="about">
+            <div class="row mx-auto pb-3">
+                <!--/*@thymesVar id="constants" type="io.suppie.kotlin.conference.site.config.SiteConstants"*/-->
+                <h1 class="container-title" th:text="${constants.eventDescriptionTitle}"></h1>
+                <!--/*@thymesVar id="conference" type="io.suppie.kotlin.conference.site.config.blocks.ConferenceProperties"*/-->
+                <p class="text-justify" th:text="${conference.description}"></p>
+                <a class="btn btn-primary"
+                   target="_blank"
+                   th:if="${conference.series != null}"
+                   th:href="${conference.series.url}"
+                   th:text="${constants.readMore}"></a>
+            </div>
+            <!--/*@thymesVar id="previousStatistics" type="io.suppie.kotlin.conference.site.config.blocks.PreviousStatistics"*/-->
+            <div class="row mx-auto justify-content-around" th:if="${previousStatistics.enabled}">
+                <!--/*@thymesVar id="item" type="io.suppie.kotlin.conference.site.config.blocks.PreviousStatisticsItem"*/-->
+                <div class="col-6 col-sm-3" th:each="item : ${previousStatistics.items}">
+                    <div class="description-item w-100">
+                        <div class="numbers" th:text="${item.number}"></div>
+                        <div class="label" th:text="${item.label}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
