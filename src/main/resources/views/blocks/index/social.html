@@ -4,10 +4,10 @@
         <div class="jumbotron jumbotron-fluid px-0" id="social">
             <div class="container">
                 <div class="row mx-auto">
-                    <!--/*@thymesVar id="constants" type="io.suppie.kotlin.conference.site.config.SiteConstants"*/-->
+                    <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.SiteConstants"*/-->
                     <h1 class="container-title w-100 text-center" th:text="${constants.socialSubscriptionTitle}"></h1>
                 </div>
-                <!--/*@thymesVar id="organizers" type="io.suppie.kotlin.conference.site.config.blocks.OrganizerProperties"*/-->
+                <!--/*@thymesVar id="organizers" type="ru.kugnn.microkonf.config.blocks.OrganizerProperties"*/-->
                 <div class="row mx-auto justify-content-around" th:each="entry: ${organizers.userGroups}">
                     <div class="col-6 col-sm-4 pb-3"
                          th:each="item : ${entry.links}"

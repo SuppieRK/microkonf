@@ -3,10 +3,10 @@
     <body>
         <div class="container px-0 pb-4" id="partners">
             <div class="row mx-auto">
-                <!--/*@thymesVar id="constants" type="io.suppie.kotlin.conference.site.config.SiteConstants"*/-->
+                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.SiteConstants"*/-->
                 <h1 class="container-title" th:text="${constants.partnersDescriptionTitle}"></h1>
             </div>
-            <!--/*@thymesVar id="partnerSection" type="io.suppie.kotlin.conference.site.config.blocks.PartnerSection"*/-->
+            <!--/*@thymesVar id="partnerSection" type="ru.kugnn.microkonf.config.blocks.PartnerSection"*/-->
             <th:block th:each="partnerSection : ${partners}">
                 <div class="row mx-auto">
                     <h6 class="w-100" th:text="${partnerSection.name}"></h6>
@@ -21,7 +21,7 @@
                 </div>
             </th:block>
             <div class="row mx-auto">
-                <!--/*@thymesVar id="constants" type="io.suppie.kotlin.conference.site.config.SiteConstants"*/-->
+                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.SiteConstants"*/-->
                 <a class="btn btn-primary" target="_blank" href="#" th:text="${constants.partnersJoin}"></a>
             </div>
         </div>

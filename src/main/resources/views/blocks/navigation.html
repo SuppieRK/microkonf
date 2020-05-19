@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <body>
         <nav class="sticky-header navbar navbar-expand-lg navbar-light justify-content-sm-start">
-            <!--/*@thymesVar id="conference" type="io.suppie.kotlin.conference.site.config.blocks.ConferenceProperties"*/-->
+            <!--/*@thymesVar id="conference" type="ru.kugnn.microkonf.config.blocks.ConferenceProperties"*/-->
             <a class="navbar-brand d-none d-lg-block order-1 order-lg-0 ml-lg-0 ml-2 mr-auto py-0" href="#">
                 <img src="/static/images/assets/event-logo-monochrome.svg"/>
             </a>
@@ -34,11 +34,11 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Sign in</a>
                     </li>
-                    <!--/*@thymesVar id="tickets" type="io.suppie.kotlin.conference.site.config.blocks.TicketProperties"*/-->
+                    <!--/*@thymesVar id="tickets" type="ru.kugnn.microkonf.config.blocks.TicketProperties"*/-->
                     <li class="nav-item active" th:if="${tickets.enabled}">
                         <a class="btn btn-outline-primary" target="_blank" th:href="${tickets.getOrderUrl()}">
                             <i th:class="|fa fa-${tickets.free ? 'id-card' : 'cart-arrow-down'} mr-1|"></i>
-                            <!--/*@thymesVar id="constants" type="io.suppie.kotlin.conference.site.config.SiteConstants"*/-->
+                            <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.SiteConstants"*/-->
                             <th:block th:text="${tickets.free ? constants.ticketsGet : constants.ticketsBuy}"/>
                         </a>
                     </li>

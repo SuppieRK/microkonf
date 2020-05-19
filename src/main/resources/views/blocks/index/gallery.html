@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <body>
-        <!--/*@thymesVar id="gallery" type="io.suppie.kotlin.conference.site.config.blocks.GalleryProperties"*/-->
+        <!--/*@thymesVar id="gallery" type="ru.kugnn.microkonf.config.blocks.GalleryProperties"*/-->
         <div class="container pb-4" id="gallery" th:if="${gallery.enabled}">
             <div class="row mx-auto">
                 <h1 class="container-title" th:text="${gallery.hashTag}"></h1>
@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="row mx-auto" style="margin-top: 2.3rem !important;">
-                <!--/*@thymesVar id="constants" type="io.suppie.kotlin.conference.site.config.SiteConstants"*/-->
+                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.SiteConstants"*/-->
                 <a class="btn btn-primary"
                    target="_blank"
                    th:href="${gallery.galleryUrl}"
