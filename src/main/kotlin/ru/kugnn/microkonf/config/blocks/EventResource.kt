@@ -1,9 +1,11 @@
 package ru.kugnn.microkonf.config.blocks
 
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected
 
 @Introspected
-class EventResource {
-    lateinit var name: String
-    lateinit var url: String
-}
+data class EventResource @JsonCreator constructor(
+        @JsonProperty("name") var name: String,
+        @JsonProperty("url") var url: String
+)

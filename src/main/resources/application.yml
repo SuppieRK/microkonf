@@ -13,6 +13,7 @@ render:
   # Defines order of elements rendering on the page
   # Must cooperate with files from /views/blocks
   blocks:
+    path: ${BLOCKS_CONFIGURATION:}
     index:
       - about
       - social

@@ -1,16 +1,17 @@
 package ru.kugnn.microkonf.config.blocks
 
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected
-import kotlin.properties.Delegates
 
 @Introspected
-class Statistics {
-    var enabled: Boolean = true
-    lateinit var items: List<PreviousStatisticsItem>
-
+data class Statistics @JsonCreator constructor(
+        @JsonProperty("enabled") var enabled: Boolean = true,
+        @JsonProperty("items") var items: List<PreviousStatisticsItem>
+) {
     @Introspected
-    class PreviousStatisticsItem {
-        var number by Delegates.notNull<Int>()
-        lateinit var label: String
-    }
+    data class PreviousStatisticsItem @JsonCreator constructor(
+            @JsonProperty("number") var number: Int,
+            @JsonProperty("label") var label: String
+    )
 }

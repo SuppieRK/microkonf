@@ -1,5 +1,7 @@
 package ru.kugnn.microkonf.config.blocks
 
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected
 import ru.kugnn.microkonf.Utils.getSortedDateBounds
 import ru.kugnn.microkonf.config.SiteConstants.Companion.Date
@@ -9,15 +11,15 @@ import ru.kugnn.microkonf.config.SiteConstants.Companion.Month
 import ru.kugnn.microkonf.config.SiteConstants.Companion.Year
 
 @Introspected
-class Conference {
-    lateinit var name: String
-    lateinit var city: String
-    var country: String? = null
-    lateinit var startDate: String
-    var endDate: String? = null
-    lateinit var description: String
-    var series: ConferenceSeries? = null
-
+data class Conference @JsonCreator constructor(
+        @JsonProperty("name") var name: String,
+        @JsonProperty("city") var city: String,
+        @JsonProperty("country") var country: String? = null,
+        @JsonProperty("startDate") var startDate: String,
+        @JsonProperty("endDate") var endDate: String? = null,
+        @JsonProperty("description") var description: String,
+        @JsonProperty("series") var series: ConferenceSeries? = null
+) {
     val conferenceWhere: String by lazy {
         if (country.isNullOrBlank()) {
             city
@@ -40,9 +42,9 @@ class Conference {
         }
     }
 
-    //    @Introspected
-    class ConferenceSeries {
-        lateinit var name: String
-        lateinit var url: String
-    }
+    @Introspected
+    data class ConferenceSeries @JsonCreator constructor(
+            @JsonProperty("name") var name: String,
+            @JsonProperty("url") var url: String
+    )
 }

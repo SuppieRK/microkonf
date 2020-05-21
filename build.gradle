@@ -4,6 +4,7 @@ plugins {
     id "org.jetbrains.kotlin.plugin.allopen" version "${kotlinVersion}"
     id "com.github.johnrengelman.shadow" version "${shadowVersion}"
     id "application"
+    id "com.fizzed.rocker" version "1.2.3"
 }
 
 repositories {
@@ -64,6 +65,14 @@ test.classpath += configurations.developmentOnly
 
 mainClassName = "ru.kugnn.microkonf.Application"
 
+sourceSets {
+    main {
+        rocker {
+            srcDir('src/main/resources')
+        }
+    }
+}
+
 // use JUnit 5 platform
 test {
     useJUnitPlatform()
@@ -99,5 +108,4 @@ shadowJar {
 tasks.withType(JavaExec) {
     classpath += configurations.developmentOnly
     jvmArgs('-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
-    jvmArgs('-Dmicronaut.io.watch.enabled=true')
 }

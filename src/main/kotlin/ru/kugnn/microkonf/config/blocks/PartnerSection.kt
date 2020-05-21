@@ -1,16 +1,18 @@
 package ru.kugnn.microkonf.config.blocks
 
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected
 
 @Introspected
-class PartnerSection {
-    lateinit var name: String
-    lateinit var items: List<PartnerInfo>
-
+data class PartnerSection @JsonCreator constructor(
+        @JsonProperty("name") var name: String,
+        @JsonProperty("items") var items: List<PartnerInfo>
+) {
     @Introspected
-    class PartnerInfo {
-        lateinit var name: String
-        lateinit var url: String
-        lateinit var logo: String
-    }
+    data class PartnerInfo @JsonCreator constructor(
+            @JsonProperty("name") var name: String,
+            @JsonProperty("url") var url: String,
+            @JsonProperty("logo") var logo: String
+    )
 }

@@ -1,28 +1,30 @@
 package ru.kugnn.microkonf.config.blocks
 
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected
 
 @Introspected
-class Organizers {
-    lateinit var description: String
-    lateinit var userGroups: List<Organizer>
+data class Organizers @JsonCreator constructor(
+        @JsonProperty("description") var description: String,
+        @JsonProperty("userGroups") var userGroups: List<Organizer>
+) {
+    @Introspected
+    data class Organizer @JsonCreator constructor(
+            @JsonProperty("shortName") var shortName: String,
+            @JsonProperty("fullName") var fullName: String,
+            @JsonProperty("logo") var logo: String,
+            @JsonProperty("photo") var photo: String,
+            @JsonProperty("email") var email: String? = null,
+            @JsonProperty("description") var description: String,
+            @JsonProperty("organizationUrl") var organizationUrl: String,
+            @JsonProperty("links") var links: List<OrganizerSocials>
+    )
 
     @Introspected
-    class Organizer {
-        lateinit var shortName: String
-        lateinit var fullName: String
-        lateinit var logo: String
-        lateinit var photo: String
-        var email: String? = null
-        lateinit var description: String
-        lateinit var organizationUrl: String
-        lateinit var links: List<OrganizerSocials>
-    }
-
-    @Introspected
-    class OrganizerSocials {
-        lateinit var type: String
-        lateinit var url: String
-        var featured: Boolean = false
-    }
+    data class OrganizerSocials @JsonCreator constructor(
+            @JsonProperty("type") var type: String,
+            @JsonProperty("url") var url: String,
+            @JsonProperty("featured") var featured: Boolean = false
+    )
 }
