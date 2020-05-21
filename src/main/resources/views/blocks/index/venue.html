@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <body>
-        <!--/*@thymesVar id="venue" type="ru.kugnn.microkonf.config.blocks.VenueProperties"*/-->
+        <!--/*@thymesVar id="venue" type="ru.kugnn.microkonf.config.blocks.Venue"*/-->
         <div class="container px-0 pb-4" id="venue" th:if="${venue.enabled}">
             <div class="row mx-auto">
                 <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.SiteConstants"*/-->
@@ -16,7 +16,7 @@
                             <p class="card-text text-justify" th:text="${venue.description}"></p>
                             <a class="btn btn-primary mt-auto"
                                target="_blank"
-                               th:href="${venue.mapLink()}"
+                               th:href="${venue.mapLink}"
                                th:text="${venue.address}"></a>
                         </div>
                     </div>

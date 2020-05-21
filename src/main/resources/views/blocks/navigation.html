@@ -2,9 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <body>
         <nav class="sticky-header navbar navbar-expand-lg navbar-light justify-content-sm-start">
-            <!--/*@thymesVar id="conference" type="ru.kugnn.microkonf.config.blocks.ConferenceProperties"*/-->
+            <!--/*@thymesVar id="conference" type="ru.kugnn.microkonf.config.Conferences"*/-->
             <a class="navbar-brand d-none d-lg-block order-1 order-lg-0 ml-lg-0 ml-2 mr-auto py-0" href="#">
-                <img src="/static/images/assets/event-logo-monochrome.svg"/>
+                <img src="/public/images/assets/event-logo-monochrome.svg"/>
             </a>
 
             <button class="navbar-toggler align-self-start" type="button">
@@ -16,7 +16,7 @@
                 <ul class="navbar-nav align-self-stretch">
                     <li class="nav-item active d-block d-lg-none">
                         <a class="navbar-brand order-1 order-lg-0 ml-lg-0 ml-2 mr-auto py-0" href="#">
-                            <img src="/static/images/assets/event-logo-monochrome.svg"/>
+                            <img src="/public/images/assets/event-logo-monochrome.svg"/>
                         </a>
                     </li>
                     <li class="nav-item active">
@@ -34,7 +34,7 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Sign in</a>
                     </li>
-                    <!--/*@thymesVar id="tickets" type="ru.kugnn.microkonf.config.blocks.TicketProperties"*/-->
+                    <!--/*@thymesVar id="tickets" type="ru.kugnn.microkonf.config.blocks.Tickets"*/-->
                     <li class="nav-item active" th:if="${tickets.enabled}">
                         <a class="btn btn-outline-primary" target="_blank" th:href="${tickets.getOrderUrl()}">
                             <i th:class="|fa fa-${tickets.free ? 'id-card' : 'cart-arrow-down'} mr-1|"></i>

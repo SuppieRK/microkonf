@@ -5,15 +5,15 @@
             <div class="row mx-auto pb-3">
                 <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.SiteConstants"*/-->
                 <h1 class="container-title" th:text="${constants.eventDescriptionTitle}"></h1>
-                <!--/*@thymesVar id="conference" type="ru.kugnn.microkonf.config.blocks.ConferenceProperties"*/-->
+                <!--/*@thymesVar id="conference" type="ru.kugnn.microkonf.config.blocks.Conference"*/-->
                 <p class="text-justify" th:text="${conference.description}"></p>
                 <a class="btn btn-primary"
                    target="_blank"
-                   th:if="${conference.series != null}"
                    th:href="${conference.series.url}"
+                   th:if="${conference.series != null}"
                    th:text="${constants.readMore}"></a>
             </div>
-            <!--/*@thymesVar id="previousStatistics" type="ru.kugnn.microkonf.config.blocks.PreviousStatistics"*/-->
+            <!--/*@thymesVar id="previousStatistics" type="ru.kugnn.microkonf.config.blocks.Statistics"*/-->
             <div class="row mx-auto justify-content-around" th:if="${previousStatistics.enabled}">
                 <!--/*@thymesVar id="item" type="ru.kugnn.microkonf.config.blocks.PreviousStatisticsItem"*/-->
                 <div class="col-6 col-sm-3" th:each="item : ${previousStatistics.items}">

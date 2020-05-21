@@ -1,3 +1,14 @@
 micronaut:
   application:
     name: microkonf
+  io:
+    watch:
+      paths: src/main
+      restart: true
+  router:
+    static-resources:
+      default:
+        enabled: true
+        mapping: /public/**
+        paths:
+          - classpath:public

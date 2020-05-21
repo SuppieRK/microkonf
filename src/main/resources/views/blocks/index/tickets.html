@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <body>
-        <!--/*@thymesVar id="tickets" type="ru.kugnn.microkonf.config.blocks.TicketProperties"*/-->
+        <!--/*@thymesVar id="tickets" type="ru.kugnn.microkonf.config.blocks.Tickets"*/-->
         <div class="container px-0 pb-4" id="tickets" th:if="${tickets.enabled && !tickets.free}">
             <div class="row mx-auto">
                 <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.SiteConstants"*/-->
                 <h1 class="container-title w-100" th:text="${constants.ticketsTitle}"></h1>
             </div>
             <div class="row mx-auto justify-content-around">
-                <!--/*@thymesVar id="entry" type="ru.kugnn.microkonf.config.blocks.TicketItem"*/-->
+                <!--/*@thymesVar id="entry" type="ru.kugnn.microkonf.config.blocks.Tickets.TicketItem"*/-->
                 <div class="col-12 col-sm-6 col-lg-3 pb-4"
                      th:each="entry: ${tickets.getItems()}">
                     <div th:class="|card text-center h-100 border border-primary ${entry.active ? 'card-highlight' : ''} ${entry.missed ? 'muted' : ''}|">
@@ -29,18 +29,18 @@
                             <a class="btn btn-primary mt-auto"
                                role="button"
                                target="_blank"
-                               th:if="${entry.active}"
                                th:href="${tickets.orderUrl}"
+                               th:if="${entry.active}"
                                th:text="${constants.ticketsBuy}"></a>
                             <a class="btn btn-light mt-auto disabled"
                                role="button"
-                               th:if="${entry.missed}"
                                th:href="${tickets.orderUrl}"
+                               th:if="${entry.missed}"
                                th:text="${constants.ticketsSold}"></a>
                             <a class="btn btn-primary mt-auto disabled"
                                role="button"
-                               th:if="${entry.upcoming}"
                                th:href="${tickets.orderUrl}"
+                               th:if="${entry.upcoming}"
                                th:text="${constants.ticketsUpcoming}"></a>
                         </div>
                     </div>

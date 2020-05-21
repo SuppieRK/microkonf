@@ -5,8 +5,8 @@ userGroups:
   - shortName: KUG
     fullName: Kotlin Nizhny Novgorod User Group
     logo: https://kotlin-everywhere.kugnn.ru/images/organizer-logo-kug.svg
-    photo: /static/images/organizers/kug.jpg
-    eMail: nn.kotlin.usergroup@gmail.com
+    photo: /public/images/organizers/kug.jpg
+    email: nn.kotlin.usergroup@gmail.com
     description: |
       KUG stands for Kotlin User Group and is an open community and a place to share experience between
       Kotlin programmers and to get newcomers excited about the language
@@ -26,8 +26,8 @@ userGroups:
   - shortName: GDG
     fullName: Kotlin Nizhny Novgorod User Group
     logo: https://kotlin-everywhere.kugnn.ru/images/organizer-logo-gdg.svg
-    photo: /static/images/organizers/gdg.jpg
-    eMail: nn.kotlin.usergroup@gmail.com
+    photo: /public/images/organizers/gdg.jpg
+    email: nn.kotlin.usergroup@gmail.com
     description: |
       Google Developers Groups (GDGs) are communities of volunteers who create exciting projects and share experiences
       about Google technologies.

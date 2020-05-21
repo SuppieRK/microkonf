@@ -1,10 +1,9 @@
 package ru.kugnn.microkonf.config.blocks
 
-class VenueProperties {
-    companion object {
-        const val SOURCE = "/config/blocks/venue.yaml"
-    }
+import io.micronaut.core.annotation.Introspected
 
+@Introspected
+class Venue {
     var enabled: Boolean = false
     lateinit var name: String
     lateinit var description: String
@@ -13,7 +12,7 @@ class VenueProperties {
     var latitude: Double = 0.0
     var longitude: Double = 0.0
 
-    fun mapLink(): String {
-        return "https://maps.google.com/?ll=$latitude,$longitude"
+    val mapLink: String by lazy {
+        "https://maps.google.com/?ll=$latitude,$longitude"
     }
 }

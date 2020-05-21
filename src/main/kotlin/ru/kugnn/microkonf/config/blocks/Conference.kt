@@ -1,19 +1,15 @@
 package ru.kugnn.microkonf.config.blocks
 
+import io.micronaut.core.annotation.Introspected
 import ru.kugnn.microkonf.Utils.getSortedDateBounds
-import ru.kugnn.microkonf.config.SiteProperties.Companion.DateFormatter
-import java.time.format.DateTimeFormatter
+import ru.kugnn.microkonf.config.SiteConstants.Companion.Date
+import ru.kugnn.microkonf.config.SiteConstants.Companion.Day
+import ru.kugnn.microkonf.config.SiteConstants.Companion.Display
+import ru.kugnn.microkonf.config.SiteConstants.Companion.Month
+import ru.kugnn.microkonf.config.SiteConstants.Companion.Year
 
-class ConferenceProperties {
-    companion object {
-        val Display: DateTimeFormatter = DateTimeFormatter.ofPattern("MMMM d, YYYY")
-        val Day: DateTimeFormatter = DateTimeFormatter.ofPattern("d")
-        val Month: DateTimeFormatter = DateTimeFormatter.ofPattern("MMMM")
-        val Year: DateTimeFormatter = DateTimeFormatter.ofPattern("YYYY")
-
-        const val SOURCE = "/config/blocks/conference.yaml"
-    }
-
+@Introspected
+class Conference {
     lateinit var name: String
     lateinit var city: String
     var country: String? = null
@@ -21,8 +17,6 @@ class ConferenceProperties {
     var endDate: String? = null
     lateinit var description: String
     var series: ConferenceSeries? = null
-
-    // Complex calculable fields
 
     val conferenceWhere: String by lazy {
         if (country.isNullOrBlank()) {
@@ -34,9 +28,9 @@ class ConferenceProperties {
 
     val conferenceWhen: String by lazy {
         if (endDate.isNullOrBlank() || endDate == startDate) {
-            Display.format(DateFormatter.parse(startDate))
+            Display.format(Date.parse(startDate))
         } else {
-            val (start, end) = getSortedDateBounds(startDate, endDate!!, DateFormatter)
+            val (start, end) = getSortedDateBounds(startDate, endDate!!, Date)
 
             when {
                 start.year != end.year -> "${Display.format(start)} - ${Display.format(end)}"
@@ -45,9 +39,10 @@ class ConferenceProperties {
             }
         }
     }
-}
 
-class ConferenceSeries {
-    lateinit var name: String
-    lateinit var url: String
+    //    @Introspected
+    class ConferenceSeries {
+        lateinit var name: String
+        lateinit var url: String
+    }
 }

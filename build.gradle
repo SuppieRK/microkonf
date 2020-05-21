@@ -25,6 +25,9 @@ dependencies {
     compileOnly(enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion"))
     compileOnly("org.graalvm.nativeimage:svm")
 
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+
     implementation(enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion"))
     implementation("io.micronaut:micronaut-inject")
     implementation("io.micronaut:micronaut-validation")
@@ -36,13 +39,12 @@ dependencies {
 
     implementation("javax.annotation:javax.annotation-api")
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${jacksonKotlinVersion}")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:${jacksonKotlinVersion}")
 
     runtime("org.thymeleaf:thymeleaf:${thymeleafVersion}")
 
     runtimeOnly("ch.qos.logback:logback-classic:${logbackVersion}")
-    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin:${jacksonKotlinVersion}")
 
     kaptTest(enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion"))
     kaptTest("io.micronaut:micronaut-inject-java")
@@ -52,6 +54,10 @@ dependencies {
     testImplementation("io.micronaut.test:micronaut-test-junit5")
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+
+    // Automatically added with the 'file-watch' feature in the CLi
+    developmentOnly "net.java.dev.jna:jna"
+    developmentOnly "io.methvin:directory-watcher"
 }
 
 test.classpath += configurations.developmentOnly
@@ -93,4 +99,5 @@ shadowJar {
 tasks.withType(JavaExec) {
     classpath += configurations.developmentOnly
     jvmArgs('-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
+    jvmArgs('-Dmicronaut.io.watch.enabled=true')
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <body>
-        <!--/*@thymesVar id="organizers" type="ru.kugnn.microkonf.config.blocks.OrganizerProperties"*/-->
+        <!--/*@thymesVar id="organizers" type="ru.kugnn.microkonf.config.blocks.Organizers"*/-->
         <div class="container px-0 pb-4" id="organizers" th:if="${organizers.userGroups.size() > 1}">
             <div class="row mx-auto">
                 <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.SiteConstants"*/-->
@@ -13,12 +13,13 @@
             <div class="row mx-auto justify-content-around">
                 <div class="col-12 col-sm-6 pb-4" th:each="entry: ${organizers.userGroups}">
                     <div class="card h-100">
-                        <img th:alt="${entry.shortName}"
-                             class="card-img-top"
+                        <img class="card-img-top"
+                             th:alt="${entry.shortName}"
                              th:src="${entry.photo}">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title" th:text="|What is ${entry.shortName}?|"></h5>
                             <p class="card-text text-justify" th:text="${entry.description}"></p>
+                            <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.SiteConstants"*/-->
                             <a class="btn btn-primary mt-auto"
                                target="_blank"
                                th:href="${entry.organizationUrl}"
@@ -28,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <!--/*@thymesVar id="organizers" type="ru.kugnn.microkonf.config.blocks.OrganizerProperties"*/-->
+        <!--/*@thymesVar id="organizers" type="ru.kugnn.microkonf.config.blocks.Organizers"*/-->
         <div class="container px-0 pb-4" id="organizers" th:if="${organizers.userGroups.size() < 2}">
             <div class="row mx-auto justify-content-around">
                 <div class="col-12 col-sm-6 pb-4">
@@ -38,17 +39,18 @@
                 </div>
                 <div class="col-12 col-sm-6 pb-4" th:each="entry: ${organizers.userGroups}">
                     <div class="card">
-                        <img th:alt="${entry.shortName}"
-                             class="card-img-top"
+                        <img class="card-img-top"
+                             th:alt="${entry.shortName}"
                              th:src="${entry.photo}">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title" th:text="|What is ${entry.shortName}?|"></h5>
                             <p class="card-text" th:text="${entry.description}"></p>
+                            <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.SiteConstants"*/-->
                             <a class="btn btn-primary mt-auto"
                                target="_blank"
                                th:href="${entry.organizationUrl}"
                                th:text="${constants.readMore}"
-                            >                            </a>
+                            > </a>
                         </div>
                     </div>
                 </div>
