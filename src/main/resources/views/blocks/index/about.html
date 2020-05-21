@@ -13,10 +13,10 @@
                    th:if="${conference.series != null}"
                    th:text="${constants.readMore}"></a>
             </div>
-            <!--/*@thymesVar id="previousStatistics" type="ru.kugnn.microkonf.config.blocks.Statistics"*/-->
-            <div class="row mx-auto justify-content-around" th:if="${previousStatistics.enabled}">
+            <!--/*@thymesVar id="statistics" type="ru.kugnn.microkonf.config.blocks.Statistics"*/-->
+            <div class="row mx-auto justify-content-around" th:if="${statistics.enabled}">
                 <!--/*@thymesVar id="item" type="ru.kugnn.microkonf.config.blocks.PreviousStatisticsItem"*/-->
-                <div class="col-6 col-sm-3" th:each="item : ${previousStatistics.items}">
+                <div class="col-6 col-sm-3" th:each="item : ${statistics.items}">
                     <div class="description-item w-100">
                         <div class="numbers" th:text="${item.number}"></div>
                         <div class="label" th:text="${item.label}"></div>

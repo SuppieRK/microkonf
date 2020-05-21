@@ -1,10 +1,6 @@
 micronaut:
   application:
     name: microkonf
-  io:
-    watch:
-      paths: src/main
-      restart: true
   router:
     static-resources:
       default:
@@ -12,3 +8,16 @@ micronaut:
         mapping: /public/**
         paths:
           - classpath:public
+
+render:
+  # Defines order of elements rendering on the page
+  # Must cooperate with files from /views/blocks
+  blocks:
+    index:
+      - about
+      - social
+      - tickets
+      - organizers
+      - gallery
+      - venue
+      - partners

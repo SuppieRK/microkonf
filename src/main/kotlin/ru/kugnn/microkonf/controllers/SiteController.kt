@@ -20,7 +20,7 @@ class SiteController(
     @Get
     @View("index")
     fun index(): Any {
-        log.error(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(conferenceProperties))
+//        log.error(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(conferenceProperties))
         return conferenceProperties
     }
 }

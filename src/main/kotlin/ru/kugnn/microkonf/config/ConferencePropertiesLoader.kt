@@ -17,7 +17,8 @@ import java.util.stream.Collectors
 
 @Factory
 class ConferencePropertiesLoader(
-        private val resourceLoader: ResourceLoader
+        private val resourceLoader: ResourceLoader,
+        private val renderProperties: RenderProperties
 ) {
     @Bean
     fun conferenceProperties(): ConferenceProperties {
@@ -27,17 +28,13 @@ class ConferencePropertiesLoader(
     private fun getConferenceFromYaml(): ConferenceProperties {
         val conferenceProperties = ConferenceProperties()
 
-        val availableBlocks = IndexTemplatesFolder.readResourcesFromDirectory().map {
+        conferenceProperties.blocks = IndexTemplatesFolder.readResourcesFromDirectory().map {
             File(it.toURI()).nameWithoutExtension
-        }.toSet()
+        }.toSortedSet(compareBy { renderProperties.index.indexOf(it) })
 
-        val blocksMap = BlocksFolder.readResourcesFromDirectory().map {
+        BlocksFolder.readResourcesFromDirectory().map {
             File(it.toURI()).nameWithoutExtension to (BlocksFolder + it.toString().substringAfterLast(BlocksFolder))
-        }.toMap()
-
-        conferenceProperties.blocks = availableBlocks.intersect(blocksMap.keys)
-
-        blocksMap.forEach { (block, blockFile) ->
+        }.forEach { (block, blockFile) ->
             when (block) {
                 "conference" -> conferenceProperties.conference = blockFile.readResourceValue()
                 "gallery" -> {

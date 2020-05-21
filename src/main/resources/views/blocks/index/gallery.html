@@ -4,7 +4,7 @@
         <!--/*@thymesVar id="gallery" type="ru.kugnn.microkonf.config.blocks.Gallery"*/-->
         <div class="container pb-4" id="gallery" th:if="${gallery.enabled}">
             <div class="row mx-auto">
-                <h1 class="container-title" th:text="${gallery.hashTag}"></h1>
+                <h1 class="container-title" th:text="|#${gallery.hashTag}|"></h1>
                 <p class="text-justify" th:text="${gallery.description}"></p>
             </div>
             <div class="carousel"
