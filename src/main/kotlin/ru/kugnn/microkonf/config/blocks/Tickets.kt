@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected
 import ru.kugnn.microkonf.Utils
-import ru.kugnn.microkonf.config.SiteConstants.Companion.Date
-import ru.kugnn.microkonf.config.SiteConstants.Companion.TicketDisplay
+import ru.kugnn.microkonf.Utils.ParseDateFormat
+import ru.kugnn.microkonf.Utils.TicketDateFormat
 import java.time.LocalDate
 import java.time.ZoneOffset
 import kotlin.math.max
@@ -30,15 +30,15 @@ data class Tickets @JsonCreator constructor(
         // Complex calculable fields
         val upcoming: Boolean by lazy {
             System.currentTimeMillis() < min(
-                    LocalDate.parse(startDate, Date).atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli(),
-                    LocalDate.parse(endDate, Date).atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli()
+                    LocalDate.parse(startDate, ParseDateFormat).atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli(),
+                    LocalDate.parse(endDate, ParseDateFormat).atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli()
             )
         }
 
         val missed: Boolean by lazy {
             System.currentTimeMillis() > max(
-                    LocalDate.parse(startDate, Date).atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli(),
-                    LocalDate.parse(endDate, Date).atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli()
+                    LocalDate.parse(startDate, ParseDateFormat).atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli(),
+                    LocalDate.parse(endDate, ParseDateFormat).atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli()
             )
         }
 
@@ -47,8 +47,8 @@ data class Tickets @JsonCreator constructor(
         }
 
         val saleFor: String by lazy {
-            val (start, end) = Utils.getSortedDateBounds(startDate, endDate, Date)
-            "${TicketDisplay.format(start)} - ${TicketDisplay.format(end)}"
+            val (start, end) = Utils.getSortedDateBounds(startDate, endDate, ParseDateFormat)
+            "${TicketDateFormat.format(start)} - ${TicketDateFormat.format(end)}"
         }
     }
 }

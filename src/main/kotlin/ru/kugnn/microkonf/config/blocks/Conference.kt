@@ -3,22 +3,22 @@ package ru.kugnn.microkonf.config.blocks
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected
+import ru.kugnn.microkonf.Utils.ParseDateFormat
+import ru.kugnn.microkonf.Utils.DayFormat
+import ru.kugnn.microkonf.Utils.DisplayDateFormat
+import ru.kugnn.microkonf.Utils.MonthDormat
+import ru.kugnn.microkonf.Utils.YearFormat
 import ru.kugnn.microkonf.Utils.getSortedDateBounds
-import ru.kugnn.microkonf.config.SiteConstants.Companion.Date
-import ru.kugnn.microkonf.config.SiteConstants.Companion.Day
-import ru.kugnn.microkonf.config.SiteConstants.Companion.Display
-import ru.kugnn.microkonf.config.SiteConstants.Companion.Month
-import ru.kugnn.microkonf.config.SiteConstants.Companion.Year
 
 @Introspected
 data class Conference @JsonCreator constructor(
         @JsonProperty("name") var name: String,
         @JsonProperty("city") var city: String,
-        @JsonProperty("country") var country: String? = null,
+        @JsonProperty("country") var country: String?,
         @JsonProperty("startDate") var startDate: String,
-        @JsonProperty("endDate") var endDate: String? = null,
+        @JsonProperty("endDate") var endDate: String?,
         @JsonProperty("description") var description: String,
-        @JsonProperty("series") var series: ConferenceSeries? = null
+        @JsonProperty("series") var series: ConferenceSeries?
 ) {
     val conferenceWhere: String by lazy {
         if (country.isNullOrBlank()) {
@@ -30,14 +30,14 @@ data class Conference @JsonCreator constructor(
 
     val conferenceWhen: String by lazy {
         if (endDate.isNullOrBlank() || endDate == startDate) {
-            Display.format(Date.parse(startDate))
+            DisplayDateFormat.format(ParseDateFormat.parse(startDate))
         } else {
-            val (start, end) = getSortedDateBounds(startDate, endDate!!, Date)
+            val (start, end) = getSortedDateBounds(startDate, endDate!!, ParseDateFormat)
 
             when {
-                start.year != end.year -> "${Display.format(start)} - ${Display.format(end)}"
-                start.month != end.month -> "${Month.format(start)} ${Day.format(start)} - ${Month.format(end)} ${Day.format(start)}, ${Year.format(end)}"
-                else -> "${Month.format(start)} ${Day.format(start)} - ${Day.format(end)}, ${Year.format(end)}"
+                start.year != end.year -> "${DisplayDateFormat.format(start)} - ${DisplayDateFormat.format(end)}"
+                start.month != end.month -> "${MonthDormat.format(start)} ${DayFormat.format(start)} - ${MonthDormat.format(end)} ${DayFormat.format(start)}, ${YearFormat.format(end)}"
+                else -> "${MonthDormat.format(start)} ${DayFormat.format(start)} - ${DayFormat.format(end)}, ${YearFormat.format(end)}"
             }
         }
     }

@@ -6,7 +6,7 @@ import io.micronaut.core.annotation.Introspected
 
 @Introspected
 data class Organizers @JsonCreator constructor(
-        @JsonProperty("description") var description: String,
+        @JsonProperty("description") var description: String ,
         @JsonProperty("userGroups") var userGroups: List<Organizer>
 ) {
     @Introspected

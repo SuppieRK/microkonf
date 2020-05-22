@@ -4,7 +4,7 @@
         <!--/*@thymesVar id="tickets" type="ru.kugnn.microkonf.config.blocks.Tickets"*/-->
         <div class="container px-0 pb-4" id="tickets" th:if="${tickets.enabled && !tickets.free}">
             <div class="row mx-auto">
-                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.SiteConstants"*/-->
+                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.SiteConstants"*/-->
                 <h1 class="container-title w-100" th:text="${constants.ticketsTitle}"></h1>
             </div>
             <div class="row mx-auto justify-content-around">
@@ -25,7 +25,7 @@
                             <p class="card-text mb-2 mt-auto"
                                style="min-height: 42px; font-size: 14px !important"
                                th:text="${entry.note}"></p>
-                            <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.SiteConstants"*/-->
+                            <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.SiteConstants"*/-->
                             <a class="btn btn-primary mt-auto"
                                role="button"
                                target="_blank"
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="row mx-auto">
-                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.SiteConstants"*/-->
+                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.SiteConstants"*/-->
                 <p class="w-100 text-center" style="font-size: 14px !important;"
                    th:text="${constants.ticketsNotification}"></p>
             </div>

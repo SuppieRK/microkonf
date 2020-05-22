@@ -1,29 +1,18 @@
 package ru.kugnn.microkonf
 
-import org.slf4j.LoggerFactory
-import org.yaml.snakeyaml.Yaml
-import org.yaml.snakeyaml.constructor.Constructor
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 object Utils {
-    val log = LoggerFactory.getLogger(Utils::class.java)
+    val TicketDateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("MMM d")
 
-    fun <T> lazyLoader(configurationClass: Class<T>, configurationPath: String): Lazy<T> = lazy {
-        load(configurationClass, configurationPath)
-    }
+    val ParseDateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+    val DisplayDateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("MMMM d, YYYY")
 
-    fun <T> load(configurationClass: Class<T>, configurationPath: String): T {
-        val text = Utils::class.java.classLoader.getResource(configurationPath)?.readText()
-
-        if (text.isNullOrBlank()) {
-            log.error("Unable to read $configurationPath")
-            throw Exception()
-        } else {
-            return Yaml(Constructor(configurationClass)).loadAs(text, configurationClass)
-        }
-    }
+    val DayFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("d")
+    val MonthDormat: DateTimeFormatter = DateTimeFormatter.ofPattern("MMMM")
+    val YearFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("YYYY")
 
     fun getSortedDateBounds(startDate: String, endDate: String, formatter: DateTimeFormatter): Pair<LocalDateTime, LocalDateTime> {
         var start = LocalDate.parse(startDate, formatter).atStartOfDay()

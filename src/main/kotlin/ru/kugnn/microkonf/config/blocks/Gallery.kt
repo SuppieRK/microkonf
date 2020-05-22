@@ -6,7 +6,7 @@ import io.micronaut.core.annotation.Introspected
 
 @Introspected
 data class Gallery @JsonCreator constructor(
-        @JsonProperty("enabled") var enabled: Boolean = false,
+        @JsonProperty("enabled") var enabled: Boolean,
         @JsonProperty("hashTag") var hashTag: String,
         @JsonProperty("description") var description: String,
         @JsonProperty("galleryUrl") var galleryUrl: String,
