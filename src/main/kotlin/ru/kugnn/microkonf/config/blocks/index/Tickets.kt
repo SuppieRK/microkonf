@@ -1,4 +1,4 @@
-package ru.kugnn.microkonf.config.blocks
+package ru.kugnn.microkonf.config.blocks.index
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty

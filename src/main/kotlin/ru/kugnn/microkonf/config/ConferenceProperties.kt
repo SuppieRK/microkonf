@@ -1,7 +1,7 @@
 package ru.kugnn.microkonf.config
 
 import io.micronaut.core.annotation.Introspected
-import ru.kugnn.microkonf.config.blocks.*
+import ru.kugnn.microkonf.config.blocks.index.*
 import ru.kugnn.microkonf.config.style.SiteConstants
 
 @Introspected

@@ -5,7 +5,7 @@
             <div class="row mx-auto pb-3">
                 <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.SiteConstants"*/-->
                 <h1 class="container-title" th:text="${constants.eventDescriptionTitle}"></h1>
-                <!--/*@thymesVar id="conference" type="ru.kugnn.microkonf.config.blocks.Conference"*/-->
+                <!--/*@thymesVar id="conference" type="ru.kugnn.microkonf.config.blocks.index.Conference"*/-->
                 <p class="text-justify" th:text="${conference.description}"></p>
                 <a class="btn btn-primary"
                    target="_blank"
@@ -13,7 +13,7 @@
                    th:if="${conference.series != null}"
                    th:text="${constants.readMore}"></a>
             </div>
-            <!--/*@thymesVar id="statistics" type="ru.kugnn.microkonf.config.blocks.Statistics"*/-->
+            <!--/*@thymesVar id="statistics" type="ru.kugnn.microkonf.config.blocks.index.Statistics"*/-->
             <div class="row mx-auto justify-content-around" th:if="${statistics.enabled}">
                 <!--/*@thymesVar id="item" type="ru.kugnn.microkonf.config.blocks.PreviousStatisticsItem"*/-->
                 <div class="col-6 col-sm-3" th:each="item : ${statistics.items}">

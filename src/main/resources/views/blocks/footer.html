@@ -4,7 +4,7 @@
         <footer class="footer pt-3">
             <div class="container">
                 <div class="row mx-auto justify-content-around">
-                    <!--/*@thymesVar id="organizers" type="ru.kugnn.microkonf.config.blocks.Organizers"*/-->
+                    <!--/*@thymesVar id="organizers" type="ru.kugnn.microkonf.config.blocks.index.Organizers"*/-->
                     <div class="d-flex flex-column flex-lg-row col-12 col-sm mb-3"
                          th:each="entry: ${organizers.userGroups}">
                         <span class="font-weight-bold align-self-center mr-0 mr-lg-4"
@@ -27,14 +27,14 @@
                         <span class="font-weight-bold align-self-center" th:text="|About|"></span>
                         <ul class="nav flex-column pt-2">
                             <li class="nav-item">
-                                <!--/*@thymesVar id="conference" type="ru.kugnn.microkonf.config.blocks.Conference"*/-->
+                                <!--/*@thymesVar id="conference" type="ru.kugnn.microkonf.config.blocks.index.Conference"*/-->
                                 <a class="nav-link px-0 py-2"
                                    target="_blank"
                                    th:href="${conference.series.url}"
                                    th:if="${conference.series != null}"
                                    th:text="${conference.series.name}"></a>
                             </li>
-                            <!--/*@thymesVar id="organizers" type="ru.kugnn.microkonf.config.blocks.Organizers"*/-->
+                            <!--/*@thymesVar id="organizers" type="ru.kugnn.microkonf.config.blocks.index.Organizers"*/-->
                             <li class="nav-item" th:each="entry: ${organizers.userGroups}">
                                 <a class="nav-link px-0 py-2"
                                    target="_blank"
@@ -46,7 +46,7 @@
                     <div class="col-12 col-sm-6 mb-3">
                         <span class="font-weight-bold align-self-center" th:text="|Event Resources|"></span>
                         <ul class="nav flex-column pt-2">
-                            <!--/*@thymesVar id="resources" type="java.util.List<ru.kugnn.microkonf.config.blocks.Resource>"*/-->
+                            <!--/*@thymesVar id="resources" type="java.util.List<ru.kugnn.microkonf.config.blocks.index.Resource>"*/-->
                             <li class="nav-item" th:each="item: ${resources}">
                                 <a class="nav-link px-0 py-2"
                                    target="_blank"
@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="row mx-auto justify-content-around footerSection pb-3">
-                    <!--/*@thymesVar id="organizers" type="ru.kugnn.microkonf.config.blocks.Organizers"*/-->
+                    <!--/*@thymesVar id="organizers" type="ru.kugnn.microkonf.config.blocks.index.Organizers"*/-->
                     <div class="col-12 col-sm d-flex align-items-center justify-content-center"
                          th:each="entry: ${organizers.userGroups}">
                         <a target="_blank" th:href="${entry.organizationUrl}">

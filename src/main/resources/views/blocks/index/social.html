@@ -7,7 +7,7 @@
                     <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.SiteConstants"*/-->
                     <h1 class="container-title w-100 text-center" th:text="${constants.socialSubscriptionTitle}"></h1>
                 </div>
-                <!--/*@thymesVar id="organizers" type="ru.kugnn.microkonf.config.blocks.Organizers"*/-->
+                <!--/*@thymesVar id="organizers" type="ru.kugnn.microkonf.config.blocks.index.Organizers"*/-->
                 <div class="row mx-auto justify-content-around" th:each="entry: ${organizers.userGroups}">
                     <div class="col-6 col-sm-4 pb-3"
                          th:each="item : ${entry.links}"

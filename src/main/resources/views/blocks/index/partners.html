@@ -6,7 +6,7 @@
                 <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.SiteConstants"*/-->
                 <h1 class="container-title" th:text="${constants.partnersDescriptionTitle}"></h1>
             </div>
-            <!--/*@thymesVar id="partnerSection" type="ru.kugnn.microkonf.config.blocks.Partners"*/-->
+            <!--/*@thymesVar id="partnerSection" type="ru.kugnn.microkonf.config.blocks.index.Partners"*/-->
             <th:block th:each="partnerSection : ${partners}">
                 <div class="row mx-auto">
                     <h6 class="w-100" th:text="${partnerSection.name}"></h6>

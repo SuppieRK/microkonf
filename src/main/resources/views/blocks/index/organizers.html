@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <body>
-        <!--/*@thymesVar id="organizers" type="ru.kugnn.microkonf.config.blocks.Organizers"*/-->
+        <!--/*@thymesVar id="organizers" type="ru.kugnn.microkonf.config.blocks.index.Organizers"*/-->
         <div class="container px-0 pb-4" id="organizers" th:if="${organizers.userGroups.size() > 1}">
             <div class="row mx-auto">
                 <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.SiteConstants"*/-->
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <!--/*@thymesVar id="organizers" type="ru.kugnn.microkonf.config.blocks.Organizers"*/-->
+        <!--/*@thymesVar id="organizers" type="ru.kugnn.microkonf.config.blocks.index.Organizers"*/-->
         <div class="container px-0 pb-4" id="organizers" th:if="${organizers.userGroups.size() < 2}">
             <div class="row mx-auto justify-content-around">
                 <div class="col-12 col-sm-6 pb-4">
