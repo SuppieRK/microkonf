@@ -27,14 +27,14 @@ class ConferencePropertiesLoader(
     private fun getConferenceFromYaml(): ConferenceProperties {
         return ConferenceProperties(
                 blocks = renderProperties.index,
-                conference = "$configurationPath/conference.yaml".readResourceValue(),
-                gallery = "$configurationPath/gallery.yaml".readResourceValue(),
-                organizers = "$configurationPath/organizers.yaml".readResourceValue(),
-                partners = "$configurationPath/partners.yaml".readResourceValues(),
-                resources = "$configurationPath/resources.yaml".readResourceValues(),
-                statistics = "$configurationPath/statistics.yaml".readResourceValue(),
-                tickets = "$configurationPath/tickets.yaml".readResourceValue(),
-                venue = "$configurationPath/venue.yaml".readResourceValue()
+                conference = "$configurationPath/index/conference.yaml".readResourceValue(),
+                gallery = "$configurationPath/index/gallery.yaml".readResourceValue(),
+                organizers = "$configurationPath/index/organizers.yaml".readResourceValue(),
+                partners = "$configurationPath/index/partners.yaml".readResourceValues(),
+                resources = "$configurationPath/index/resources.yaml".readResourceValues(),
+                statistics = "$configurationPath/index/statistics.yaml".readResourceValue(),
+                tickets = "$configurationPath/index/tickets.yaml".readResourceValue(),
+                venue = "$configurationPath/index/venue.yaml".readResourceValue()
         )
     }
 
