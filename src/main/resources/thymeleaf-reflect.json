@@ -1,0 +1,151 @@
+[
+  {
+    "name": "java.util.LinkedHashMap",
+    "allPublicMethods": true
+  },
+  {
+    "name": "java.util.LinkedHashMap$Entry",
+    "allPublicMethods": true
+  },
+  {
+    "name": "java.util.ArrayList",
+    "allPublicMethods": true
+  },
+  {
+    "name": "org.thymeleaf.templateresolver.ClassLoaderTemplateResolver",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "org.thymeleaf.context.AbstractEngineContext",
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "org.thymeleaf.context.IEngineContext",
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "org.thymeleaf.expression.Calendars",
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "org.thymeleaf.expression.Numbers",
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "org.thymeleaf.expression.Strings",
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "org.thymeleaf.expression.Dates",
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "org.thymeleaf.standard.expression.AdditionExpression",
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "org.thymeleaf.standard.expression.AndExpression",
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true,
+    "methods": [
+      {
+        "name": "isLeftAllowed",
+        "parameterTypes": [
+          "org.thymeleaf.standard.expression.IStandardExpression"
+        ]
+      },
+      {
+        "name": "isRightAllowed",
+        "parameterTypes": [
+          "org.thymeleaf.standard.expression.IStandardExpression"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "org.thymeleaf.standard.expression.EqualsNotEqualsExpression",
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true,
+    "methods": [
+      {
+        "name": "isLeftAllowed",
+        "parameterTypes": [
+          "org.thymeleaf.standard.expression.IStandardExpression"
+        ]
+      },
+      {
+        "name": "isRightAllowed",
+        "parameterTypes": [
+          "org.thymeleaf.standard.expression.IStandardExpression"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "org.thymeleaf.standard.expression.GreaterLesserExpression",
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true,
+    "methods": [
+      {
+        "name": "isLeftAllowed",
+        "parameterTypes": [
+          "org.thymeleaf.standard.expression.IStandardExpression"
+        ]
+      },
+      {
+        "name": "isRightAllowed",
+        "parameterTypes": [
+          "org.thymeleaf.standard.expression.IStandardExpression"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "org.thymeleaf.standard.expression.MultiplicationDivisionRemainderExpression",
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true,
+    "methods": [
+      {
+        "name": "isLeftAllowed",
+        "parameterTypes": [
+          "org.thymeleaf.standard.expression.IStandardExpression"
+        ]
+      },
+      {
+        "name": "isRightAllowed",
+        "parameterTypes": [
+          "org.thymeleaf.standard.expression.IStandardExpression"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "org.thymeleaf.standard.expression.OrExpression",
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true,
+    "methods": [
+      {
+        "name": "isLeftAllowed",
+        "parameterTypes": [
+          "org.thymeleaf.standard.expression.IStandardExpression"
+        ]
+      },
+      {
+        "name": "isRightAllowed",
+        "parameterTypes": [
+          "org.thymeleaf.standard.expression.IStandardExpression"
+        ]
+      }
+    ]
+  }
+]

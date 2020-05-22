@@ -36,7 +36,7 @@
                     </li>
                     <!--/*@thymesVar id="tickets" type="ru.kugnn.microkonf.config.blocks.Tickets"*/-->
                     <li class="nav-item active" th:if="${tickets.enabled}">
-                        <a class="btn btn-outline-primary" target="_blank" th:href="${tickets.getOrderUrl()}">
+                        <a class="btn btn-outline-primary" target="_blank" th:href="${tickets.orderUrl}">
                             <i th:class="|fa fa-${tickets.free ? 'id-card' : 'cart-arrow-down'} mr-1|"></i>
                             <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.SiteConstants"*/-->
                             <th:block th:text="${tickets.free ? constants.ticketsGet : constants.ticketsBuy}"/>

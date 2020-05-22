@@ -1,7 +1,9 @@
 package ru.kugnn.microkonf.config
 
+import io.micronaut.core.annotation.Introspected
 import java.time.format.DateTimeFormatter
 
+@Introspected
 class SiteConstants {
     companion object {
         val TicketDisplay: DateTimeFormatter = DateTimeFormatter.ofPattern("MMM d")
