@@ -1,4 +1,4 @@
-package ru.kugnn.microkonf.config
+package ru.kugnn.microkonf.config.application
 
 import io.micronaut.context.annotation.ConfigurationProperties
 

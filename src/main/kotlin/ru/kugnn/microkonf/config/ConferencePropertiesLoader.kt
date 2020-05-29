@@ -7,6 +7,7 @@ import io.micronaut.context.annotation.Bean
 import io.micronaut.context.annotation.Factory
 import io.micronaut.context.annotation.Property
 import org.slf4j.LoggerFactory
+import ru.kugnn.microkonf.config.application.RenderProperties
 import java.io.File
 
 @Factory
