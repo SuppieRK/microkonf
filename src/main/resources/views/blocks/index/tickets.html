@@ -4,8 +4,8 @@
         <!--/*@thymesVar id="tickets" type="ru.kugnn.microkonf.config.blocks.index.Tickets"*/-->
         <div class="container px-0 pb-4" id="tickets" th:if="${tickets.enabled && !tickets.free}">
             <div class="row mx-auto">
-                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.SiteConstants"*/-->
-                <h1 class="container-title w-100" th:text="${constants.ticketsTitle}"></h1>
+                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
+                <h1 class="container-title w-100" th:text="${constants.tickets.title}"></h1>
             </div>
             <div class="row mx-auto justify-content-around">
                 <!--/*@thymesVar id="entry" type="ru.kugnn.microkonf.config.blocks.index.Tickets.TicketItem"*/-->
@@ -25,31 +25,31 @@
                             <p class="card-text mb-2 mt-auto"
                                style="min-height: 42px; font-size: 14px !important"
                                th:text="${entry.note}"></p>
-                            <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.SiteConstants"*/-->
+                            <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
                             <a class="btn btn-primary mt-auto"
                                role="button"
                                target="_blank"
                                th:href="${tickets.orderUrl}"
                                th:if="${entry.active}"
-                               th:text="${constants.ticketsBuy}"></a>
+                               th:text="${constants.tickets.buy}"></a>
                             <a class="btn btn-light mt-auto disabled"
                                role="button"
                                th:href="${tickets.orderUrl}"
                                th:if="${entry.missed}"
-                               th:text="${constants.ticketsSold}"></a>
+                               th:text="${constants.tickets.sold}"></a>
                             <a class="btn btn-primary mt-auto disabled"
                                role="button"
                                th:href="${tickets.orderUrl}"
                                th:if="${entry.upcoming}"
-                               th:text="${constants.ticketsUpcoming}"></a>
+                               th:text="${constants.tickets.upcoming}"></a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row mx-auto">
-                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.SiteConstants"*/-->
+                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
                 <p class="w-100 text-center" style="font-size: 14px !important;"
-                   th:text="${constants.ticketsNotification}"></p>
+                   th:text="${constants.tickets.notification}"></p>
             </div>
         </div>
     </body>

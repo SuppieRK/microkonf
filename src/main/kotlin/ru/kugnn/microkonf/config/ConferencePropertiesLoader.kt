@@ -27,6 +27,7 @@ class ConferencePropertiesLoader(
 
     private fun getConferenceFromYaml(): ConferenceProperties {
         return ConferenceProperties(
+                constants = "$configurationPath/constants.yaml".readResourceValue(),
                 blocks = renderProperties.index,
                 conference = "$configurationPath/index/conference.yaml".readResourceValue(),
                 gallery = "$configurationPath/index/gallery.yaml".readResourceValue(),

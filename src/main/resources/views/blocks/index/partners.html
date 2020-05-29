@@ -3,8 +3,8 @@
     <body>
         <div class="container px-0 pb-4" id="partners">
             <div class="row mx-auto">
-                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.SiteConstants"*/-->
-                <h1 class="container-title" th:text="${constants.partnersDescriptionTitle}"></h1>
+                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
+                <h1 class="container-title" th:text="${constants.partners.title}"></h1>
             </div>
             <!--/*@thymesVar id="partnerSection" type="ru.kugnn.microkonf.config.blocks.index.Partners"*/-->
             <th:block th:each="partnerSection : ${partners}">
@@ -21,8 +21,8 @@
                 </div>
             </th:block>
             <div class="row mx-auto">
-                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.SiteConstants"*/-->
-                <a class="btn btn-primary" href="#" target="_blank" th:text="${constants.partnersJoin}"></a>
+                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
+                <a class="btn btn-primary" href="#" target="_blank" th:text="${constants.partners.join}"></a>
             </div>
         </div>
     </body>

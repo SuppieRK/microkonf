@@ -4,8 +4,8 @@
         <!--/*@thymesVar id="venue" type="ru.kugnn.microkonf.config.blocks.index.Venue"*/-->
         <div class="container px-0 pb-4" id="venue" th:if="${venue.enabled}">
             <div class="row mx-auto">
-                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.SiteConstants"*/-->
-                <h1 class="container-title w-100" th:text="${constants.venueTitle}"></h1>
+                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
+                <h1 class="container-title w-100" th:text="${constants.venue.title}"></h1>
             </div>
             <div class="row mx-auto">
                 <div class="col-12">

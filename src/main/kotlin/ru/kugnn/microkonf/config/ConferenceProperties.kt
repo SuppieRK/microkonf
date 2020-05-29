@@ -7,12 +7,12 @@ import ru.kugnn.microkonf.config.blocks.sessions.CommonSession
 import ru.kugnn.microkonf.config.blocks.sessions.Session
 import ru.kugnn.microkonf.config.blocks.speakers.Speaker
 import ru.kugnn.microkonf.config.blocks.team.Team
-import ru.kugnn.microkonf.config.style.SiteConstants
+import ru.kugnn.microkonf.config.style.Constants
 
 @Introspected
 data class ConferenceProperties(
         // General properties
-        val constants: SiteConstants = SiteConstants(),
+        val constants: Constants,
         val page: String = "index",
         val blocks: List<String>,
         val conference: Conference,

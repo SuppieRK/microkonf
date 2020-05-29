@@ -2,7 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <body>
         <div class="container px-0 pb-4" id="team">
-
+            <div class="row mx-auto pb-3">
+                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
+                <h1 class="page-header" th:text="${constants.team.title}"></h1>
+                <div class="page-description">
+                    <p th:utext="${constants.team.description}"></p>
+                </div>
+            </div>
+            <div class="row mx-auto justify-content-around">
+                <!--/*@thymesVar id="team" type="ru.kugnn.microkonf.config.blocks.team.Team"*/-->
+                <div class="col-6 col-sm-3" th:each="team : ${teams}">
+                    <h2 class="team-title" th:text="${team.title}"></h2>
+                </div>
+            </div>
         </div>
     </body>
 </html>

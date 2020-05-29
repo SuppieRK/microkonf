@@ -43,6 +43,8 @@ dependencies {
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${jacksonKotlinVersion}")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:${jacksonKotlinVersion}")
 
+    implementation("com.atlassian.commonmark:commonmark:${commonmarkVersion}")
+
     runtime("org.thymeleaf:thymeleaf:${thymeleafVersion}")
 
     runtimeOnly("ch.qos.logback:logback-classic:${logbackVersion}")
