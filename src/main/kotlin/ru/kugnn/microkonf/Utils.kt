@@ -1,27 +1,29 @@
 package ru.kugnn.microkonf
 
 import java.time.LocalDate
-import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 object Utils {
-    val TicketDateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("MMM d")
+    const val ParseDateFormat = "dd-MM-yyyy"
 
-    val ParseDateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-    val DisplayDateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("MMMM d, YYYY")
+    val LocalTimeFormat: DateTimeFormatter = makeFormatter("HH:mm")
 
-    val DayFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("d")
-    val MonthDormat: DateTimeFormatter = DateTimeFormatter.ofPattern("MMMM")
-    val YearFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("YYYY")
+    val TicketDateFormat: DateTimeFormatter = makeFormatter("MMM d")
 
-    fun getSortedDateBounds(startDate: String, endDate: String, formatter: DateTimeFormatter): Pair<LocalDateTime, LocalDateTime> {
-        var start = LocalDate.parse(startDate, formatter).atStartOfDay()
-        var end = LocalDate.parse(endDate, formatter).atStartOfDay()
+    val DisplayDateFormat: DateTimeFormatter = makeFormatter("MMMM d, YYYY")
 
-        if (start.isAfter(end)) {
-            start = end.also { end = start }
+    val DayFormat: DateTimeFormatter = makeFormatter("d")
+    val MonthFormat: DateTimeFormatter = makeFormatter("MMMM")
+    val YearFormat: DateTimeFormatter = makeFormatter("YYYY")
+
+    fun getSortedDateBounds(startDate: LocalDate, endDate: LocalDate): Pair<LocalDate, LocalDate> {
+        return if (startDate.isAfter(endDate)) {
+            Pair(endDate, startDate)
+        } else {
+            Pair(startDate, endDate)
         }
-
-        return Pair(start, end)
     }
+
+    private fun makeFormatter(pattern: String) = DateTimeFormatter.ofPattern(pattern).withZone(ZoneId.of("UTC"))
 }

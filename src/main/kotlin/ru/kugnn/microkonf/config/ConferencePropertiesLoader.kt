@@ -34,7 +34,12 @@ class ConferencePropertiesLoader(
                 resources = "$configurationPath/index/resources.yaml".readResourceValues(),
                 statistics = "$configurationPath/index/statistics.yaml".readResourceValue(),
                 tickets = "$configurationPath/index/tickets.yaml".readResourceValue(),
-                venue = "$configurationPath/index/venue.yaml".readResourceValue()
+                venue = "$configurationPath/index/venue.yaml".readResourceValue(),
+                schedule = "$configurationPath/schedule/schedule.yaml".readResourceValues(),
+                commonSessions = "$configurationPath/sessions/common-sessions.yaml".readResourceValues(),
+                sessions = "$configurationPath/sessions/speaker-sessions.yaml".readResourceValues(),
+                speakers = "$configurationPath/speakers/speakers.yaml".readResourceValues(),
+                teams = "$configurationPath/team/team.yaml".readResourceValues()
         )
     }
 

@@ -1,0 +1,89 @@
+- title: 'Coroutining Android Apps'
+  complexity: Intermediate
+  language: Russian
+  description: Kotlin Coroutines is the most trending solution for asynchrony programming in Android development for now. Developers of many existed apps already add them and new apps use Coroutines instead of RxJava by default. But how to make that work with Coroutines the most efficient and get the most effective architecture? Kirill has few rules and best practices of how to do that.
+  speakers:
+    - 'Kirill Rozov'
+  tags:
+    - Talk
+    - Android
+    - Coroutines
+  resources:
+    presentation: https://speakerdeck.com/krlrozov/coroutining-android-apps
+
+- title: 'Design of kotlinx.serialization'
+  complexity: Intermediate
+  language: English
+  description: The kotlinx.serialization library supports serialization of Kotlin classes to different formats on all supported platforms. If you ever wondered how this magic works and what decisions were made to make this library, this talk is for you. First, we will cover various user scenarios, how the library plays together with them, and what classes do you need to solve your problem. Then, we will dive into low-level interfaces and how the compiler plugin helps us avoid reflection. In the last part, an interesting little example of writing your own serialization format will be presented.
+  speakers:
+    - 'Leonid Startsev'
+  tags:
+    - Talk
+  resources:
+    presentation: https://docs.google.com/presentation/d/1SuK6BPiKTQTNe4Cd-AtgVzbYn1ewWoEZIPW7N4AXes0/edit?usp=sharing
+
+- title: 'Mobile Applications Development with Kotlin Multiplatform'
+  complexity: Intermediate
+  language: English
+  description: This talk will be about code reuse with Kotlin Multiplatform between Android and iOS and possibilities to expand it on Backend and Web. The preferred architecture for maximisations of this reuse will be shown. And also we will compare the pros and cons of this approach with Native mobile development and Flutter.
+  speakers:
+    - 'Andrey Beryukhov'
+  tags:
+    - Talk
+    - Multiplatform
+  resources:
+    presentation: https://drive.google.com/open?id=1-BUSpw6rn99Tea3LoXuTr5dcqIVyFD7w
+
+- title: 'Coroutines - Compile and Decompile'
+  complexity: Beginner
+  language: Russian
+  description: Codelab about using coroutines in practice. We will take a look at how to write business logic using coroutines, make repositories, use coroutines in existing code and dig dive into the project to see how coroutines were made and how they work
+  speakers:
+    - 'Denis Aleksandrov'
+  tags:
+    - Codelab
+    - Coroutines
+
+- title: 'Language basics or how to fall in love with Kotlin'
+  complexity: Beginner
+  language: Russian
+  description: This codelab allows you to test your Kotlin skills. From basics to lambdas and higher-order functions.
+  speakers:
+    - 'Daniil Emelyanov'
+  tags:
+    - Codelab
+
+- title: 'Kotlin Multiplatform by JetBrains'
+  complexity: Beginner
+  language: Russian
+  description: Попробуем Kotlin Multiplatform вживую. Научимся использовать общую кодовую базу на мобильных платформах. В результате получим приложения под Android и IOS.
+  speakers:
+    - 'Denis Ustavschikov'
+  tags:
+    - Codelab
+    - Multiplatform
+
+- title: 'Writing Kotlin DSL for RecyclerView adapters'
+  complexity: Intermediate
+  language: Russian
+  description: In this codelab we will solve a typical problem of setting up the adapters with multiple view types.
+    You will see the power of Kotlin by writing a short and expressive DSL. The obtained solution will help us to get rid of boilerplate code and speed up development.
+  speakers:
+    - 'Ilya Bulatov'
+    - 'Alexander Davydov'
+  tags:
+    - Codelab
+    - Android
+
+- title: 'Kotlin Spring Boot + Google Kubernetes Engine'
+  complexity: Intermediate
+  language: Russian
+  description: This tutorial helps you get started deploying your Kotlin app using the Spring Boot Framework to Google Kubernetes Engine, Google's hosting solution for containerized applications. Kubernetes Engine, earlier known as Google Container Engine, is based on the popular open-source Kubernetes system, and leverages Google's deep expertise with container-based deployments.
+  speakers:
+    - 'Roman Khlebnov'
+  tags:
+    - Codelab
+    - Cloud
+    - Backend
+  resources:
+    presentation: https://github.com/SuppieRK/kotlin-gke-demo

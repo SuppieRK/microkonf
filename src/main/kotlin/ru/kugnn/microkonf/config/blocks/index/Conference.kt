@@ -1,24 +1,29 @@
 package ru.kugnn.microkonf.config.blocks.index
 
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer
 import io.micronaut.core.annotation.Introspected
-import ru.kugnn.microkonf.Utils.ParseDateFormat
 import ru.kugnn.microkonf.Utils.DayFormat
 import ru.kugnn.microkonf.Utils.DisplayDateFormat
-import ru.kugnn.microkonf.Utils.MonthDormat
+import ru.kugnn.microkonf.Utils.MonthFormat
+import ru.kugnn.microkonf.Utils.ParseDateFormat
 import ru.kugnn.microkonf.Utils.YearFormat
 import ru.kugnn.microkonf.Utils.getSortedDateBounds
+import java.time.LocalDate
+import java.time.temporal.ChronoField
 
 @Introspected
 data class Conference @JsonCreator constructor(
         @JsonProperty("name") var name: String,
         @JsonProperty("city") var city: String,
         @JsonProperty("country") var country: String?,
-        @JsonProperty("startDate") var startDate: String,
-        @JsonProperty("endDate") var endDate: String?,
+        @JsonProperty("startDate") @JsonDeserialize(using = LocalDateDeserializer::class) @JsonFormat(pattern = ParseDateFormat) var startDate: LocalDate,
+        @JsonProperty("endDate") @JsonDeserialize(using = LocalDateDeserializer::class) @JsonFormat(pattern = ParseDateFormat) var endDate: LocalDate?,
         @JsonProperty("description") var description: String,
-        @JsonProperty("series") var series: ConferenceSeries?
+        @JsonProperty("series") var series: Series?
 ) {
     val conferenceWhere: String by lazy {
         if (country.isNullOrBlank()) {
@@ -29,21 +34,27 @@ data class Conference @JsonCreator constructor(
     }
 
     val conferenceWhen: String by lazy {
-        if (endDate.isNullOrBlank() || endDate == startDate) {
-            DisplayDateFormat.format(ParseDateFormat.parse(startDate))
+        if (endDate == null || endDate == startDate) {
+            DisplayDateFormat.format(startDate)
         } else {
-            val (start, end) = getSortedDateBounds(startDate, endDate!!, ParseDateFormat)
+            val (start, end) = getSortedDateBounds(startDate, endDate!!)
 
             when {
-                start.year != end.year -> "${DisplayDateFormat.format(start)} - ${DisplayDateFormat.format(end)}"
-                start.month != end.month -> "${MonthDormat.format(start)} ${DayFormat.format(start)} - ${MonthDormat.format(end)} ${DayFormat.format(start)}, ${YearFormat.format(end)}"
-                else -> "${MonthDormat.format(start)} ${DayFormat.format(start)} - ${DayFormat.format(end)}, ${YearFormat.format(end)}"
+                start.get(ChronoField.YEAR) != end.get(ChronoField.YEAR) -> {
+                    "${DisplayDateFormat.format(start)} - ${DisplayDateFormat.format(end)}"
+                }
+                start.get(ChronoField.MONTH_OF_YEAR) != end.get(ChronoField.MONTH_OF_YEAR) -> {
+                    "${MonthFormat.format(start)} ${DayFormat.format(start)} - ${MonthFormat.format(end)} ${DayFormat.format(start)}, ${YearFormat.format(end)}"
+                }
+                else -> {
+                    "${MonthFormat.format(start)} ${DayFormat.format(start)} - ${DayFormat.format(end)}, ${YearFormat.format(end)}"
+                }
             }
         }
     }
 
     @Introspected
-    data class ConferenceSeries @JsonCreator constructor(
+    data class Series @JsonCreator constructor(
             @JsonProperty("name") var name: String,
             @JsonProperty("url") var url: String
     )

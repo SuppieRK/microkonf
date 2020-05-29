@@ -1,0 +1,14 @@
+package ru.kugnn.microkonf.config.blocks.sessions
+
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import io.micronaut.core.annotation.Introspected
+
+@Introspected
+data class CommonSession @JsonCreator constructor(
+        @JsonProperty("title") val title: String,
+        @JsonProperty("location") val location: String?,
+        @JsonProperty("description") val description: String?,
+        @JsonProperty("icon") val icon: String?,
+        @JsonProperty("image") val image: String?
+)
