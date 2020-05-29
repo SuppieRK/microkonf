@@ -15,6 +15,7 @@ render:
   blocks:
     path: ${BLOCKS_CONFIGURATION:}
     index:
+      - welcome
       - about
       - social
       - tickets

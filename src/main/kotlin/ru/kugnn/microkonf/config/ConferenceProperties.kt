@@ -10,9 +10,10 @@ import ru.kugnn.microkonf.config.blocks.team.Team
 import ru.kugnn.microkonf.config.style.SiteConstants
 
 @Introspected
-class ConferenceProperties(
+data class ConferenceProperties(
         // General properties
         val constants: SiteConstants = SiteConstants(),
+        val page: String = "index",
         val blocks: List<String>,
         val conference: Conference,
         val gallery: Gallery,

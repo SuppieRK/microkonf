@@ -1,25 +1,44 @@
 package ru.kugnn.microkonf.controllers
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.views.View
-import org.slf4j.LoggerFactory
 import ru.kugnn.microkonf.config.ConferenceProperties
 
 @Controller
 class SiteController(
-        private val mapper: ObjectMapper,
         private val conferenceProperties: ConferenceProperties
 ) {
-    companion object {
-        private val log = LoggerFactory.getLogger(SiteController::class.java)
-    }
-
     @Get
     @View("index")
     fun index(): ConferenceProperties {
-        log.error(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(conferenceProperties))
         return conferenceProperties
+    }
+
+    @Get("/schedule")
+    @View("index")
+    fun schedule(): ConferenceProperties {
+        return conferenceProperties.copy(
+                page = "schedule",
+                blocks = listOf("schedule")
+        )
+    }
+
+    @Get("/speakers")
+    @View("index")
+    fun speakers(): ConferenceProperties {
+        return conferenceProperties.copy(
+                page = "speakers",
+                blocks = listOf("speakers")
+        )
+    }
+
+    @Get("/team")
+    @View("index")
+    fun team(): ConferenceProperties {
+        return conferenceProperties.copy(
+                page = "team",
+                blocks = listOf("team")
+        )
     }
 }
