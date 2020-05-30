@@ -2,27 +2,31 @@
   members:
     - name: 'Aleksandr Denisov'
       title: Conference program; Work with sponsors
-      photo: /images/people/aleksandr_denisov.jpg
+      photo: /public/images/people/aleksandr_denisov.jpg
       socials:
         - type: twitter
           url: https://twitter.com/ShuregDenisov
         - type: facebook
           url: https://www.facebook.com/alde0615
-        - type: vkontakte
+        - type: vk
           url: https://vk.com/shureg_denisovich
 
     - name: 'Roman Khlebnov'
-      title: Conference program; Website
-      photo: /images/people/roman_khlebnov.jpg
-      socials:
-        - type: twitter
-          url: https://twitter.com/SuppieRK
-        - type: vkontakte
-          url: https://vk.com/suppie
+      title: Conference program
+      photo: /public/images/people/roman_khlebnov.jpg
 
     - name: 'Ekaterina Maksutova'
       title: Work with speakers and sponsors; Social networking
-      photo: /images/people/ekaterina_maksutova.jpg
+      photo: /public/images/people/ekaterina_maksutova.jpg
       socials:
-        - type: vkontakte
+        - type: vk
           url: https://vk.com/id7179335
+
+    - name: 'Roman Khlebnov'
+      title: Conference program; Website
+      photo: /public/images/people/roman_khlebnov.jpg
+      socials:
+        - type: twitter
+          url: https://twitter.com/SuppieRK
+        - type: vk
+          url: https://vk.com/suppie

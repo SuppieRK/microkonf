@@ -6,6 +6,18 @@
     - name: JetBrains
       url: https://www.jetbrains.com/company/
       logo: /public/images/logos/jetbrains.svg
+    - name: Google
+      url: https://www.google.com.ua/intl/en/about/
+      logo: /public/images/logos/google.svg
+    - name: JetBrains
+      url: https://www.jetbrains.com/company/
+      logo: /public/images/logos/jetbrains.svg
+    - name: Google
+      url: https://www.google.com.ua/intl/en/about/
+      logo: /public/images/logos/google.svg
+    - name: JetBrains
+      url: https://www.jetbrains.com/company/
+      logo: /public/images/logos/jetbrains.svg
 
 - name: Venue Partners
   items:

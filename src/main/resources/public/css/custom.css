@@ -6,6 +6,7 @@
 
 .page-description {
     margin-bottom: 30px;
+    background: #f2f2f2;
 }
 
 .sticky-header {
@@ -337,6 +338,21 @@
 .partnersImg {
     height: 70px;
     object-fit: scale-down;
+}
+
+.teamCard {
+    padding: 25px !important;
+}
+
+.teamImg {
+    border-bottom-right-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    height: 100%;
+    object-fit: cover;
+}
+
+.teamSocial {
+    color: #1f2429;
 }
 
 .organizerSocial {

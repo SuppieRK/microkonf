@@ -388,7 +388,7 @@
             var e = t(".sticky-header");
             t(window).scroll(function () {
                 let scroll = t(window).scrollTop();
-                if (scroll <= 100) {
+                if (scroll <= 50) {
                     e.removeClass("active")
                 } else {
                     e.addClass("active")

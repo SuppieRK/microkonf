@@ -15,6 +15,6 @@ data class Team @JsonCreator constructor(
             @JsonProperty("name") val name: String,
             @JsonProperty("title") val title: String,
             @JsonProperty("photo") val photo: String,
-            @JsonProperty("socials") val socials: List<Social>
+            @JsonProperty("socials") val socials: List<Social>?
     )
 }
