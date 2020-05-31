@@ -17,36 +17,94 @@
                     <!--/*@thymesVar id="speaker" type="ru.kugnn.microkonf.config.blocks.speakers.Speaker"*/-->
                     <div class="col mb-4" th:each="speaker : ${speakers}">
                         <div class="card h-100 text-center">
-                            <img class="card-img-top speakerImg" th:src="${speaker.photo}" th:alt="${speaker.name}">
-                            <div class="card-body">
-                                <h5 class="card-title mb-1" th:text="${speaker.name}"></h5>
-                                <h6 class="card-title" th:text="${speaker.country}"></h6>
-                                <p class="card-text speakerBio" style="max-height: 150px" th:text="${speaker.bio}"></p>
+                            <div style="transform: rotate(0);">
+                                <img class="card-img-top speakerImg" th:src="${speaker.photo}" th:alt="${speaker.name}">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-1" th:text="${speaker.name}"></h5>
+                                    <h6 class="card-title" th:text="${speaker.country}"></h6>
+                                    <p class="card-text speakerBio" style="max-height: 150px"
+                                       th:text="${speaker.bio}"></p></div>
+                                <a class="stretched-link"
+                                   data-toggle="modal"
+                                   th:href="'#modal'+${speaker.id}"></a>
                             </div>
-                            <ul class="list-group list-group-flush" style="border-bottom: none">
-                                <a target="_blank" th:href="${speaker.company.url}">
-                                    <li class="list-group-item d-flex mx-auto align-items-center speakerCompanyItem"
-                                        style="border: none">
-                                        <img class="speakerCompany"
-                                             th:src="${speaker.company.logo}"
-                                             th:alt="${speaker.company.name}">
-                                    </li>
-                                </a>
-                            </ul>
-                            <th:block th:if="${speaker.socials != null && !speaker.socials.isEmpty()}">
-                                <div class="card-footer bg-transparent mt-auto">
-                                    <ul class="nav justify-content-center">
-                                        <li class="nav-item" th:each="item : ${speaker.socials}">
-                                            <a class="nav-link teamSocial"
-                                               style="font-size: 20px !important; line-height: 20px !important;"
-                                               target="_blank"
-                                               th:href="${item.url}">
-                                                <i th:class="|fa fa-${item.type} mr-sm-1|"></i>
-                                            </a>
+                            <div class="card-footer bg-transparent mt-auto" style="padding: 0">
+                                <ul class="list-group list-group-flush" style="border: none">
+                                    <a target="_blank" th:href="${speaker.company.url}">
+                                        <li class="list-group-item d-flex mx-auto align-items-center speakerCompanyItem"
+                                            style="border-top: none; border-left: none; border-right: none;">
+                                            <img class="speakerCompany"
+                                                 th:src="${speaker.company.logo}"
+                                                 th:alt="${speaker.company.name}">
                                         </li>
-                                    </ul>
+                                    </a>
+                                    <li class="list-group-item"
+                                        th:if="${speaker.socials != null && !speaker.socials.isEmpty()}">
+                                        <ul class="nav justify-content-center">
+                                            <li class="nav-item" th:each="item : ${speaker.socials}">
+                                                <a class="nav-link teamSocial"
+                                                   style="font-size: 20px !important; line-height: 20px !important;"
+                                                   target="_blank"
+                                                   th:href="${item.url}">
+                                                    <i th:class="|fa fa-${item.type} mr-sm-1|"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade"
+                             th:id='|modal${speaker.id}|'
+                             tabindex="-1"
+                             role="dialog"
+                             th:attr="aria-labelledby='modal'+${speaker.id}+'Label'"
+                             aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title mb-1" th:text="${speaker.name}"></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-12 col-lg-2">
+                                                    <img class="speakerImg"
+                                                         style="margin-top: 0 !important"
+                                                         th:src="${speaker.photo}"
+                                                         th:alt="${speaker.name}">
+                                                </div>
+                                                <div class="col-12 col-lg-9 mt-4 ml-0 mt-lg-0 ml-lg-4 align-self-center">
+                                                    <h6 th:text="${speaker.country}"></h6>
+                                                    <p th:if="${speaker.pronouns != null && !speaker.pronouns.isBlank()}"
+                                                       th:text="'Pronouns as '+${speaker.pronouns}"></p>
+                                                    <p th:text="${speaker.jobTitle}+' @ '+${speaker.company.name}"></p>
+                                                </div>
+                                            </div>
+                                            <div class="row mx-auto mt-4">
+                                                <p th:text="${speaker.bio}"></p>
+                                            </div>
+                                            <div class="row mx-auto"
+                                                 th:if="${speaker.socials != null && !speaker.socials.isEmpty()}">
+                                                <ul class="nav justify-content-center">
+                                                    <li class="nav-item" th:each="item : ${speaker.socials}">
+                                                        <a class="nav-link teamSocial"
+                                                           style="font-size: 20px !important; line-height: 20px !important;"
+                                                           target="_blank"
+                                                           th:href="${item.url}">
+                                                            <i th:class="|fa fa-${item.type} mr-sm-1|"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </th:block>
+                            </div>
                         </div>
                     </div>
                 </div>

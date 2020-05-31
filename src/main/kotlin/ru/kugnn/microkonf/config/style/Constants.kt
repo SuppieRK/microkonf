@@ -64,7 +64,7 @@ data class Constants @JsonCreator constructor(
     @Introspected
     data class Speakers @JsonCreator constructor(
             @JsonProperty("title") val title: String,
-            @JsonProperty("unescapedDescription") val unescapedDescription: String
+            @JsonProperty("description") val unescapedDescription: String
     ) {
         val description: String by lazy {
             markdownToHtml(unescapedDescription)
@@ -74,7 +74,7 @@ data class Constants @JsonCreator constructor(
     @Introspected
     data class Team @JsonCreator constructor(
             @JsonProperty("title") val title: String,
-            @JsonProperty("unescapedDescription") val unescapedDescription: String
+            @JsonProperty("description") val unescapedDescription: String
     ) {
         val description: String by lazy {
             markdownToHtml(unescapedDescription)

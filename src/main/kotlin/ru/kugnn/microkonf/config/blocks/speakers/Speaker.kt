@@ -17,6 +17,10 @@ data class Speaker @JsonCreator constructor(
         @JsonProperty("company") val company: Company,
         @JsonProperty("socials") val socials: List<Social>
 ) {
+    val id: String by lazy {
+        name.replace(" ", "") + hashCode()
+    }
+
     @Introspected
     data class Company @JsonCreator constructor(
             @JsonProperty("name") val name: String,
