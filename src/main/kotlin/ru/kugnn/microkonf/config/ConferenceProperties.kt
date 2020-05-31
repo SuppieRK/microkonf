@@ -39,23 +39,18 @@ data class ConferenceProperties(
     val scheduleTable: String by lazy {
         val sortedSchedule: Iterable<IndexedValue<ScheduleDay>> = schedule.sortedBy { it.date }.withIndex()
 
-        createHTML().div {
+        createHTML().div(classes = "container px-0 pb-4") {
             id = "schedule"
-            classes = setOf("container", "px-0", "pb-4")
 
-            ul {
+            ul(classes = "nav nav-tabs") {
                 id = "scheduleNav"
-                classes = setOf("nav", "nav-tabs")
 
                 attributes["role"] = "tablist"
 
                 sortedSchedule.forEach { (index: Int, scheduleDay: ScheduleDay) ->
-                    li {
-                        classes = classes + "nav-item"
-
-                        a("#${scheduleDay.dayId}") {
+                    li(classes = "nav-item") {
+                        a(href = "#${scheduleDay.dayId}", classes = "nav-link") {
                             id = "${scheduleDay.dayId}tab"
-                            classes = classes + "nav-link"
 
                             attributes["data-toggle"] = "tab"
                             attributes["role"] = "tab"
@@ -75,23 +70,19 @@ data class ConferenceProperties(
                 }
             }
 
-            div {
+            div(classes = "tab-content") {
                 id = "scheduleNavContent"
-                classes = setOf("tab-content")
 
                 sortedSchedule.forEach { (index: Int, scheduleDay: ScheduleDay) ->
-                    div {
+                    div(classes = "tab-pane fade") {
                         id = scheduleDay.dayId
-                        classes = setOf("tab-pane", "fade")
 
                         attributes["role"] = "tabpanel"
                         attributes["aria-labelledby"] = "${scheduleDay.dayId}tab"
 
                         if (index == 0) classes = classes + setOf("show", "active")
 
-                        table {
-                            classes = setOf("table")
-
+                        table(classes = "table") {
                             tbody {
                                 val tracksAmount: Int = scheduleDay.tracks.size
 
@@ -145,14 +136,9 @@ data class ConferenceProperties(
     }
 
     private fun TD.buildSessionBody(session: ScheduleDay.SessionCell) {
-        div {
-            classes = setOf("card", "h-100")
-
-            div {
-                classes = setOf("card-body")
-
-                h5 {
-                    classes = setOf("card-title")
+        div(classes = "card h-100") {
+            div(classes = "card-body") {
+                h5(classes = "card-title") {
                     +session.title
                 }
             }
