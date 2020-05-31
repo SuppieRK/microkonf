@@ -1,8 +1,56 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <body>
+        <div class="container px-0 pb-4">
+            <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
+            <h1 class="page-header" th:text="${constants.speakers.title}"></h1>
+        </div>
+        <div class="page-description">
+            <div class="container px-0 pt-1 pb-1">
+                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
+                <p th:utext="${constants.speakers.description}"></p>
+            </div>
+        </div>
         <div class="container px-0 pb-4" id="speakers">
-
+            <div class="row mx-auto">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+                    <!--/*@thymesVar id="speaker" type="ru.kugnn.microkonf.config.blocks.speakers.Speaker"*/-->
+                    <div class="col mb-4" th:each="speaker : ${speakers}">
+                        <div class="card h-100 text-center">
+                            <img class="card-img-top speakerImg" th:src="${speaker.photo}" th:alt="${speaker.name}">
+                            <div class="card-body">
+                                <h5 class="card-title mb-1" th:text="${speaker.name}"></h5>
+                                <h6 class="card-title" th:text="${speaker.country}"></h6>
+                                <p class="card-text speakerBio" style="max-height: 150px" th:text="${speaker.bio}"></p>
+                            </div>
+                            <ul class="list-group list-group-flush" style="border-bottom: none">
+                                <a target="_blank" th:href="${speaker.company.url}">
+                                    <li class="list-group-item d-flex mx-auto align-items-center speakerCompanyItem"
+                                        style="border: none">
+                                        <img class="speakerCompany"
+                                             th:src="${speaker.company.logo}"
+                                             th:alt="${speaker.company.name}">
+                                    </li>
+                                </a>
+                            </ul>
+                            <th:block th:if="${speaker.socials != null && !speaker.socials.isEmpty()}">
+                                <div class="card-footer bg-transparent mt-auto">
+                                    <ul class="nav justify-content-center">
+                                        <li class="nav-item" th:each="item : ${speaker.socials}">
+                                            <a class="nav-link teamSocial"
+                                               style="font-size: 20px !important; line-height: 20px !important;"
+                                               target="_blank"
+                                               th:href="${item.url}">
+                                                <i th:class="|fa fa-${item.type} mr-sm-1|"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

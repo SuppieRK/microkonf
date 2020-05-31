@@ -2,8 +2,10 @@ package ru.kugnn.microkonf.controllers
 
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
+import io.micronaut.http.annotation.PathVariable
 import io.micronaut.views.View
 import ru.kugnn.microkonf.config.ConferenceProperties
+import ru.kugnn.microkonf.config.blocks.speakers.Speaker
 
 @Controller
 class SiteController(
@@ -31,6 +33,14 @@ class SiteController(
                 page = "speakers",
                 blocks = listOf("speakers")
         )
+    }
+
+    @Get("/speakers/{speakerName}")
+    @View("index")
+    fun speaker(@PathVariable("speakerName") speakerName: String): Speaker? {
+        return conferenceProperties.speakers.find {
+            it.name == speakerName
+        }
     }
 
     @Get("/team")

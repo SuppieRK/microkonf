@@ -6,7 +6,7 @@
   company:
     name: JetBrains
     url: https://www.jetbrains.com/
-    logo: /images/logos/jetbrains.svg
+    logo: /public/images/logos/jetbrains.svg
   socials:
     - type: twitter
       url: https://twitter.com/sandwwraith
@@ -21,7 +21,7 @@
   company:
     name: Humans Net
     url: https://humans.net/
-    logo: /images/logos/humans.jpg
+    logo: /public/images/logos/humans.jpg
   socials:
     - type: twitter
       url: https://twitter.com/kirill_rozov
@@ -38,11 +38,11 @@
   company:
     name: Kaspersky
     url: https://usa.kaspersky.com/
-    logo: /images/logos/kaspersky.svg
+    logo: /public/images/logos/kaspersky.svg
   socials:
     - type: github
       url: https://github.com/AndreySBer
-    - type: website
+    - type: link
       url: https://beryukhov.ru/
 
 - name: 'Denis Aleksandrov'
@@ -53,7 +53,7 @@
   company:
     name: Arcadia
     url: https://softwarecountry.ru/
-    logo: /images/logos/arcadia.png
+    logo: /public/images/logos/arcadia.png
   socials:
     - type: github
       url: https://github.com/d-aleksandrov
@@ -68,7 +68,7 @@
   company:
     name: EPAM Systems
     url: https://www.epam.com/
-    logo: /images/logos/epam-systems.png
+    logo: /public/images/logos/epam-systems.png
   socials:
     - type: linkedin
       url: https://www.linkedin.com/in/denis-ustavschikov-b93a39131
@@ -82,7 +82,7 @@
   company:
     name: EPAM Systems
     url: https://www.epam.com/
-    logo: /images/logos/epam-systems.png
+    logo: /public/images/logos/epam-systems.png
   socials:
     - type: vk
       url: https://vk.com/bulatov.ilya
@@ -98,7 +98,7 @@
   company:
     name: EPAM Systems
     url: https://www.epam.com/
-    logo: /images/logos/epam-systems.png
+    logo: /public/images/logos/epam-systems.png
   socials:
     - type: linkedin
       url: https://www.linkedin.com/in/alexander-davydov-461773160
@@ -111,7 +111,7 @@
   company:
     name: Neuron
     url: https://neuron.digital/
-    logo: /images/logos/neuron.png
+    logo: /public/images/logos/neuron.png
   socials:
     - type: github
       url: https://github.com/Defolters
@@ -124,7 +124,7 @@
   company:
     name: Five9
     url: https://www.five9.com/
-    logo: /images/logos/five9.png
+    logo: /public/images/logos/five9.png
   socials:
     - type: twitter
       url: https://twitter.com/SuppieRK

@@ -355,6 +355,36 @@
     color: #1f2429;
 }
 
+.speakerImg {
+    max-height: 128px;
+    max-width: 128px;
+    object-fit: cover;
+    border-radius: 50% !important;
+    margin-top: 1.5rem !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.speakerBio {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
+.speakerCompanyItem {
+    max-height: 64px;
+    min-height: 64px;
+}
+
+.speakerCompany {
+    max-width: 128px;
+    max-height: 50px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
 .organizerSocial {
     font-size: 30px !important;
     line-height: 30px !important;
