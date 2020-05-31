@@ -15,6 +15,7 @@ data class Constants @JsonCreator constructor(
         @JsonProperty("partners") val partners: Partners,
         @JsonProperty("venue") val venue: Venue,
         @JsonProperty("speakers") val speakers: Speakers,
+        @JsonProperty("schedule") val schedule: Schedule,
         @JsonProperty("team") val team: Team,
         @JsonProperty("readMore") val readMore: String,
         @JsonProperty("copyright") val copyright: String
@@ -70,6 +71,11 @@ data class Constants @JsonCreator constructor(
             markdownToHtml(unescapedDescription)
         }
     }
+
+    @Introspected
+    data class Schedule @JsonCreator constructor(
+            @JsonProperty("title") val title: String
+    )
 
     @Introspected
     data class Team @JsonCreator constructor(
