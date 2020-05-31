@@ -14,6 +14,8 @@ object Utils {
 
     val TicketDateFormat: DateTimeFormatter = makeFormatter("MMM d")
 
+    val ScheduleDateFormat: DateTimeFormatter = makeFormatter("MMMM d")
+
     val DisplayDateFormat: DateTimeFormatter = makeFormatter("MMMM d, YYYY")
 
     val DayFormat: DateTimeFormatter = makeFormatter("d")

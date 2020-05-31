@@ -1,6 +1,8 @@
 package ru.kugnn.microkonf.config
 
 import io.micronaut.core.annotation.Introspected
+import kotlinx.html.*
+import kotlinx.html.stream.createHTML
 import ru.kugnn.microkonf.config.blocks.index.*
 import ru.kugnn.microkonf.config.blocks.schedule.ScheduleDay
 import ru.kugnn.microkonf.config.blocks.sessions.CommonSession
@@ -33,26 +35,127 @@ data class ConferenceProperties(
         // Teams
         val teams: List<Team>
 ) {
-    val scheduleItems by lazy {
-        validateSchedule()
-        ""
+    // Schedule table must be code generated and not templated due to its complexity
+    val scheduleTable: String by lazy {
+        val sortedSchedule: Iterable<IndexedValue<ScheduleDay>> = schedule.sortedBy { it.date }.withIndex()
+
+        createHTML().div {
+            id = "schedule"
+            classes = setOf("container", "px-0", "pb-4")
+
+            ul {
+                id = "scheduleNav"
+                classes = setOf("nav", "nav-tabs")
+
+                attributes["role"] = "tablist"
+
+                sortedSchedule.forEach { (index: Int, scheduleDay: ScheduleDay) ->
+                    li {
+                        classes = classes + "nav-item"
+
+                        a("#${scheduleDay.dayId}") {
+                            id = "${scheduleDay.dayId}tab"
+                            classes = classes + "nav-link"
+
+                            attributes["data-toggle"] = "tab"
+                            attributes["role"] = "tab"
+                            attributes["aria-controls"] = scheduleDay.dayId
+
+                            if (index == 0) {
+                                classes = classes + "active"
+
+                                attributes["aria-selected"] = true.toString()
+                            } else {
+                                attributes["aria-selected"] = false.toString()
+                            }
+
+                            +scheduleDay.dayString
+                        }
+                    }
+                }
+            }
+
+            div {
+                id = "scheduleNavContent"
+                classes = setOf("tab-content")
+
+                sortedSchedule.forEach { (index: Int, scheduleDay: ScheduleDay) ->
+                    div {
+                        id = scheduleDay.dayId
+                        classes = setOf("tab-pane", "fade")
+
+                        attributes["role"] = "tabpanel"
+                        attributes["aria-labelledby"] = "${scheduleDay.dayId}tab"
+
+                        if (index == 0) classes = classes + setOf("show", "active")
+
+                        table {
+                            classes = setOf("table")
+
+                            tbody {
+                                val tracksAmount: Int = scheduleDay.tracks.size
+
+                                // Track number -> Desired colspan, decreasing with each row
+                                val colspanTracker: HashMap<Int, Int> = (1..tracksAmount).map { it to 0 }.toMap(HashMap())
+
+                                id = colspanTracker.toString()
+
+                                scheduleDay.timeslots.forEach { timeslot ->
+                                    tr {
+                                        val sessionsInSlot: Int = timeslot.sessions.size
+
+                                        val spannedColumns: Int = colspanTracker.count { (_, remainingColSpans) ->
+                                            remainingColSpans != 0
+                                        }
+
+                                        timeslot.sessions.withIndex().forEach { (index, session) ->
+                                            td {
+                                                // Log colspan request if any and set rowSpan
+                                                if (session.slotSpan != null) {
+                                                    // Slot spans indicate that we need to take current slot + N next slots
+                                                    // Here N is the value set by user
+                                                    // Thus we need to increase the value by 1
+                                                    val tdRowSpan: Int = session.slotSpan + 1
+                                                    colspanTracker[index + 1] = tdRowSpan
+                                                    rowSpan = tdRowSpan.toString()
+                                                }
+
+                                                // Check and set colSpan
+                                                if ((sessionsInSlot + spannedColumns) != tracksAmount) {
+                                                    colSpan = (tracksAmount - spannedColumns).toString()
+                                                }
+
+                                                buildSessionBody(session)
+                                            }
+                                        }
+                                    }
+
+                                    colspanTracker.forEach { (trackIndex, _) ->
+                                        colspanTracker[trackIndex] = colspanTracker[trackIndex]?.run {
+                                            if (this > 0) this - 1 else this
+                                        } ?: 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    private fun validateSchedule() {
-//        schedule.days.forEach { day ->
-//            require(schedule.startTime != null || day.startTime != null) {
-//                "Day at ${day.date} does not have start time set"
-//            }
-//
-//            require(schedule.breakBetweenSessions != null || day.breakBetweenSessions != null) {
-//                "Day at ${day.date} does not have break time set"
-//            }
-//
-//            day.timeSlots.forEach { timeSlot ->
-//                require(schedule.length != null || day.length != null ) {
-//                    "Time slot ${timeSlot.name} at day ${day.date} does not have time length set"
-//                }
-//            }
-//        }
+    private fun TD.buildSessionBody(session: ScheduleDay.SessionCell) {
+        div {
+            classes = setOf("card", "h-100")
+
+            div {
+                classes = setOf("card-body")
+
+                h5 {
+                    classes = setOf("card-title")
+                    +session.title
+                }
+            }
+        }
     }
 }

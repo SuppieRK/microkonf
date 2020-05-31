@@ -45,6 +45,8 @@ dependencies {
 
     implementation("com.atlassian.commonmark:commonmark:${commonmarkVersion}")
 
+    implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:${kotlinxHtmlVersion}")
+
     runtime("org.thymeleaf:thymeleaf:${thymeleafVersion}")
 
     runtimeOnly("ch.qos.logback:logback-classic:${logbackVersion}")

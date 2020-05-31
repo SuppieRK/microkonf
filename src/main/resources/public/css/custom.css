@@ -403,3 +403,7 @@
     height: 48px;
     object-fit: scale-down;
 }
+
+table, th, td {
+    border: 1px solid black;
+}

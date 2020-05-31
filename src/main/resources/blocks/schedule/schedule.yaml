@@ -35,3 +35,53 @@
     - period: '18:30 - 22:30'
       sessions:
         - title: 'Afterparty'
+- date: '20-09-2019'
+  tracks:
+    - Volga hall
+    - Oka hall
+    - Third hall
+  timeslots:
+    - period: '09:30 - 10:10'
+      sessions:
+        - title: 135
+    - period: '10:10 - 10:50'
+      sessions:
+        - title: 114
+        - title: 117
+        - title: 121
+    - period: '11:00 - 11:40'
+      sessions:
+        - title: 122
+        - title: 113
+          slotSpan: 1
+        - title: 121
+          slotSpan: 2
+    - period: '11:50 - 12:30'
+      sessions:
+        - title: 104
+    - period: '12:30 - 14:00'
+      sessions:
+        - title: 133
+    - period: '14:00 - 14:40'
+      sessions:
+        - title: 108
+        - title: 128
+        - title: 102
+          slotSpan: 2
+    - period: '14:50 - 15:30'
+      sessions:
+        - title: 110
+        - title: 123
+    - period: '15:30 - 16:00'
+      sessions:
+        - title: 134
+    - period: '16:00 - 16:40'
+      sessions:
+        - title: 131
+        - title: 140
+        - title: 130
+          slotSpan: 1
+    - period: '16:50 - 17:30'
+      sessions:
+        - title: 115
+        - title: 140

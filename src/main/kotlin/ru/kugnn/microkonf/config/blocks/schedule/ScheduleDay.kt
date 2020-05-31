@@ -8,6 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer
 import io.micronaut.core.annotation.Introspected
 import ru.kugnn.microkonf.Utils.LocalTimeFormat
 import ru.kugnn.microkonf.Utils.ParseDateFormat
+import ru.kugnn.microkonf.Utils.ScheduleDateFormat
 import java.time.LocalDate
 import java.time.LocalTime
 import java.util.regex.Pattern
@@ -18,6 +19,9 @@ data class ScheduleDay @JsonCreator constructor(
         @JsonProperty("tracks") val tracks: List<String>,
         @JsonProperty("timeslots") val timeslots: List<Timeslot>
 ) {
+    val dayString: String by lazy { ScheduleDateFormat.format(date) }
+    val dayId: String by lazy { dayString.replace(" ", "").toLowerCase() }
+
     @Introspected
     data class Timeslot @JsonCreator constructor(
             @JsonProperty("period") private val period: String,
@@ -44,6 +48,6 @@ data class ScheduleDay @JsonCreator constructor(
     @Introspected
     data class SessionCell @JsonCreator constructor(
             @JsonProperty("title") val title: String,
-            @JsonProperty("extendsDown") val extendsDown: Int?
+            @JsonProperty("slotSpan") val slotSpan: Int?
     )
 }
