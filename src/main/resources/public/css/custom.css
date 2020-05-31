@@ -404,6 +404,14 @@
     object-fit: scale-down;
 }
 
-table, th, td {
-    border: 1px solid black;
+table {
+    height: 1px;
+}
+
+tr, td, td > div {
+    height: 100%;
+}
+
+.table td {
+    border-top: 0;
 }
