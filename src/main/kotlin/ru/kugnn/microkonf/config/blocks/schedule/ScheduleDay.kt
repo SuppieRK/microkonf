@@ -9,6 +9,7 @@ import io.micronaut.core.annotation.Introspected
 import ru.kugnn.microkonf.Utils.LocalTimeFormat
 import ru.kugnn.microkonf.Utils.ParseDateFormat
 import ru.kugnn.microkonf.Utils.ScheduleDateFormat
+import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
 import java.util.regex.Pattern
@@ -39,6 +40,29 @@ data class ScheduleDay @JsonCreator constructor(
 
         val startsAt: LocalTime by lazy { parsedPeriod.first }
         val endsAt: LocalTime by lazy { parsedPeriod.second }
+
+        fun durationString(): String {
+            val duration: Duration = Duration.between(startsAt, endsAt).abs()
+
+            val hours: Int = duration.toHoursPart()
+            val minutes: Int = duration.toMinutesPart()
+
+            val builder: StringBuilder = StringBuilder()
+
+            if (hours == 1) {
+                builder.append(hours).append(" hour ")
+            } else if (hours > 1) {
+                builder.append(hours).append(" hours ")
+            }
+
+            if (minutes == 1) {
+                builder.append(minutes).append(" minute")
+            } else if (minutes > 1) {
+                builder.append(minutes).append(" minutes")
+            }
+
+            return builder.toString()
+        }
 
         companion object {
             private val PeriodExclusionRegex: Regex = Pattern.compile("[^0-9:-]").toRegex()

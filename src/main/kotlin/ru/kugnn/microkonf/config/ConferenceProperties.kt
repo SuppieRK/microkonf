@@ -1,5 +1,6 @@
 package ru.kugnn.microkonf.config
 
+import com.neovisionaries.i18n.LanguageAlpha3Code
 import io.micronaut.core.annotation.Introspected
 import kotlinx.html.*
 import kotlinx.html.stream.createHTML
@@ -82,64 +83,147 @@ data class ConferenceProperties(
 
                         if (index == 0) classes = classes + setOf("show", "active")
 
-                        table(classes = "table") {
-                            tbody {
-                                val tracksAmount: Int = scheduleDay.tracks.size
-
-                                // Track number -> Desired colspan, decreasing with each row
-                                val colspanTracker: HashMap<Int, Int> = (1..tracksAmount).map { it to 0 }.toMap(HashMap())
-
-                                id = colspanTracker.toString()
-
-                                scheduleDay.timeslots.forEach { timeslot ->
-                                    tr {
-                                        val sessionsInSlot: Int = timeslot.sessions.size
-
-                                        val spannedColumns: Int = colspanTracker.count { (_, remainingColSpans) ->
-                                            remainingColSpans != 0
-                                        }
-
-                                        timeslot.sessions.withIndex().forEach { (index, session) ->
-                                            td {
-                                                // Log colspan request if any and set rowSpan
-                                                if (session.slotSpan != null) {
-                                                    // Slot spans indicate that we need to take current slot + N next slots
-                                                    // Here N is the value set by user
-                                                    // Thus we need to increase the value by 1
-                                                    val tdRowSpan: Int = session.slotSpan + 1
-                                                    colspanTracker[index + 1] = tdRowSpan
-                                                    rowSpan = tdRowSpan.toString()
-                                                }
-
-                                                // Check and set colSpan
-                                                if ((sessionsInSlot + spannedColumns) != tracksAmount) {
-                                                    colSpan = (tracksAmount - spannedColumns).toString()
-                                                }
-
-                                                buildSessionBody(session)
-                                            }
-                                        }
-                                    }
-
-                                    colspanTracker.forEach { (trackIndex, _) ->
-                                        colspanTracker[trackIndex] = colspanTracker[trackIndex]?.run {
-                                            if (this > 0) this - 1 else this
-                                        } ?: 0
-                                    }
-                                }
-                            }
-                        }
+                        buildScheduleTable(scheduleDay)
                     }
                 }
             }
         }
     }
 
-    private fun TD.buildSessionBody(session: ScheduleDay.SessionCell) {
+    private fun DIV.buildScheduleTable(scheduleDay: ScheduleDay) {
+        // TODO rework this to CSS grid area
+        table(classes = "table") {
+            tbody {
+                val tracksAmount: Int = scheduleDay.tracks.size
+                val cellWidthPercent: String = ((1.toDouble() / tracksAmount) * 100).toString()
+                        .take(3)
+                        .replace(Regex("[^0-9]"), "")
+
+                // Track number -> Desired colspan, decreasing with each row
+                val colspanTracker: HashMap<Int, Int> = (1..tracksAmount).map { it to 0 }.toMap(HashMap())
+
+                scheduleDay.timeslots.forEach { timeslot ->
+                    tr {
+                        td {
+                            span(classes = "timeslotHours") {
+                                text(timeslot.startsAt.hour)
+                            }
+                            span(classes = "timeslotMinutes") {
+                                timeslot.startsAt.minute.apply {
+                                    text(if (this == 0) "00" else this.toString())
+                                }
+                            }
+
+//                            p {
+//                                +timeslot.startsAt.format(Utils.LocalTimeFormat)
+//                            }
+                        }
+
+                        val sessionsInSlot: Int = timeslot.sessions.size
+
+                        val spannedColumns: Int = colspanTracker.count { (_, remainingColSpans) ->
+                            remainingColSpans != 0
+                        }
+
+                        timeslot.sessions.withIndex().forEach { (index, session) ->
+                            td {
+                                style = "width: $cellWidthPercent%"
+
+                                // Log colspan request if any and set rowSpan
+                                if (session.slotSpan != null) {
+                                    // Slot spans indicate that we need to take current slot + N next slots
+                                    // Here N is the value set by user
+                                    // Thus we need to increase the value by 1
+                                    val tdRowSpan: Int = session.slotSpan + 1
+                                    colspanTracker[index + 1] = tdRowSpan
+                                    rowSpan = tdRowSpan.toString()
+                                }
+
+                                // Check and set colSpan
+                                if ((sessionsInSlot + spannedColumns) != tracksAmount) {
+                                    colSpan = (tracksAmount - spannedColumns).toString()
+                                }
+
+                                buildSessionBody(scheduleDay.tracks[index], timeslot, session)
+                            }
+                        }
+                    }
+
+                    colspanTracker.forEach { (trackIndex, _) ->
+                        colspanTracker[trackIndex] = colspanTracker[trackIndex]?.run {
+                            if (this > 0) this - 1 else this
+                        } ?: 0
+                    }
+                }
+            }
+        }
+    }
+
+    private fun TD.buildSessionBody(track: String, timeslot: ScheduleDay.Timeslot, session: ScheduleDay.SessionCell) {
+        val speakerSession: Session? = sessions.find { it.title == session.title }
+        val commonSession: CommonSession? = commonSessions.find { it.title == session.title }
+
+        if (speakerSession != null) {
+            buildSpeakerSessionBody(track, timeslot, speakerSession)
+        } else {
+            if (commonSession != null) {
+                buildCommonSessionBody(timeslot, commonSession)
+            } else {
+                buildPlaceholderSessionBody()
+            }
+        }
+    }
+
+    private fun TD.buildSpeakerSessionBody(track: String, timeslot: ScheduleDay.Timeslot, session: Session) {
         div(classes = "card h-100") {
             div(classes = "card-body") {
-                h5(classes = "card-title") {
-                    +session.title
+                div(classes = "card-header sessionHeader") {
+                    div(classes = "clearfix") {
+                        h5(classes = "sessionTitle") {
+                            +session.title
+                        }
+                        session.language?.apply {
+                            p(classes = "sessionLanguage text-muted") {
+                                +LanguageAlpha3Code.findByName(this@apply)[0].alpha2.name.toUpperCase()
+                            }
+                        }
+                    }
+                    h6 {
+                        +"${timeslot.durationString()} • $track${if (!session.complexity.isNullOrBlank()) " • ${session.complexity}" else ""}"
+                    }
+                }
+                p(classes = "sessionText") {
+                    +session.description
+                }
+            }
+        }
+    }
+
+    private fun TD.buildCommonSessionBody(timeslot: ScheduleDay.Timeslot, commonSession: CommonSession) {
+        div(classes = "card h-100") {
+            div(classes = "card-body") {
+                div(classes = "card-header sessionHeader") {
+                    h5 {
+                        +commonSession.title
+                    }
+                    h6 {
+                        +timeslot.durationString()
+                    }
+                }
+                commonSession.description?.apply {
+                    p(classes = "sessionText") {
+                        +this@apply
+                    }
+                }
+            }
+        }
+    }
+
+    private fun TD.buildPlaceholderSessionBody() {
+        div(classes = "card h-100") {
+            div(classes = "card-body") {
+                h5(classes = "card-title card-header sessionHeader") {
+                    +"To be discussed"
                 }
             }
         }

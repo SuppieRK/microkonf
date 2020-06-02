@@ -369,7 +369,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 4; /* number of lines to show */
+    -webkit-line-clamp: 4; /* max number of lines to show */
     -webkit-box-orient: vertical;
 }
 
@@ -383,6 +383,41 @@
     max-height: 50px;
     margin-left: auto !important;
     margin-right: auto !important;
+}
+
+.timeslotHours {
+    font-size: 24px;
+    font-weight: 300;
+}
+
+.timeslotMinutes {
+    font-size: 16px;
+}
+
+.sessionHeader {
+    padding: 0 !important;
+    background: rgba(0, 0, 0, 0) !important;
+    border-bottom: none !important;
+}
+
+.sessionTitle {
+    display: inline;
+    float: left;
+    width: 95%;
+}
+
+.sessionLanguage {
+    display: inline;
+    float: right;
+    font-size: 0.85rem;
+}
+
+.sessionText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* max number of lines to show */
+    -webkit-box-orient: vertical;
 }
 
 .organizerSocial {

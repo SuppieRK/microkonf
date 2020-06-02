@@ -21,7 +21,7 @@
                             <div class="card h-100">
                                 <div class="row no-gutters h-100">
                                     <div class="col-4 d-flex justify-content-center align-items-center border-right">
-                                        <img class="card-img teamImg" th:src="${member.photo}" th:alt="${member.name}">
+                                        <img class="card-img teamImg lazyload" th:attr="data-src=${member.photo}" th:alt="${member.name}">
                                     </div>
                                     <div class="col-8 d-flex flex-column">
                                         <div class="card-body">

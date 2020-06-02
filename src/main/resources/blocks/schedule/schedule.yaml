@@ -30,12 +30,12 @@
         - title: 'Kotlin Multiplatform by JetBrains'
     - period: '17:00 - 17:40'
       sessions:
-        - title: 'Writing Kotlin DSL for RecyclerView adapters'
+        - title: 'Writing Kotlin DSL for RecyclerView adapters testtesttesttesttesttesttesttesttesttest'
         - title: 'Kotlin Spring Boot + Google Kubernetes Engine'
     - period: '18:30 - 22:30'
       sessions:
         - title: 'Afterparty'
-- date: '20-09-2019'
+- date: '22-09-2019'
   tracks:
     - Volga hall
     - Oka hall

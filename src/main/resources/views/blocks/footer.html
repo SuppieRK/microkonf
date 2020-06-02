@@ -61,7 +61,7 @@
                     <div class="col-12 col-sm d-flex align-items-center justify-content-center"
                          th:each="entry: ${organizers.userGroups}">
                         <a target="_blank" th:href="${entry.organizationUrl}">
-                            <img class="footerLogo" th:src="${entry.logo}"/>
+                            <img class="lazyload footerLogo" th:attr="data-src=${entry.logo}"/>
                         </a>
                     </div>
                     <div class="col-12 col-sm d-flex align-items-center justify-content-center text-center footerLogo">
