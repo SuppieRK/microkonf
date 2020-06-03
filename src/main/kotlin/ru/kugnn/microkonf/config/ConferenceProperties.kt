@@ -165,7 +165,7 @@ data class ConferenceProperties(
         val commonSession: CommonSession? = commonSessions.find { it.title == session.title }
 
         div(classes = "card h-100") {
-            div(classes = "card-body") {
+            div(classes = "card-body d-flex flex-column") {
                 when {
                     speakerSession != null -> buildSpeakerSessionCardBody(track, timeslot, speakerSession)
                     commonSession != null -> buildCommonSessionCardBody(timeslot, commonSession)
@@ -187,30 +187,51 @@ data class ConferenceProperties(
                     }
                 }
             }
-            h6 {
-                +"${timeslot.durationString()} • $track"
-            }
         }
 
         div(classes = "card-text") {
             p(classes = "sessionText") {
                 +session.description
             }
+        }
+
+        div(classes = "card-footer mt-auto sessionFooter") {
+            p(classes = "text-muted") {
+                style = "margin-bottom: 0.2rem;"
+
+                +"${timeslot.durationString()} • $track"
+            }
             session.complexity?.apply {
                 p(classes = "sessionComplexity text-muted") {
-                    +session.complexity
+                    +this@apply
+                }
+            }
+
+            session.speakers?.mapNotNull { speakerName ->
+                speakers.find { speakerName == it.name }
+            }?.forEach { speaker ->
+                div(classes = "sessionSpeaker row") {
+                    img(classes = "col sessionSpeakerImg lazyloaded") {
+                        alt = speaker.name
+                        src = speaker.photo
+                    }
+                    div(classes = "col align-self-center") {
+                        p(classes = "sessionSpeakerName") {
+                            +speaker.name
+                        }
+                        p(classes = "sessionSpeakerDescription") {
+                            +"${if (speaker.company != null) "${speaker.company.name} • " else ""}${speaker.country}"
+                        }
+                    }
                 }
             }
         }
     }
 
     private fun FlowContent.buildCommonSessionCardBody(timeslot: ScheduleDay.Timeslot, commonSession: CommonSession) {
-        div(classes = "card-header sessionHeader") {
+        div(classes = "card-header mt-auto sessionHeader") {
             h5 {
                 +commonSession.title
-            }
-            h6 {
-                +timeslot.durationString()
             }
         }
 
@@ -223,6 +244,12 @@ data class ConferenceProperties(
         }
 
         div(classes = "card-footer sessionFooter") {
+            p(classes = "text-muted") {
+                style = "margin-bottom: 0;"
+
+                +timeslot.durationString()
+            }
+
             commonSession.icon?.run {
                 CommonSessionSvg.Icons[this]
             }?.apply {

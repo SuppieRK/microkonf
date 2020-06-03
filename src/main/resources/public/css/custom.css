@@ -359,10 +359,10 @@
     max-height: 128px;
     max-width: 128px;
     object-fit: cover;
-    border-radius: 50% !important;
-    margin-top: 1.5rem !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+    border-radius: 50%;
+    margin-top: 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .speakerBio {
@@ -396,9 +396,9 @@
 }
 
 .sessionHeader {
-    padding: 0 !important;
-    background: rgba(0, 0, 0, 0) !important;
-    border-bottom: none !important;
+    padding: 0;
+    background: rgba(0, 0, 0, 0);
+    border-bottom: none;
 }
 
 .sessionTitle {
@@ -429,6 +429,32 @@
     padding: 0 !important;
     background: rgba(0, 0, 0, 0) !important;
     border-top: none !important;
+}
+
+.sessionSpeaker {
+    margin-bottom: 0.4rem;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.sessionSpeakerName {
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.sessionSpeakerDescription {
+    font-size: 12px;
+    margin-bottom: 0;
+}
+
+.sessionSpeakerImg {
+    padding: 0;
+    max-height: 46px;
+    max-width: 46px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .sessionComplexity {

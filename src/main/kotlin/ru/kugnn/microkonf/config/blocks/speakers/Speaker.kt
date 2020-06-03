@@ -14,7 +14,7 @@ data class Speaker @JsonCreator constructor(
         @JsonProperty("country") val country: String,
         @JsonProperty("jobTitle") val jobTitle: String,
         @JsonProperty("featured") val featured: Boolean?,
-        @JsonProperty("company") val company: Company,
+        @JsonProperty("company") val company: Company?,
         @JsonProperty("socials") val socials: List<Social>
 ) {
     val id: String by lazy {
