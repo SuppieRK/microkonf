@@ -413,12 +413,35 @@
     font-size: 0.85rem;
 }
 
+.sessionContent {
+    padding-bottom: 60px;
+}
+
 .sessionText {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 3; /* max number of lines to show */
     -webkit-box-orient: vertical;
+}
+
+.sessionFooter {
+    padding: 0 !important;
+    background: rgba(0, 0, 0, 0) !important;
+    border-top: none !important;
+}
+
+.sessionComplexity {
+    font-size: 14px;
+}
+
+.commonSessionIcon {
+    fill: #dadada;
+    height: 80px;
+    width: 80px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
 }
 
 .organizerSocial {

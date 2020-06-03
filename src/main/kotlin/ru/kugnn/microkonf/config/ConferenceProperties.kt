@@ -7,6 +7,7 @@ import kotlinx.html.stream.createHTML
 import ru.kugnn.microkonf.config.blocks.index.*
 import ru.kugnn.microkonf.config.blocks.schedule.ScheduleDay
 import ru.kugnn.microkonf.config.blocks.sessions.CommonSession
+import ru.kugnn.microkonf.config.blocks.sessions.CommonSessionSvg
 import ru.kugnn.microkonf.config.blocks.sessions.Session
 import ru.kugnn.microkonf.config.blocks.speakers.Speaker
 import ru.kugnn.microkonf.config.blocks.team.Team
@@ -128,7 +129,7 @@ data class ConferenceProperties(
                                 }
                         ).toStyleString()
 
-                        buildSessionBody(scheduleDay.tracks[index], timeslot, session)
+                        buildSession(scheduleDay.tracks[index], timeslot, session)
                     }
                 }
 
@@ -159,7 +160,7 @@ data class ConferenceProperties(
         }
     }
 
-    private fun FlowContent.buildSessionBody(track: String, timeslot: ScheduleDay.Timeslot, session: ScheduleDay.SessionCell) {
+    private fun FlowContent.buildSession(track: String, timeslot: ScheduleDay.Timeslot, session: ScheduleDay.SessionCell) {
         val speakerSession: Session? = sessions.find { it.title == session.title }
         val commonSession: CommonSession? = commonSessions.find { it.title == session.title }
 
@@ -187,11 +188,19 @@ data class ConferenceProperties(
                 }
             }
             h6 {
-                +"${timeslot.durationString()} • $track${if (!session.complexity.isNullOrBlank()) " • ${session.complexity}" else ""}"
+                +"${timeslot.durationString()} • $track"
             }
         }
-        p(classes = "sessionText") {
-            +session.description
+
+        div(classes = "card-text") {
+            p(classes = "sessionText") {
+                +session.description
+            }
+            session.complexity?.apply {
+                p(classes = "sessionComplexity text-muted") {
+                    +session.complexity
+                }
+            }
         }
     }
 
@@ -204,9 +213,24 @@ data class ConferenceProperties(
                 +timeslot.durationString()
             }
         }
-        commonSession.description?.apply {
-            p(classes = "sessionText") {
-                +this@apply
+
+        div(classes = "sessionContent") {
+            commonSession.description?.apply {
+                p(classes = "sessionText") {
+                    +this@apply
+                }
+            }
+        }
+
+        div(classes = "card-footer sessionFooter") {
+            commonSession.icon?.run {
+                CommonSessionSvg.Icons[this]
+            }?.apply {
+                div(classes = "commonSessionIcon") {
+                    rawHtml {
+                        this@apply
+                    }
+                }
             }
         }
     }
@@ -214,6 +238,12 @@ data class ConferenceProperties(
     private fun FlowContent.buildPlaceholderSessionCardBody() {
         h5(classes = "card-title card-header sessionHeader") {
             +"To be discussed"
+        }
+    }
+
+    private fun FlowContent.rawHtml(html: () -> String) {
+        consumer.onTagContentUnsafe {
+            +html.invoke()
         }
     }
 }
