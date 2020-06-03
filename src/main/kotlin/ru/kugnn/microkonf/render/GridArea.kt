@@ -7,24 +7,12 @@ import io.micronaut.core.annotation.Introspected
  */
 @Introspected
 data class GridArea(
-        val rowStart: String = "auto",
-        val columnStart: String = "auto",
-        val rowEnd: String = "auto",
-        val columnEnd: String = "auto"
+        val rowStart: Int,
+        val columnStart: Int,
+        val rowEnd: Int? = null,
+        val columnEnd: Int? = null
 ) {
-    constructor(
-            rowStart: Int? = null,
-            columnStart: Int? = null,
-            rowEnd: Int? = null,
-            columnEnd: Int? = null
-    ) : this(
-            rowStart = rowStart?.toString() ?: "auto",
-            columnStart = columnStart?.toString() ?: "auto",
-            rowEnd = rowEnd?.toString() ?: "auto",
-            columnEnd = columnEnd?.toString() ?: "auto"
-    )
-
     fun toStyleString(): String {
-        return "grid-area: $rowStart / $columnStart / $rowEnd / $columnEnd"
+        return "grid-area: $rowStart / $columnStart / ${rowEnd?.toString() ?: "auto"} / ${columnEnd?.toString() ?: "auto"}"
     }
 }

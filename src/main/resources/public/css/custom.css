@@ -392,6 +392,7 @@
 
 .timeslotMinutes {
     font-size: 16px;
+    margin-left: 2px;
 }
 
 .sessionHeader {
@@ -439,14 +440,27 @@
     object-fit: scale-down;
 }
 
-table {
-    height: 1px;
-}
+@media (min-width: 992px) {
+    .timeslotHours {
+        font-size: 32px;
+    }
 
-tr, td, td > div {
-    height: 100%;
-}
+    #scheduleNavContent {
+        margin-left: 62px;
+    }
 
-.table td {
-    border-top: 0;
+    .startTime {
+        margin: 0;
+        padding: 0;
+        text-align: right;
+        transform: translateX(calc(-100% - 16px));
+        border-bottom: 0;
+    }
+
+    .grid {
+        display: grid;
+        grid-column-gap: 16px;
+        grid-row-gap: 32px;
+        grid-template-columns: repeat(var(--tracks-number), minmax(0, 1fr));
+    }
 }
