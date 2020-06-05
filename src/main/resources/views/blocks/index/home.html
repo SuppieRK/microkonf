@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <!--/*@thymesVar id="page" type="java.lang.String"*/-->
+        <div class="page home" th:style="((${page} == 'home') ? 'display: block' : 'display: none')">
+            <th:block th:each="block : ${blocks}">
+                <!--/*@thymesVar id="block" type="java.lang.String"*/-->
+                <th:block th:replace="|/blocks/index/${block}.html|"/>
+            </th:block>
+        </div>
+    </body>
+</html>

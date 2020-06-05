@@ -14,25 +14,29 @@ class SiteController(
     @Get
     @View("index")
     fun index(): ConferenceProperties {
+        conferenceProperties.page = "home"
         return conferenceProperties
     }
 
     @Get("/schedule")
     @View("index")
     fun schedule(): ConferenceProperties {
-        return conferenceProperties.copy(
-                page = "schedule",
-                blocks = listOf("schedule")
-        )
+        conferenceProperties.page = "schedule"
+        return conferenceProperties
     }
 
     @Get("/speakers")
     @View("index")
     fun speakers(): ConferenceProperties {
-        return conferenceProperties.copy(
-                page = "speakers",
-                blocks = listOf("speakers")
-        )
+        conferenceProperties.page = "speakers"
+        return conferenceProperties
+    }
+
+    @Get("/team")
+    @View("index")
+    fun team(): ConferenceProperties {
+        conferenceProperties.page = "team"
+        return conferenceProperties
     }
 
     @Get("/speakers/{speakerName}")
@@ -41,14 +45,5 @@ class SiteController(
         return conferenceProperties.speakers.find {
             it.name == speakerName
         }
-    }
-
-    @Get("/team")
-    @View("index")
-    fun team(): ConferenceProperties {
-        return conferenceProperties.copy(
-                page = "team",
-                blocks = listOf("team")
-        )
     }
 }

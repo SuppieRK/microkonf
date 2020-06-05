@@ -63,7 +63,7 @@
     }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 991px) {
     .mobileMenu {
         position: fixed;
         top: 0;
@@ -74,7 +74,6 @@
         margin-left: auto;
         margin-right: auto;
         transform: translateX(-100%);
-        transition: all .3s cubic-bezier(.86, 0, .07, 1);
         background: rgba(255, 255, 255, .0);
         z-index: 1000;
     }
@@ -82,6 +81,7 @@
     .mobileMenu.open {
         min-width: 65%;
         transform: translateX(0);
+        transition: all .3s cubic-bezier(.86, 0, .07, 1);
         background: rgba(255, 255, 255, .975);
     }
 
@@ -489,7 +489,7 @@
     object-fit: scale-down;
 }
 
-@media (min-width: 992px) {
+@media screen and (min-width: 992px) {
     .timeslotHours {
         font-size: 32px;
     }

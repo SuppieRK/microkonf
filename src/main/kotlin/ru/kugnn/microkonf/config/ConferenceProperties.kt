@@ -16,9 +16,9 @@ import ru.kugnn.microkonf.render.GridArea
 
 @Introspected
 data class ConferenceProperties(
+        var page: String = "home",
         // General properties
         val constants: Constants,
-        val page: String = "index",
         val blocks: List<String>,
         val conference: Conference,
         val gallery: Gallery,

@@ -1,53 +1,57 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <body>
-        <div class="container px-0 pb-4">
-            <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
-            <h1 class="page-header" th:text="${constants.team.title}"></h1>
-        </div>
-        <div class="page-description">
-            <div class="container px-0 pt-1 pb-1">
+        <!--/*@thymesVar id="page" type="java.lang.String"*/-->
+        <div class="page team" th:style="((${page} == 'team') ? 'display: block' : 'display: none')">
+            <div class="container px-0 pb-4">
                 <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
-                <p th:utext="${constants.team.description}"></p>
+                <h1 class="page-header" th:text="${constants.team.title}"></h1>
             </div>
-        </div>
-        <div class="container px-0 pb-4">
-            <div class="row mx-auto">
-                <!--/*@thymesVar id="team" type="ru.kugnn.microkonf.config.blocks.team.Team"*/-->
-                <th:block th:each="team : ${teams}">
-                    <h2 class="team-title mb-4" th:text="${team.title}"></h2>
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
-                        <div class="col mb-4" th:each="member: ${team.members}">
-                            <div class="card h-100">
-                                <div class="row no-gutters h-100">
-                                    <div class="col-4 d-flex justify-content-center align-items-center border-right">
-                                        <img class="card-img teamImg lazyload" th:attr="data-src=${member.photo}" th:alt="${member.name}">
-                                    </div>
-                                    <div class="col-8 d-flex flex-column">
-                                        <div class="card-body">
-                                            <h5 class="card-title" th:text="${member.name}"></h5>
-                                            <p class="card-text" th:text="${member.title}"></p>
+            <div class="page-description">
+                <div class="container px-0 pt-1 pb-1">
+                    <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
+                    <p th:utext="${constants.team.description}"></p>
+                </div>
+            </div>
+            <div class="container px-0 pb-4">
+                <div class="row mx-auto">
+                    <!--/*@thymesVar id="team" type="ru.kugnn.microkonf.config.blocks.team.Team"*/-->
+                    <th:block th:each="team : ${teams}">
+                        <h2 class="team-title mb-4" th:text="${team.title}"></h2>
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+                            <div class="col mb-4" th:each="member: ${team.members}">
+                                <div class="card h-100">
+                                    <div class="row no-gutters h-100">
+                                        <div class="col-4 d-flex justify-content-center align-items-center border-right">
+                                            <img class="card-img teamImg lazyload" th:attr="data-src=${member.photo}"
+                                                 th:alt="${member.name}">
                                         </div>
-                                        <th:block th:if="${member.socials != null && !member.socials.isEmpty()}">
-                                            <div class="card-footer bg-transparent mt-auto">
-                                                <ul class="nav">
-                                                    <li class="nav-item" th:each="item : ${member.socials}">
-                                                        <a class="nav-link teamSocial"
-                                                           style="font-size: 20px !important; line-height: 20px !important;"
-                                                           target="_blank"
-                                                           th:href="${item.url}">
-                                                            <i th:class="|fa fa-${item.type} mr-sm-1|"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
+                                        <div class="col-8 d-flex flex-column">
+                                            <div class="card-body">
+                                                <h5 class="card-title" th:text="${member.name}"></h5>
+                                                <p class="card-text" th:text="${member.title}"></p>
                                             </div>
-                                        </th:block>
+                                            <th:block th:if="${member.socials != null && !member.socials.isEmpty()}">
+                                                <div class="card-footer bg-transparent mt-auto">
+                                                    <ul class="nav">
+                                                        <li class="nav-item" th:each="item : ${member.socials}">
+                                                            <a class="nav-link teamSocial"
+                                                               style="font-size: 20px !important; line-height: 20px !important;"
+                                                               target="_blank"
+                                                               th:href="${item.url}">
+                                                                <i th:class="|fa fa-${item.type} mr-sm-1|"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </th:block>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </th:block>
+                    </th:block>
+                </div>
             </div>
         </div>
     </body>
