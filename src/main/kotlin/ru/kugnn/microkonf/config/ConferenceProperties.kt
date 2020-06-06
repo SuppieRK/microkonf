@@ -165,6 +165,8 @@ data class ConferenceProperties(
         val commonSession: CommonSession? = commonSessions.find { it.title == session.title }
 
         div(classes = "card h-100") {
+            style = "transform: rotate(0);" // Prevent stretched link to go beyond this DIV (for safety reasons)
+
             div(classes = "card-body d-flex flex-column") {
                 when {
                     speakerSession != null -> buildSpeakerSessionCardBody(track, timeslot, speakerSession)
@@ -225,6 +227,11 @@ data class ConferenceProperties(
                     }
                 }
             }
+        }
+
+        a(classes = "stretched-link") {
+            href = "#modal${session.id}"
+            attributes["data-toggle"] = "modal"
         }
     }
 

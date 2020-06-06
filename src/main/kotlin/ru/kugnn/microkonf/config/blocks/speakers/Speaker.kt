@@ -3,6 +3,7 @@ package ru.kugnn.microkonf.config.blocks.speakers
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected
+import ru.kugnn.microkonf.Utils.generateHash
 import ru.kugnn.microkonf.config.blocks.Social
 
 @Introspected
@@ -18,7 +19,7 @@ data class Speaker @JsonCreator constructor(
         @JsonProperty("socials") val socials: List<Social>
 ) {
     val id: String by lazy {
-        name.replace(" ", "") + hashCode()
+        generateHash(name + hashCode())
     }
 
     @Introspected

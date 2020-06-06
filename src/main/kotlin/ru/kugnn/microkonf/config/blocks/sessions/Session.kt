@@ -3,6 +3,7 @@ package ru.kugnn.microkonf.config.blocks.sessions
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected
+import ru.kugnn.microkonf.Utils.generateHash
 
 @Introspected
 data class Session @JsonCreator constructor(
@@ -14,6 +15,10 @@ data class Session @JsonCreator constructor(
         @JsonProperty("speakers") val speakers: List<String>?,
         @JsonProperty("resources") val resources: Resources?
 ) {
+    val id: String by lazy {
+        generateHash(title + hashCode())
+    }
+
     @Introspected
     data class Resources @JsonCreator constructor(
             @JsonProperty("presentation") val presentation: String?,

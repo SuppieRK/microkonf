@@ -2,9 +2,12 @@ package ru.kugnn.microkonf
 
 import org.commonmark.parser.Parser
 import org.commonmark.renderer.html.HtmlRenderer
+import java.math.BigInteger
+import java.security.MessageDigest
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+
 
 object Utils {
     // Date formatting
@@ -42,5 +45,17 @@ object Utils {
 
     fun markdownToHtml(source: String): String {
         return MarkdownHtmlRenderer.render(MarkdownParser.parse(source))
+    }
+
+    // ID generation utils
+    fun generateHash(source: String): String {
+        val digest = MessageDigest.getInstance("MD5")
+        val messageDigest: ByteArray = digest.digest(source.toByteArray())
+        val no = BigInteger(1, messageDigest)
+        var hashtext = no.toString(16)
+        while (hashtext.length < 32) {
+            hashtext = "0$hashtext"
+        }
+        return hashtext.toUpperCase()
     }
 }
