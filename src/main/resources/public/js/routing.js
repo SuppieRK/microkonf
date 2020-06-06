@@ -27,4 +27,5 @@ window.addEventListener('popstate', function (event) {
     } else {
         toggleContentVisibility(event.state.page)
     }
+    event.preventDefault();
 });
