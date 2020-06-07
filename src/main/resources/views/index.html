@@ -50,10 +50,6 @@
         <th:block th:replace="/blocks/team/team.html"/>
         <th:block th:replace="/blocks/footer.html"/>
 
-        <!-- Modals -->
-        <th:block th:utext="${speakerModals}"></th:block>
-        <th:block th:utext="${speakerSessionModals}"></th:block>
-
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script defer src="/public/js/jquery.min.js"></script>
         <script defer src="/public/js/popper.min.js"></script>
@@ -62,5 +58,9 @@
         <script defer src="/public/js/lazysizes.min.js"></script>
         <script defer src="/public/js/custom.js"></script>
         <script defer src="/public/js/sidenav.js"></script>
+
+        <!-- Modals -->
+        <th:block th:utext="${speakerModals}"></th:block>
+        <th:block th:utext="${speakerSessionModals}"></th:block>
     </body>
 </html>

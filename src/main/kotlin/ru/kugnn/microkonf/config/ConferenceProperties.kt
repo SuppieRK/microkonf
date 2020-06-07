@@ -47,7 +47,7 @@ data class ConferenceProperties(
                 buildModalBaseFrame(
                         modalId = session.id,
                         modalTitle = session.title
-                ) {
+                ) { currentModalId ->
                     div(classes = "row mx-auto mt-4") {
                         p {
                             +session.description
@@ -81,6 +81,7 @@ data class ConferenceProperties(
                             a(classes = "stretched-link") {
                                 href = "#modal${speaker.id}"
                                 attributes["data-toggle"] = "modal"
+                                attributes["data-dismiss"] = "modal"
                             }
                         }
                     }
@@ -140,6 +141,28 @@ data class ConferenceProperties(
                                             i(classes = "fa fa-${social.type} mr-sm-1")
                                         }
                                     }
+                                }
+                            }
+                        }
+                    }
+
+                    sessions.find { session ->
+                        session.speakers?.any { speakerName -> speakerName == speaker.name } ?: false
+                    }?.apply {
+                        div(classes = "row mx-auto") {
+                            div(classes = "row") {
+                                val session = this@apply
+
+                                style = "transform: rotate(0);" // Prevent stretched link to go beyond this DIV (for safety reasons)
+
+                                p {
+                                    +session.title
+                                }
+
+                                a(classes = "stretched-link") {
+                                    href = "#modal${session.id}"
+                                    attributes["data-toggle"] = "modal"
+                                    attributes["data-dismiss"] = "modal"
                                 }
                             }
                         }
@@ -386,7 +409,7 @@ data class ConferenceProperties(
         }
     }
 
-    private fun FlowContent.buildModalBaseFrame(modalId: String, modalTitle: String, block: DIV.() -> Unit = {}) {
+    private fun FlowContent.buildModalBaseFrame(modalId: String, modalTitle: String, block: DIV.(currentModalId: String) -> Unit = {}) {
         div(classes = "modal fade") {
             id = "modal$modalId"
 
@@ -415,7 +438,7 @@ data class ConferenceProperties(
                     }
                     div(classes = "modal-body") {
                         div(classes = "container-fluid") {
-                            block.invoke(this)
+                            block.invoke(this, modalId)
                         }
                     }
                 }
