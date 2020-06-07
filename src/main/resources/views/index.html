@@ -51,8 +51,8 @@
         <th:block th:replace="/blocks/footer.html"/>
 
         <!-- Modals -->
-        <th:block th:replace="/blocks/speakers/speaker-modals.html"/>
-        <th:block th:replace="/blocks/sessions/session-modals.html"/>
+        <th:block th:utext="${speakerModals}"></th:block>
+        <th:block th:utext="${speakerSessionModals}"></th:block>
 
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script defer src="/public/js/jquery.min.js"></script>

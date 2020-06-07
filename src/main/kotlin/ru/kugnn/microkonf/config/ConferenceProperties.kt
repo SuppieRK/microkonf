@@ -38,6 +38,117 @@ data class ConferenceProperties(
         // Teams
         val teams: List<Team>
 ) {
+    // Modal windows creation
+    val speakerSessionModals: String by lazy {
+        createHTML().div {
+            id = "speakerSessionModals"
+
+            sessions.forEach { session ->
+                buildModalBaseFrame(
+                        modalId = session.id,
+                        modalTitle = session.title
+                ) {
+                    div(classes = "row mx-auto mt-4") {
+                        p {
+                            +session.description
+                        }
+                    }
+
+                    div(classes = "row mx-auto") {
+
+                    }
+
+                    session.speakers?.mapNotNull { speakerName ->
+                        speakers.find { speakerName == it.name }
+                    }?.forEach { speaker ->
+                        div(classes = "sessionSpeaker row") {
+                            style = "transform: rotate(0);" // Prevent stretched link to go beyond this DIV (for safety reasons)
+
+                            img(classes = "col sessionSpeakerImg lazyloaded") {
+                                alt = speaker.name
+                                src = speaker.photo
+                            }
+
+                            div(classes = "col align-self-center") {
+                                p(classes = "sessionSpeakerName") {
+                                    +speaker.name
+                                }
+                                p(classes = "sessionSpeakerDescription") {
+                                    +"${if (speaker.company != null) "${speaker.company.name} • " else ""}${speaker.country}"
+                                }
+                            }
+
+                            a(classes = "stretched-link") {
+                                href = "#modal${speaker.id}"
+                                attributes["data-toggle"] = "modal"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    val speakerModals: String by lazy {
+        createHTML().div {
+            id = "speakerModals"
+
+            speakers.forEach { speaker ->
+                buildModalBaseFrame(
+                        modalId = speaker.id,
+                        modalTitle = speaker.name
+                ) {
+                    div(classes = "row") {
+                        div(classes = "col-12 col-lg-2") {
+                            img(classes = "speakerImg lazyload") {
+                                style = "margin-top: 0 !important"
+                                alt = speaker.name
+                                attributes["data-src"] = speaker.photo
+                            }
+                        }
+                        div(classes = "col-12 col-lg-9 mt-4 ml-0 mt-lg-0 ml-lg-4 align-self-center") {
+                            h6 {
+                                +speaker.country
+                            }
+                            speaker.pronouns?.apply {
+                                p {
+                                    +"Pronouns as $this"
+                                }
+                            }
+                            p {
+                                +"${speaker.jobTitle}${speaker.company?.run { " • ${this.name}" } ?: ""}"
+                            }
+                        }
+                    }
+
+                    div(classes = "row mx-auto mt-4") {
+                        p {
+                            +speaker.bio
+                        }
+                    }
+
+                    speaker.socials?.apply {
+                        div(classes = "row mx-auto") {
+                            ul(classes = "nav justify-content-center") {
+                                this@apply.forEach { social ->
+                                    li(classes = "nav-item") {
+                                        a(classes = "nav-link teamSocial") {
+                                            style = "font-size: 20px !important; line-height: 20px !important;"
+                                            target = "_blank"
+                                            href = social.url
+
+                                            i(classes = "fa fa-${social.type} mr-sm-1")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     // Schedule table must be code generated and not templated due to its complexity
     val scheduleTable: String by lazy {
         val sortedSchedule: Iterable<IndexedValue<ScheduleDay>> = schedule.sortedBy { it.date }.withIndex()
@@ -272,6 +383,43 @@ data class ConferenceProperties(
     private fun FlowContent.buildPlaceholderSessionCardBody() {
         h5(classes = "card-title card-header sessionHeader") {
             +"To be discussed"
+        }
+    }
+
+    private fun FlowContent.buildModalBaseFrame(modalId: String, modalTitle: String, block: DIV.() -> Unit = {}) {
+        div(classes = "modal fade") {
+            id = "modal$modalId"
+
+            attributes["tabindex"] = "-1"
+            attributes["role"] = "dialog"
+            attributes["aria-labelledby"] = "modal${modalId}Label"
+            attributes["aria-hidden"] = "true"
+
+            div(classes = "modal-dialog modal-dialog-centered modal-lg") {
+                div(classes = "modal-content") {
+                    div(classes = "modal-header") {
+                        h5(classes = "modal-title mb-1") {
+                            +modalTitle
+                        }
+                        button(classes = "close") {
+                            type = ButtonType.button
+
+                            attributes["data-dismiss"] = "modal"
+                            attributes["aria-label"] = "Close"
+
+                            span {
+                                attributes["aria-hidden"] = "true"
+                                +"×"
+                            }
+                        }
+                    }
+                    div(classes = "modal-body") {
+                        div(classes = "container-fluid") {
+                            block.invoke(this)
+                        }
+                    }
+                }
+            }
         }
     }
 

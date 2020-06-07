@@ -29,3 +29,14 @@ window.addEventListener('popstate', function (event) {
     }
     event.preventDefault();
 });
+
+// TODO Not working yet
+// $(document).on('show.bs.modal', function (event) {
+//     if (!event.relatedTarget) {
+//         $('.modal').not(event.target).modal('hide');
+//     }
+//
+//     if ($(event.relatedTarget).parents('.modal').length > 0) {
+//         $(event.relatedTarget).parents('.modal').modal('hide');
+//     }
+// });
