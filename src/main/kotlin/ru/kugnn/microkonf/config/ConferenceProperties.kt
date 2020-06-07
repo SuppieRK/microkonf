@@ -60,31 +60,7 @@ data class ConferenceProperties(
 
                     session.speakers?.mapNotNull { speakerName ->
                         speakers.find { speakerName == it.name }
-                    }?.forEach { speaker ->
-                        div(classes = "sessionSpeaker row") {
-                            style = "transform: rotate(0);" // Prevent stretched link to go beyond this DIV (for safety reasons)
-
-                            img(classes = "col sessionSpeakerImg lazyloaded") {
-                                alt = speaker.name
-                                src = speaker.photo
-                            }
-
-                            div(classes = "col align-self-center") {
-                                p(classes = "sessionSpeakerName") {
-                                    +speaker.name
-                                }
-                                p(classes = "sessionSpeakerDescription") {
-                                    +"${if (speaker.company != null) "${speaker.company.name} • " else ""}${speaker.country}"
-                                }
-                            }
-
-                            a(classes = "stretched-link") {
-                                href = "#modal${speaker.id}"
-                                attributes["data-toggle"] = "modal"
-                                attributes["data-dismiss"] = "modal"
-                            }
-                        }
-                    }
+                    }?.forEach { speaker -> buildShortSpeakerRow(speaker, withModalToggle = true) }
                 }
             }
         }
@@ -345,22 +321,7 @@ data class ConferenceProperties(
 
             session.speakers?.mapNotNull { speakerName ->
                 speakers.find { speakerName == it.name }
-            }?.forEach { speaker ->
-                div(classes = "sessionSpeaker row") {
-                    img(classes = "col sessionSpeakerImg lazyloaded") {
-                        alt = speaker.name
-                        src = speaker.photo
-                    }
-                    div(classes = "col align-self-center") {
-                        p(classes = "sessionSpeakerName") {
-                            +speaker.name
-                        }
-                        p(classes = "sessionSpeakerDescription") {
-                            +"${if (speaker.company != null) "${speaker.company.name} • " else ""}${speaker.country}"
-                        }
-                    }
-                }
-            }
+            }?.forEach { speaker -> buildShortSpeakerRow(speaker) }
         }
 
         a(classes = "stretched-link") {
@@ -441,6 +402,34 @@ data class ConferenceProperties(
                             block.invoke(this, modalId)
                         }
                     }
+                }
+            }
+        }
+    }
+
+    private fun FlowContent.buildShortSpeakerRow(speaker: Speaker, withModalToggle: Boolean = false) {
+        div(classes = "sessionSpeaker row") {
+            if (withModalToggle) {
+                style = "transform: rotate(0);" // Prevent stretched link to go beyond this DIV (for safety reasons)
+
+                a(classes = "stretched-link") {
+                    href = "#modal${speaker.id}"
+                    attributes["data-toggle"] = "modal"
+                    attributes["data-dismiss"] = "modal"
+                }
+            }
+
+            img(classes = "col sessionSpeakerImg lazyloaded") {
+                alt = speaker.name
+                src = speaker.photo
+            }
+
+            div(classes = "col align-self-center") {
+                p(classes = "sessionSpeakerName") {
+                    +speaker.name
+                }
+                p(classes = "sessionSpeakerDescription") {
+                    +"${if (speaker.company != null) "${speaker.company.name} • " else ""}${speaker.country}"
                 }
             }
         }
