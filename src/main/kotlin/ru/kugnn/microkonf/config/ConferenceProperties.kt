@@ -13,6 +13,7 @@ import ru.kugnn.microkonf.config.blocks.speakers.Speaker
 import ru.kugnn.microkonf.config.blocks.team.Team
 import ru.kugnn.microkonf.config.style.Constants
 import ru.kugnn.microkonf.render.GridArea
+import java.time.LocalTime
 
 @Introspected
 data class ConferenceProperties(
@@ -38,29 +39,55 @@ data class ConferenceProperties(
         // Teams
         val teams: List<Team>
 ) {
+    private val scheduleData: Map<ScheduleDay, List<ScheduleDay.TimeslotDescription>> by lazy {
+        schedule.map { day -> day to day.timeslotDescriptions }.sortedBy { it.first.date }.toMap()
+    }
+
     // Modal windows creation
     val speakerSessionModals: String by lazy {
         createHTML().div {
             id = "speakerSessionModals"
 
-            sessions.forEach { session ->
-                buildModalBaseFrame(
-                        modalId = session.id,
-                        modalTitle = session.title
-                ) { currentModalId ->
-                    div(classes = "row mx-auto mt-4") {
-                        p {
-                            +session.description
+            schedule.forEach { scheduleDay ->
+                scheduleDay.timeslots.forEach { timeslot ->
+                    timeslot.sessions.withIndex().map { (index, sessionCell) ->
+                        index to sessions.find { it.title == sessionCell.title }
+                    }.filter { (_, session) ->
+                        session != null
+                    }.forEach { (index, session) ->
+                        buildModalBaseFrame(
+                                modalId = session!!.id,
+                                modalTitle = session.title
+                        ) {
+                            div(classes = "row mx-auto mt-4") {
+                                p {
+                                    +"${scheduleDay.dayString}, ${timeslot.startsAt} - ${timeslot.endsAt}"
+                                }
+
+                                session.complexity?.apply {
+                                    p {
+                                        +"Content level: ${this@apply}"
+                                    }
+                                }
+
+                                p {
+                                    +session.description
+                                }
+                            }
+
+                            session.speakers?.mapNotNull { speakerName ->
+                                speakers.find { speakerName == it.name }
+                            }?.apply {
+                                p {
+                                    +"Speakers"
+                                }
+
+                                this.forEach { speaker ->
+                                    buildShortSpeakerRow(speaker, withModalToggle = true)
+                                }
+                            }
                         }
                     }
-
-                    div(classes = "row mx-auto") {
-
-                    }
-
-                    session.speakers?.mapNotNull { speakerName ->
-                        speakers.find { speakerName == it.name }
-                    }?.forEach { speaker -> buildShortSpeakerRow(speaker, withModalToggle = true) }
                 }
             }
         }
@@ -150,7 +177,7 @@ data class ConferenceProperties(
 
     // Schedule table must be code generated and not templated due to its complexity
     val scheduleTable: String by lazy {
-        val sortedSchedule: Iterable<IndexedValue<ScheduleDay>> = schedule.sortedBy { it.date }.withIndex()
+        val sortedSchedule = scheduleData.entries.withIndex()
 
         createHTML().div(classes = "container px-0 pb-4") {
             id = "schedule"
@@ -160,14 +187,14 @@ data class ConferenceProperties(
 
                 attributes["role"] = "tablist"
 
-                sortedSchedule.forEach { (index: Int, scheduleDay: ScheduleDay) ->
+                sortedSchedule.forEach { (index, entry) ->
                     li(classes = "nav-item") {
-                        a(href = "#${scheduleDay.dayId}", classes = "nav-link") {
-                            id = "${scheduleDay.dayId}tab"
+                        a(href = "#${entry.key.dayId}", classes = "nav-link") {
+                            id = "${entry.key.dayId}tab"
 
                             attributes["data-toggle"] = "tab"
                             attributes["role"] = "tab"
-                            attributes["aria-controls"] = scheduleDay.dayId
+                            attributes["aria-controls"] = entry.key.dayId
 
                             if (index == 0) {
                                 classes = classes + "active"
@@ -177,7 +204,7 @@ data class ConferenceProperties(
                                 attributes["aria-selected"] = false.toString()
                             }
 
-                            +scheduleDay.dayString
+                            +entry.key.dayString
                         }
                     }
                 }
@@ -186,7 +213,10 @@ data class ConferenceProperties(
             div(classes = "tab-content") {
                 id = "scheduleNavContent"
 
-                sortedSchedule.forEach { (index: Int, scheduleDay: ScheduleDay) ->
+                sortedSchedule.forEach { (index, entry) ->
+                    val scheduleDay = entry.key
+                    val timeslotDescriptions = entry.value
+
                     div(classes = "tab-pane fade") {
                         id = scheduleDay.dayId
 
@@ -195,64 +225,28 @@ data class ConferenceProperties(
 
                         if (index == 0) classes = classes + setOf("show", "active")
 
-                        buildScheduleTableUsingCssGrid(scheduleDay)
-                    }
-                }
-            }
-        }
-    }
+                        div(classes = "grid") {
+                            style = "--tracks-number: ${scheduleDay.tracks.size};"
 
-    private fun FlowContent.buildScheduleTableUsingCssGrid(scheduleDay: ScheduleDay) {
-        val tracksAmount: Int = scheduleDay.tracks.size
+                            timeslotDescriptions.forEach { description ->
+                                buildStartTimeCell(description.rowIndex, description.period.startsAt)
 
-        // Track number -> Desired colspan, decreasing with each row
-        val tracksSpanTracker: HashMap<Int, Int> = (1..tracksAmount).map { it to 0 }.toMap(HashMap())
+                                description.sessions.forEach { sessionDescription ->
+                                    div(classes = "session") {
+                                        style = sessionDescription.gridArea.toStyleString()
 
-        div(classes = "grid") {
-            style = "--tracks-number: ${tracksAmount};"
-
-            (1..scheduleDay.timeslots.size).zip(scheduleDay.timeslots).forEach { (rowIndex, timeslot) ->
-                buildStartTimeCell(rowIndex, timeslot)
-
-                val sessionsInSlot: Int = timeslot.sessions.size
-                val spannedColumns: Int = tracksSpanTracker.count { (_, remainingColSpans) ->
-                    remainingColSpans != 0
-                }
-
-                timeslot.sessions.withIndex().forEach { (index, session) ->
-                    // Array indices start from zero, however, CSS grid indices start from 1
-                    val columnIndex: Int = index + 1
-
-                    // Slot spans indicate that we need to take current slot + N next slots
-                    // Here N is the value set by user, thus we need to increase the value by 1
-                    tracksSpanTracker[columnIndex] = session.slotSpan?.run { this + 1 } ?: 0
-
-                    div(classes = "session") {
-                        style = GridArea(
-                                rowStart = rowIndex,
-                                columnStart = columnIndex,
-                                rowEnd = rowIndex + 1 + (session.slotSpan ?: 0), // End values must be +1 from start
-                                columnEnd = columnIndex + if ((sessionsInSlot + spannedColumns) != tracksAmount) {
-                                    tracksAmount - spannedColumns
-                                } else {
-                                    1 // End values must be +1 from start
+                                        buildSession(sessionDescription.tracks, sessionDescription.title, description.period.durationString())
+                                    }
                                 }
-                        ).toStyleString()
-
-                        buildSession(scheduleDay.tracks[index], timeslot, session)
+                            }
+                        }
                     }
-                }
-
-                tracksSpanTracker.forEach { (trackIndex, _) ->
-                    tracksSpanTracker[trackIndex] = tracksSpanTracker[trackIndex]?.run {
-                        if (this > 0) this - 1 else this
-                    } ?: 0
                 }
             }
         }
     }
 
-    private fun FlowContent.buildStartTimeCell(rowIndex: Int, timeslot: ScheduleDay.Timeslot) {
+    private fun FlowContent.buildStartTimeCell(rowIndex: Int, timeslotStartsAt: LocalTime) {
         div(classes = "startTime") {
             style = GridArea(
                     rowStart = rowIndex,
@@ -260,34 +254,35 @@ data class ConferenceProperties(
             ).toStyleString()
 
             span(classes = "timeslotHours") {
-                text(timeslot.startsAt.hour)
+                text(timeslotStartsAt.hour)
             }
             span(classes = "timeslotMinutes") {
-                timeslot.startsAt.minute.apply {
+                timeslotStartsAt.minute.apply {
                     text(if (this == 0) "00" else this.toString())
                 }
             }
         }
     }
 
-    private fun FlowContent.buildSession(track: String, timeslot: ScheduleDay.Timeslot, session: ScheduleDay.SessionCell) {
-        val speakerSession: Session? = sessions.find { it.title == session.title }
-        val commonSession: CommonSession? = commonSessions.find { it.title == session.title }
+    private fun FlowContent.buildSession(tracks: List<String>, sessionTitle: String, duration: String) {
+        val speakerSession: Session? = sessions.find { it.title == sessionTitle }
+        val commonSession: CommonSession? = commonSessions.find { it.title == sessionTitle }
 
         div(classes = "card h-100") {
             style = "transform: rotate(0);" // Prevent stretched link to go beyond this DIV (for safety reasons)
 
             div(classes = "card-body d-flex flex-column") {
                 when {
-                    speakerSession != null -> buildSpeakerSessionCardBody(track, timeslot, speakerSession)
-                    commonSession != null -> buildCommonSessionCardBody(timeslot, commonSession)
+                    // TODO document this behavior later (we pick only first track for speaker session from the list)
+                    speakerSession != null -> buildSpeakerSessionCardBody(tracks[0], duration, speakerSession)
+                    commonSession != null -> buildCommonSessionCardBody(duration, commonSession)
                     else -> buildPlaceholderSessionCardBody()
                 }
             }
         }
     }
 
-    private fun FlowContent.buildSpeakerSessionCardBody(track: String, timeslot: ScheduleDay.Timeslot, session: Session) {
+    private fun FlowContent.buildSpeakerSessionCardBody(track: String, duration: String, session: Session) {
         div(classes = "card-header sessionHeader") {
             div(classes = "clearfix") {
                 h5(classes = "sessionTitle") {
@@ -311,7 +306,7 @@ data class ConferenceProperties(
             p(classes = "text-muted") {
                 style = "margin-bottom: 0.2rem;"
 
-                +"${timeslot.durationString()} • $track"
+                +"$duration • $track"
             }
             session.complexity?.apply {
                 p(classes = "sessionComplexity text-muted") {
@@ -321,7 +316,9 @@ data class ConferenceProperties(
 
             session.speakers?.mapNotNull { speakerName ->
                 speakers.find { speakerName == it.name }
-            }?.forEach { speaker -> buildShortSpeakerRow(speaker) }
+            }?.forEach { speaker ->
+                buildShortSpeakerRow(speaker)
+            }
         }
 
         a(classes = "stretched-link") {
@@ -330,7 +327,7 @@ data class ConferenceProperties(
         }
     }
 
-    private fun FlowContent.buildCommonSessionCardBody(timeslot: ScheduleDay.Timeslot, commonSession: CommonSession) {
+    private fun FlowContent.buildCommonSessionCardBody(duration: String, commonSession: CommonSession) {
         div(classes = "card-header mt-auto sessionHeader") {
             h5 {
                 +commonSession.title
@@ -349,7 +346,7 @@ data class ConferenceProperties(
             p(classes = "text-muted") {
                 style = "margin-bottom: 0;"
 
-                +timeslot.durationString()
+                +duration
             }
 
             commonSession.icon?.run {
@@ -370,8 +367,8 @@ data class ConferenceProperties(
         }
     }
 
-    private fun FlowContent.buildModalBaseFrame(modalId: String, modalTitle: String, block: DIV.(currentModalId: String) -> Unit = {}) {
-        div(classes = "modal fade") {
+    private fun FlowContent.buildModalBaseFrame(modalId: String, modalTitle: String, block: DIV.() -> Unit = {}) {
+        div(classes = "modal") {
             id = "modal$modalId"
 
             attributes["tabindex"] = "-1"
@@ -399,7 +396,7 @@ data class ConferenceProperties(
                     }
                     div(classes = "modal-body") {
                         div(classes = "container-fluid") {
-                            block.invoke(this, modalId)
+                            block.invoke(this)
                         }
                     }
                 }
