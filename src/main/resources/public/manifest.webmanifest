@@ -1,0 +1,48 @@
+{
+  "short_name": "Microconf",
+  "name": "Microconf site",
+  "description": "Web app for online and offline developers conferences",
+  "icons": [
+    {
+      "src": "/public/images/assets/manifest/icons/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "/",
+  "display": "fullscreen",
+  "scope": [
+    "/",
+    "/schedule",
+    "/speakers",
+    "/team",
+  ],
+
+  /*
+  "background_color": "#3367D6",
+  "theme_color": "#3367D6",
+  "shortcuts": [
+    {
+      "name": "Conference Schedule",
+      "short_name": "Schedule",
+      "description": "View conference schedule",
+      "url": "/schedule",
+      "icons": [{ "src": "/images/today.png", "sizes": "192x192" }] // TBD
+    },
+    {
+      "name": "Conference Speakers",
+      "short_name": "Speakers",
+      "description": "View invited speakers",
+      "url": "/speakers",
+      "icons": [{ "src": "/images/tomorrow.png", "sizes": "192x192" }] // TBD
+    },
+    {
+      "name": "Organizers Team",
+      "short_name": "Speakers",
+      "description": "View a list of conference organizers",
+      "url": "/speakers",
+      "icons": [{ "src": "/images/tomorrow.png", "sizes": "192x192" }] // TBD
+    }
+  ]
+  */
+}
