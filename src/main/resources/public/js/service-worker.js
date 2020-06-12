@@ -1,4 +1,7 @@
-var CACHE_NAME = 'microconf-sw-cache';
+'use strict';
+
+importScripts('/public/js/sw-toolbox.js');
+
 var URLS_TO_CACHE = [
     '/',
     '/index.html',
@@ -64,51 +67,11 @@ var URLS_TO_CACHE = [
     '/public/images/people/roman_khlebnov.jpg'
 ];
 
-self.addEventListener('install', event => {
-    console.log('Service Worker installed!')
-        event.waitUntil(
-            caches.open(CACHE_NAME)
-                .then(function(cache) {
-                    console.log('Opened cache');
-                    return cache.addAll(URLS_TO_CACHE);
-                })
-        );
-});
+toolbox.precache(URLS_TO_CACHE);
 
-self.addEventListener('activate', event => {
-    console.log('Service Worker is now active!')
-});
-
-self.addEventListener('fetch', function(event) {
-  event.respondWith(
-    caches.match(event.request)
-      .then(function(response) {
-        // Cache hit - return response
-        if (response) {
-          return response;
-        }
-
-        return fetch(event.request).then(
-          function(response) {
-            // Check if we received a valid response
-            if(!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-
-            // IMPORTANT: Clone the response. A response is a stream
-            // and because we want the browser to consume the response
-            // as well as the cache consuming the response, we need
-            // to clone it so we have two streams.
-            var responseToCache = response.clone();
-
-            caches.open(CACHE_NAME)
-              .then(function(cache) {
-                cache.put(event.request, responseToCache);
-              });
-
-            return response;
-          }
-        );
-      })
-    );
-});
+toolbox.router.get('/*', toolbox.networkFirst, { networkTimeoutSeconds: 5});
+toolbox.router.get('/js/*', toolbox.cacheFirst);
+toolbox.router.get('/css/*', toolbox.cacheFirst);
+toolbox.router.get('/fonts/*', toolbox.cacheFirst);
+toolbox.router.get('/images/*', toolbox.cacheFirst);
+toolbox.router.get('/webfonts/*', toolbox.cacheFirst);
