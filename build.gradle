@@ -63,8 +63,8 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
     // Automatically added with the 'file-watch' feature in the CLi
-    developmentOnly "net.java.dev.jna:jna"
-    developmentOnly "io.methvin:directory-watcher"
+    developmentOnly "net.java.dev.jna:jna:5.5.0"
+    developmentOnly "io.methvin:directory-watcher:0.9.10"
 }
 
 test.classpath += configurations.developmentOnly

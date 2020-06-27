@@ -8,6 +8,11 @@ micronaut:
         mapping: /public/**
         paths:
           - classpath:public
+      serviceWorker:
+        enabled: true
+        mapping: /**
+        paths:
+          - classpath:public/js/sw
 
 render:
   # Defines order of elements rendering on the page
@@ -23,3 +28,7 @@ render:
       - gallery
       - venue
       - partners
+  cache:
+    folder: public
+    excludeHaving:
+      - sw

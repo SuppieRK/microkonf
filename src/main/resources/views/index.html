@@ -8,6 +8,7 @@
         <!-- Optional meta tags -->
         <meta content="" name="description">
         <meta content="" name="author">
+        <meta name="theme-color" content="#448aff">
 
         <!-- Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans" rel="stylesheet"
@@ -23,19 +24,29 @@
         <link rel="stylesheet" href="/public/css/flickity.min.css">
         <link rel="stylesheet" href="/public/css/custom.css"/>
 
-        <link href="/favicon.ico" rel="icon"/>
+        <link href="/public/images/assets/manifest/icons/favicon.ico" rel="icon"/>
 
         <!-- Homescreen icons. -->
-        <link href="/public/images/assets/manifest/icons/icon-48.png" rel="apple-touch-icon">
-        <link href="/public/images/assets/manifest/icons/icon-72.png" rel="apple-touch-icon" sizes="72x72">
-        <link href="/public/images/assets/manifest/icons/icon-96.png" rel="apple-touch-icon" sizes="96x96">
-        <link href="/public/images/assets/manifest/icons/icon-144.png" rel="apple-touch-icon" sizes="144x144">
-        <link href="/public/images/assets/manifest/icons/icon-192.png" rel="apple-touch-icon" sizes="192x192">
+        <link rel="apple-touch-icon" sizes="57x57" href="/public/images/assets/manifest/icons/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/public/images/assets/manifest/icons/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/public/images/assets/manifest/icons/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/public/images/assets/manifest/icons/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/public/images/assets/manifest/icons/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/public/images/assets/manifest/icons/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/public/images/assets/manifest/icons/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/public/images/assets/manifest/icons/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/public/images/assets/manifest/icons/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"
+              href="/public/images/assets/manifest/icons/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/public/images/assets/manifest/icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/public/images/assets/manifest/icons/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/public/images/assets/manifest/icons/favicon-16x16.png">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
 
-        <!-- Tile icon for Win8 (144x144 + tile color) -->
-        <meta name="msapplication-TileImage" th:content="#{/images/assets/manifest/icon-144.png}">
-        <meta content="#00aba9" name="msapplication-TileColor">
-        <meta content="no" name="msapplication-tap-highlight">
+        <!-- PWA Web Manifest-->
+        <link rel="manifest" href="/public/manifest.json">
 
         <!--/*@thymesVar id="conference" type="ru.kugnn.microkonf.config.blocks.index.Conference"*/-->
         <title th:text="${conference.name}"></title>
@@ -58,6 +69,7 @@
         <script defer src="/public/js/lazysizes.min.js"></script>
         <script defer src="/public/js/custom.js"></script>
         <script defer src="/public/js/sidenav.js"></script>
+        <script defer src="/public/js/service-worker-main.js"></script>
 
         <!-- Modals -->
         <th:block th:utext="${speakerModals}"></th:block>
