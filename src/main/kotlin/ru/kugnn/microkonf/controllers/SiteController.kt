@@ -5,11 +5,13 @@ import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.PathVariable
 import io.micronaut.views.View
 import ru.kugnn.microkonf.config.ConferenceProperties
+import ru.kugnn.microkonf.config.application.CacheableResources
 import ru.kugnn.microkonf.config.blocks.speakers.Speaker
 
 @Controller
 class SiteController(
-        private val conferenceProperties: ConferenceProperties
+        private val conferenceProperties: ConferenceProperties,
+        private val cacheableResources: CacheableResources
 ) {
     @Get
     @View("index")
@@ -45,5 +47,10 @@ class SiteController(
         return conferenceProperties.speakers.find {
             it.name == speakerName
         }
+    }
+
+    @Get("/cache")
+    fun urlsToCache(): Set<String> {
+        return cacheableResources.list
     }
 }
