@@ -1,5 +1,6 @@
 package ru.kugnn.microkonf.controllers
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.PathVariable
@@ -11,8 +12,12 @@ import ru.kugnn.microkonf.config.blocks.speakers.Speaker
 @Controller
 class SiteController(
         private val conferenceProperties: ConferenceProperties,
-        private val cacheableResources: CacheableResources
+        private val cacheableResources: CacheableResources,
+        private val objectMapper: ObjectMapper
 ) {
+    @Get("/properties")
+    fun props() = objectMapper.writeValueAsString(conferenceProperties)
+
     @Get
     @View("index")
     fun index(): ConferenceProperties {

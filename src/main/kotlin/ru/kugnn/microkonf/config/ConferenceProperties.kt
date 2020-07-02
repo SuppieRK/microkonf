@@ -1,5 +1,6 @@
 package ru.kugnn.microkonf.config
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.neovisionaries.i18n.LanguageAlpha3Code
 import io.micronaut.core.annotation.Introspected
 import kotlinx.html.*
@@ -17,7 +18,7 @@ import java.time.LocalTime
 
 @Introspected
 data class ConferenceProperties(
-        var page: String = "home",
+        @get:JsonIgnore var page: String = "home",
         // General properties
         val constants: Constants,
         val blocks: List<String>,
@@ -44,6 +45,7 @@ data class ConferenceProperties(
     }
 
     // Modal windows creation
+    @get:JsonIgnore
     val speakerSessionModals: String by lazy {
         createHTML().div {
             id = "speakerSessionModals"
@@ -93,6 +95,7 @@ data class ConferenceProperties(
         }
     }
 
+    @get:JsonIgnore
     val speakerModals: String by lazy {
         createHTML().div {
             id = "speakerModals"
@@ -176,6 +179,7 @@ data class ConferenceProperties(
     }
 
     // Schedule table must be code generated and not templated due to its complexity
+    @get:JsonIgnore
     val scheduleTable: String by lazy {
         val sortedSchedule = scheduleData.entries.withIndex()
 

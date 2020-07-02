@@ -3,6 +3,9 @@ package ru.kugnn.microkonf.config
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+import com.google.cloud.NoCredentials
+import com.google.cloud.firestore.Firestore
+import com.google.cloud.firestore.FirestoreOptions
 import io.micronaut.context.annotation.Bean
 import io.micronaut.context.annotation.Factory
 import io.micronaut.context.annotation.Property
@@ -14,15 +17,31 @@ import java.io.File
 class ConferencePropertiesLoader(
         @Property(name = "render.blocks.path")
         private val blocksPath: String?,
+        @Property(name = "datasources.gcp.firestore.emulator.enabled", defaultValue = "false")
+        private var firestoreEmulatorEnabled: Boolean = false,
         private val renderProperties: RenderProperties
 ) {
+    private val firestore: Firestore by lazy {
+        if (firestoreEmulatorEnabled) {
+            FirestoreOptions.newBuilder().setCredentials(NoCredentials.getInstance()).build()
+        } else {
+            FirestoreOptions.getDefaultInstance()
+        }.service
+    }
+
     private val configurationPath: String by lazy {
         if (blocksPath.isNullOrBlank()) "blocks" else blocksPath
     }
 
     @Bean
     fun conferenceProperties(): ConferenceProperties {
-        return getConferenceFromYaml()
+        return {
+            firestore.collection(FirestoreCollectionName).get().get().apply {
+                println(this.size())
+            }
+
+            getConferenceFromYaml()
+        }.invoke()
     }
 
     private fun getConferenceFromYaml(): ConferenceProperties {
@@ -92,5 +111,8 @@ class ConferencePropertiesLoader(
         private val log = LoggerFactory.getLogger(ConferencePropertiesLoader::class.java)
 
         private val yamlMapper: ObjectMapper = ObjectMapper(YAMLFactory())
+
+        private const val FirestoreCollectionName = "site"
+        private const val FirestoreDocumentName = "properties"
     }
 }

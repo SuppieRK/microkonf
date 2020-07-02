@@ -1,6 +1,7 @@
 package ru.kugnn.microkonf.config.style
 
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected
 import ru.kugnn.microkonf.Utils.markdownToHtml
@@ -67,6 +68,7 @@ data class Constants @JsonCreator constructor(
             @JsonProperty("title") val title: String,
             @JsonProperty("description") val unescapedDescription: String
     ) {
+        @get:JsonIgnore
         val description: String by lazy {
             markdownToHtml(unescapedDescription)
         }
@@ -82,6 +84,7 @@ data class Constants @JsonCreator constructor(
             @JsonProperty("title") val title: String,
             @JsonProperty("description") val unescapedDescription: String
     ) {
+        @get:JsonIgnore
         val description: String by lazy {
             markdownToHtml(unescapedDescription)
         }

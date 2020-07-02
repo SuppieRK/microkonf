@@ -1,6 +1,7 @@
 package ru.kugnn.microkonf.config.blocks.index
 
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected
 
@@ -10,8 +11,9 @@ data class Gallery @JsonCreator constructor(
         @JsonProperty("hashTag") var hashTag: String,
         @JsonProperty("description") var description: String,
         @JsonProperty("galleryUrl") var galleryUrl: String,
-        @JsonProperty("localImages") var localImages: List<String>
+        @JsonProperty("localImages") @get:JsonIgnore var localImages: List<String>
 ) {
+    @get:JsonIgnore
     val images: Map<String, Int> by lazy {
         val foundImages: Map<String, Int> = localImages.mapIndexed { index, path -> path to index }.toMap()
 

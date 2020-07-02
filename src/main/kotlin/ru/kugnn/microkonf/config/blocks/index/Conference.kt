@@ -2,6 +2,7 @@ package ru.kugnn.microkonf.config.blocks.index
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonFormat
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer
@@ -20,11 +21,12 @@ data class Conference @JsonCreator constructor(
         @JsonProperty("name") var name: String,
         @JsonProperty("city") var city: String,
         @JsonProperty("country") var country: String?,
-        @JsonProperty("startDate") @JsonDeserialize(using = LocalDateDeserializer::class) @JsonFormat(pattern = ParseDateFormat) var startDate: LocalDate,
-        @JsonProperty("endDate") @JsonDeserialize(using = LocalDateDeserializer::class) @JsonFormat(pattern = ParseDateFormat) var endDate: LocalDate?,
+        @JsonProperty("startDate") @JsonDeserialize(using = LocalDateDeserializer::class) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ParseDateFormat) var startDate: LocalDate,
+        @JsonProperty("endDate") @JsonDeserialize(using = LocalDateDeserializer::class) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ParseDateFormat) var endDate: LocalDate?,
         @JsonProperty("description") var description: String,
         @JsonProperty("series") var series: Series?
 ) {
+    @get:JsonIgnore
     val conferenceWhere: String by lazy {
         if (country.isNullOrBlank()) {
             city
@@ -33,6 +35,7 @@ data class Conference @JsonCreator constructor(
         }
     }
 
+    @get:JsonIgnore
     val conferenceWhen: String by lazy {
         if (endDate == null || endDate == startDate) {
             DisplayDateFormat.format(startDate)

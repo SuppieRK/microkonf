@@ -1,0 +1,25 @@
+version: '3'
+services:
+  cloud-firestore:
+    build:
+      context: .
+      dockerfile: DockerfileFirebaseEmulator
+    image: cloud-firestore
+    ports:
+      - 8081:8080
+    environment:
+      CLOUDSDK_CORE_PROJECT: microkonf-local
+
+  microkonf:
+    build:
+      context: .
+      dockerfile: DockerfileSimple
+    image: microkonf
+    depends_on:
+      - cloud-firestore
+    ports:
+      - 8080:8080
+    environment:
+      FIRESTORE_EMULATOR_HOST: cloud-firestore:8081
+      GOOGLE_CLOUD_PROJECT: microkonf-local
+      MICRONAUT_ENVIRONMENTS: dev

@@ -4,8 +4,10 @@ plugins {
     id "org.jetbrains.kotlin.plugin.allopen" version "${kotlinVersion}"
     id "com.github.johnrengelman.shadow" version "${shadowVersion}"
     id "application"
-    id "com.fizzed.rocker" version "1.2.3"
+    id "com.google.cloud.tools.jib" version "2.4.0"
 }
+
+jib.to.image = 'microkonf'
 
 repositories {
     jcenter()
@@ -37,6 +39,9 @@ dependencies {
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut.kotlin:micronaut-kotlin-extension-functions")
     implementation("io.micronaut:micronaut-views-thymeleaf")
+
+    implementation(enforcedPlatform("com.google.cloud:libraries-bom:$googleCloudVersion"))
+    implementation("com.google.cloud:google-cloud-firestore")
 
     implementation("javax.annotation:javax.annotation-api")
 
@@ -70,14 +75,6 @@ dependencies {
 test.classpath += configurations.developmentOnly
 
 mainClassName = "ru.kugnn.microkonf.Application"
-
-sourceSets {
-    main {
-        rocker {
-            srcDir('src/main/resources')
-        }
-    }
-}
 
 // use JUnit 5 platform
 test {

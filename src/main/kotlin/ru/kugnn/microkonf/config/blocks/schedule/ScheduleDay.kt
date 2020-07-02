@@ -2,6 +2,7 @@ package ru.kugnn.microkonf.config.blocks.schedule
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonFormat
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer
@@ -18,7 +19,7 @@ import kotlin.math.min
 
 @Introspected
 data class ScheduleDay @JsonCreator constructor(
-        @JsonProperty("date") @JsonDeserialize(using = LocalDateDeserializer::class) @JsonFormat(pattern = ParseDateFormat) val date: LocalDate,
+        @JsonProperty("date") @JsonDeserialize(using = LocalDateDeserializer::class) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ParseDateFormat) val date: LocalDate,
         @JsonProperty("tracks") val tracks: List<String>,
         @JsonProperty("timeslots") val timeslots: List<Timeslot>
 ) {
@@ -37,7 +38,10 @@ data class ScheduleDay @JsonCreator constructor(
             LocalTime.parse(split[0], LocalTimeFormat) to LocalTime.parse(split[1], LocalTimeFormat)
         }
 
+        @get:JsonIgnore
         val startsAt: LocalTime by lazy { parsedPeriod.first }
+
+        @get:JsonIgnore
         val endsAt: LocalTime by lazy { parsedPeriod.second }
 
         fun durationString(): String {
@@ -76,9 +80,13 @@ data class ScheduleDay @JsonCreator constructor(
     )
 
     // Internal data structures
+    @get:JsonIgnore
     val dayString: String by lazy { ScheduleDateFormat.format(date) }
+
+    @get:JsonIgnore
     val dayId: String by lazy { dayString.replace(" ", "").toLowerCase() }
 
+    @get:JsonIgnore
     val timeslotDescriptions: List<TimeslotDescription> by lazy {
         val timeslotSessions: Set<TimeslotSession> = createSessionAreas(createSessionsMatrix())
 

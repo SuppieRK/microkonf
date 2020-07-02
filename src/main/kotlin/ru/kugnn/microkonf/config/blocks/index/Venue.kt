@@ -1,6 +1,7 @@
 package ru.kugnn.microkonf.config.blocks.index
 
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected
 
@@ -14,6 +15,7 @@ data class Venue @JsonCreator constructor(
         @JsonProperty("latitude") var latitude: Double = 0.0,
         @JsonProperty("longitude") var longitude: Double = 0.0
 ) {
+    @get:JsonIgnore
     val mapLink: String by lazy {
         "https://maps.google.com/?ll=$latitude,$longitude"
     }
