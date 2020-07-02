@@ -1,10 +1,9 @@
-FROM node:14.2.0-alpine3.11
+FROM node:current-alpine3.11
 
-ENV FIREBASE_TOOLS_VERSION=8.3.0
-RUN yarn global add firebase-tools@${FIREBASE_TOOLS_VERSION} && \
+RUN yarn global add firebase-tools && \
     yarn cache clean && \
     firebase -V && \
     mkdir $HOME/.cache
 
 RUN apk --no-cache add openjdk8-jre bash curl openssl gettext
-ENTRYPOINT firebase emulators:start --only firestore
+ENTRYPOINT firebase emulators:start --project=local --only firestore

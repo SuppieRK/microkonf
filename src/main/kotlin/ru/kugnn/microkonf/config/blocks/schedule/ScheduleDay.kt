@@ -11,9 +11,7 @@ import ru.kugnn.microkonf.Utils.LocalTimeFormat
 import ru.kugnn.microkonf.Utils.ParseDateFormat
 import ru.kugnn.microkonf.Utils.ScheduleDateFormat
 import ru.kugnn.microkonf.render.GridArea
-import java.time.Duration
-import java.time.LocalDate
-import java.time.LocalTime
+import java.time.*
 import java.util.regex.Pattern
 import kotlin.math.min
 
@@ -23,6 +21,24 @@ data class ScheduleDay @JsonCreator constructor(
         @JsonProperty("tracks") val tracks: List<String>,
         @JsonProperty("timeslots") val timeslots: List<Timeslot>
 ) {
+    fun toDto(): ScheduleDayDto {
+        return ScheduleDayDto(
+                date.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli(),
+                tracks,
+                timeslots
+        )
+    }
+
+    companion object {
+        fun fromDto(dto: ScheduleDayDto): ScheduleDay {
+            return ScheduleDay(
+                    LocalDate.ofInstant(Instant.ofEpochMilli(dto.date), ZoneOffset.UTC),
+                    dto.tracks,
+                    dto.timeslots
+            )
+        }
+    }
+
     @Introspected
     data class Timeslot @JsonCreator constructor(
             @JsonProperty("period") private val period: String,
@@ -208,3 +224,10 @@ data class ScheduleDay @JsonCreator constructor(
         }.toSet()
     }
 }
+
+@Introspected
+data class ScheduleDayDto(
+        var date: Long,
+        val tracks: List<String>,
+        val timeslots: List<ScheduleDay.Timeslot>
+)

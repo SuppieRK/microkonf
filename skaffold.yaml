@@ -1,0 +1,16 @@
+apiVersion: skaffold/v2alpha4
+kind: Config
+metadata:
+  name: microkonf
+build:
+  artifacts:
+    - image: cloud-firestore
+      context: .
+      docker:
+        dockerfile: DockerfileFirebaseEmulator
+        noCache: false
+    - image: microkonf
+      context: .
+      jib: {}
+deploy:
+  kubectl:

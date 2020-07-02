@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yaml
+    kompose.version: 1.21.0 (992df58d8)
+  labels:
+    io.kompose.service: cloud-firestore
+  name: cloud-firestore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: cloud-firestore
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yaml
+        kompose.version: 1.21.0 (992df58d8)
+      labels:
+        io.kompose.service: cloud-firestore
+    spec:
+      containers:
+        - env:
+            - name: CLOUDSDK_CORE_PROJECT
+              value: local
+          image: cloud-firestore
+          imagePullPolicy: ""
+          name: cloud-firestore
+          ports:
+            - containerPort: 4000
+            - containerPort: 5000
+            - containerPort: 5001
+            - containerPort: 8081
+            - containerPort: 8085
+            - containerPort: 9000
+          resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null

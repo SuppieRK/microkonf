@@ -7,6 +7,7 @@ import kotlinx.html.*
 import kotlinx.html.stream.createHTML
 import ru.kugnn.microkonf.config.blocks.index.*
 import ru.kugnn.microkonf.config.blocks.schedule.ScheduleDay
+import ru.kugnn.microkonf.config.blocks.schedule.ScheduleDayDto
 import ru.kugnn.microkonf.config.blocks.sessions.CommonSession
 import ru.kugnn.microkonf.config.blocks.sessions.CommonSessionSvg
 import ru.kugnn.microkonf.config.blocks.sessions.Session
@@ -40,6 +41,48 @@ data class ConferenceProperties(
         // Teams
         val teams: List<Team>
 ) {
+    fun toDto(): ConferencePropertiesDto {
+        return ConferencePropertiesDto(
+                constants,
+                blocks,
+                conference.toDto(),
+                gallery,
+                organizers,
+                partners,
+                resources,
+                statistics,
+                tickets.toDto(),
+                venue,
+                schedule.map { it.toDto() },
+                commonSessions,
+                sessions,
+                speakers,
+                teams
+        )
+    }
+
+    companion object {
+        fun fromDto(dto: ConferencePropertiesDto): ConferenceProperties {
+            return ConferenceProperties(
+                    constants = dto.constants,
+                    blocks = dto.blocks,
+                    conference = Conference.fromDto(dto.conference),
+                    gallery = dto.gallery,
+                    organizers = dto.organizers,
+                    partners = dto.partners,
+                    resources = dto.resources,
+                    statistics = dto.statistics,
+                    tickets = Tickets.fromDto(dto.tickets),
+                    venue = dto.venue,
+                    schedule = dto.schedule.map { ScheduleDay.fromDto(it) },
+                    commonSessions = dto.commonSessions,
+                    sessions = dto.sessions,
+                    speakers = dto.speakers,
+                    teams = dto.teams
+            )
+        }
+    }
+
     private val scheduleData: Map<ScheduleDay, List<ScheduleDay.TimeslotDescription>> by lazy {
         schedule.map { day -> day to day.timeslotDescriptions }.sortedBy { it.first.date }.toMap()
     }
@@ -442,3 +485,27 @@ data class ConferenceProperties(
         }
     }
 }
+
+@Introspected
+data class ConferencePropertiesDto(
+        // General properties
+        val constants: Constants,
+        val blocks: List<String>,
+        val conference: ConferenceDto,
+        val gallery: Gallery,
+        val organizers: Organizers,
+        val partners: List<Partners>,
+        val resources: List<Resource>,
+        val statistics: Statistics,
+        val tickets: TicketsDto,
+        val venue: Venue,
+        // Schedule
+        val schedule: List<ScheduleDayDto>,
+        // Sessions
+        val commonSessions: List<CommonSession>,
+        val sessions: List<Session>,
+        // Speakers
+        val speakers: List<Speaker>,
+        // Teams
+        val teams: List<Team>
+)

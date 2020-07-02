@@ -13,7 +13,9 @@ import ru.kugnn.microkonf.Utils.MonthFormat
 import ru.kugnn.microkonf.Utils.ParseDateFormat
 import ru.kugnn.microkonf.Utils.YearFormat
 import ru.kugnn.microkonf.Utils.getSortedDateBounds
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneOffset
 import java.time.temporal.ChronoField
 
 @Introspected
@@ -56,9 +58,62 @@ data class Conference @JsonCreator constructor(
         }
     }
 
+    fun toDto(): ConferenceDto {
+        return ConferenceDto(
+                name,
+                city,
+                country,
+                startDate.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli(),
+                endDate?.atStartOfDay(ZoneOffset.UTC)?.toInstant()?.toEpochMilli(),
+                description,
+                series?.toDto()
+        )
+    }
+
+    companion object {
+        fun fromDto(dto: ConferenceDto): Conference {
+            return Conference(
+                    dto.name,
+                    dto.city,
+                    dto.country,
+                    LocalDate.ofInstant(Instant.ofEpochMilli(dto.startDate), ZoneOffset.UTC),
+                    dto.endDate?.run { LocalDate.ofInstant(Instant.ofEpochMilli(this), ZoneOffset.UTC) },
+                    dto.description,
+                    dto.series?.run { Series.fromDto(this) }
+            )
+        }
+    }
+
     @Introspected
     data class Series @JsonCreator constructor(
             @JsonProperty("name") var name: String,
             @JsonProperty("url") var url: String
+    ) {
+        fun toDto(): ConferenceDto.SeriesDto {
+            return ConferenceDto.SeriesDto(name, url)
+        }
+
+        companion object {
+            fun fromDto(dto: ConferenceDto.SeriesDto): Series {
+                return Series(dto.name, dto.url)
+            }
+        }
+    }
+}
+
+@Introspected
+data class ConferenceDto(
+        var name: String,
+        var city: String,
+        var country: String?,
+        var startDate: Long,
+        var endDate: Long?,
+        var description: String,
+        var series: SeriesDto?
+) {
+    @Introspected
+    data class SeriesDto(
+            var name: String,
+            var url: String
     )
 }

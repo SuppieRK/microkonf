@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yaml
+    kompose.version: 1.21.0 (992df58d8)
+  labels:
+    io.kompose.service: cloud-firestore
+  name: cloud-firestore
+spec:
+  ports:
+    # https://firebase.google.com/docs/emulator-suite/install_and_configure#port_configuration
+    - name: "emulator-suite-ui"
+      port: 4000
+      targetPort: 4000
+    - name: "hosting"
+      port: 5000
+      targetPort: 5000
+    - name: "cloud-functions"
+      port: 5001
+      targetPort: 5001
+    - name: "firestore"
+      port: 8080
+      targetPort: 8081
+    - name: "pubsub"
+      port: 8085
+      targetPort: 8085
+    - name: "realtime-database"
+      port: 9000
+      targetPort: 9000
+  selector:
+    io.kompose.service: cloud-firestore
