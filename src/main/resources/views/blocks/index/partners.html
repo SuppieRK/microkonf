@@ -1,29 +1,24 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <body>
-        <div class="container px-0 pb-4" id="partners">
-            <div class="row mx-auto">
-                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
-                <h1 class="container-title" th:text="${constants.partners.title}"></h1>
-            </div>
-            <!--/*@thymesVar id="partnerSection" type="ru.kugnn.microkonf.config.blocks.index.Partners"*/-->
-            <th:block th:each="partnerSection : ${partners}">
-                <div class="row mx-auto">
-                    <h6 class="w-100" th:text="${partnerSection.name}"></h6>
+<div xmlns:th="http://www.thymeleaf.org" class="container px-0 pb-4" id="partners">
+    <div class="row mx-auto">
+        <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
+        <h1 class="container-title" th:text="${constants.partners.title}"></h1>
+    </div>
+    <!--/*@thymesVar id="partners" type="ru.kugnn.microkonf.config.blocks.index.Partners"*/-->
+    <th:block th:each="partnerSection : ${partners.partners}">
+        <div class="row mx-auto">
+            <h6 class="w-100" th:text="${partnerSection.name}"></h6>
+        </div>
+        <div class="row mx-auto">
+            <div class="col-12 col-sm-6 col-lg-3" th:each="partner: ${partnerSection.items}">
+                <div class="card partnersCard mb-4 border border-primary">
+                    <img class="card-img partnersImg lazyload" th:alt="${partner.name}" th:attr="data-src=${partner.logo}">
+                    <a class="stretched-link" target="_blank" th:href="${partner.url}"></a>
                 </div>
-                <div class="row mx-auto">
-                    <div class="col-12 col-sm-6 col-lg-3" th:each="partner: ${partnerSection.items}">
-                        <div class="card partnersCard mb-4 border border-primary">
-                            <img class="card-img partnersImg lazyload" th:alt="${partner.name}" th:attr="data-src=${partner.logo}">
-                            <a class="stretched-link" target="_blank" th:href="${partner.url}"></a>
-                        </div>
-                    </div>
-                </div>
-            </th:block>
-            <div class="row mx-auto">
-                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
-                <a class="btn btn-primary" href="#" target="_blank" th:text="${constants.partners.join}"></a>
             </div>
         </div>
-    </body>
-</html>
+    </th:block>
+    <div class="row mx-auto">
+        <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
+        <a class="btn btn-primary" href="#" target="_blank" th:text="${constants.partners.join}"></a>
+    </div>
+</div>

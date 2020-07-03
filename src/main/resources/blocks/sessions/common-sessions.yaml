@@ -1,19 +1,20 @@
-- title: 'Kotlin/Everywhere Gorky Registration / Coffee / Opening'
-  description: Official start of the conference. Greetings from the organizers, sponsors and partners.
-  icon: opening
-  image: https://firebasestorage.googleapis.com/v0/b/hoverboard-experimental.appspot.com/o/images%2Fbackgrounds%2Fopening.jpg?alt=media&token=aa52dd45-50c9-4e36-9485-c1f9138ecd6b
+sessions:
+  - title: 'Kotlin/Everywhere Gorky Registration / Coffee / Opening'
+    description: Official start of the conference. Greetings from the organizers, sponsors and partners.
+    icon: opening
+    image: https://firebasestorage.googleapis.com/v0/b/hoverboard-experimental.appspot.com/o/images%2Fbackgrounds%2Fopening.jpg?alt=media&token=aa52dd45-50c9-4e36-9485-c1f9138ecd6b
 
-- title: 'Lunch'
-  description: Foooooooood!
-  icon: lunch
-  image: https://firebasestorage.googleapis.com/v0/b/hoverboard-experimental.appspot.com/o/images%2Fbackgrounds%2Fcoffee-break.jpg?alt=media&token=7c2c929b-cb94-4be8-a05a-b3f678136cb7
+  - title: 'Lunch'
+    description: Foooooooood!
+    icon: lunch
+    image: https://firebasestorage.googleapis.com/v0/b/hoverboard-experimental.appspot.com/o/images%2Fbackgrounds%2Fcoffee-break.jpg?alt=media&token=7c2c929b-cb94-4be8-a05a-b3f678136cb7
 
-- title: 'Coffee break'
-  description: Coffeeeeeee!
-  icon: coffee-break
-  image: https://firebasestorage.googleapis.com/v0/b/hoverboard-experimental.appspot.com/o/images%2Fbackgrounds%2Fmorning.jpg?alt=media&token=d0da3d64-fc63-48c6-9d41-1460451dca64
+  - title: 'Coffee break'
+    description: Coffeeeeeee!
+    icon: coffee-break
+    image: https://firebasestorage.googleapis.com/v0/b/hoverboard-experimental.appspot.com/o/images%2Fbackgrounds%2Fmorning.jpg?alt=media&token=d0da3d64-fc63-48c6-9d41-1460451dca64
 
-- title: 'Afterparty'
-  description: Afterparty is a great time to have some fun and meet new people
-  icon: party
-  image: https://firebasestorage.googleapis.com/v0/b/hoverboard-experimental.appspot.com/o/images%2Fbackgrounds%2Fparty.jpg?alt=media&token=8e413f01-373a-40bf-bb87-1dcf1d8e6af1
+  - title: 'Afterparty'
+    description: Afterparty is a great time to have some fun and meet new people
+    icon: party
+    image: https://firebasestorage.googleapis.com/v0/b/hoverboard-experimental.appspot.com/o/images%2Fbackgrounds%2Fparty.jpg?alt=media&token=8e413f01-373a-40bf-bb87-1dcf1d8e6af1

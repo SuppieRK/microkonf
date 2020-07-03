@@ -3,181 +3,108 @@ package ru.kugnn.microkonf.config
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
-import com.google.auth.oauth2.AccessToken
 import com.google.auth.oauth2.GoogleCredentials
-import com.google.cloud.ServiceOptions
 import com.google.cloud.firestore.Firestore
 import com.google.cloud.firestore.SetOptions
-import com.google.common.collect.ImmutableMap
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import com.google.firebase.cloud.FirestoreClient
 import io.micronaut.context.annotation.Bean
 import io.micronaut.context.annotation.Factory
-import io.micronaut.context.annotation.Property
 import org.slf4j.LoggerFactory
-import ru.kugnn.microkonf.config.application.RenderProperties
-import java.io.File
-import java.io.IOException
-import java.util.*
 import java.util.concurrent.TimeUnit
 
+
 @Factory
-class ConferencePropertiesLoader(
-        @Property(name = "render.blocks.path")
-        private val blocksPath: String?,
-        @Property(name = "datasources.gcp.firestore.emulator.enabled", defaultValue = "false")
-        private var firestoreEmulatorEnabled: Boolean = false,
-        private val renderProperties: RenderProperties
-) {
-    private val firestore: Firestore = {
-        val options = FirebaseOptions.builder()
-                .setProjectId(ServiceOptions.getDefaultProjectId())
-                .run {
-                    if (firestoreEmulatorEnabled) {
-                        this.setCredentials(EmulatorCredentials())
-                    } else {
-                        this.setCredentials(GoogleCredentials.getApplicationDefault())
-                    }
-                }
-                .build()
-
-//        val options = FirestoreOptions.getDefaultInstance().run {
-//            if (firestoreEmulatorEnabled) {
-//                log.warn("Using Firestore emulator")
-//                this.toBuilder().setCredentials(NoCredentials.getInstance()).build()
-//            } else {
-//                this
-//            }
-//        }
-
-        FirebaseApp.initializeApp(options)
-
-        FirestoreClient.getFirestore()
-    }.invoke()
-
-    private class EmulatorCredentials internal constructor() : GoogleCredentials(newToken()) {
-        override fun refreshAccessToken(): AccessToken {
-            return newToken()
-        }
-
-        @Throws(IOException::class)
-        override fun getRequestMetadata(): Map<String, List<String>> {
-            return ImmutableMap.of()
-        }
-
-        companion object {
-            private fun newToken(): AccessToken {
-                return AccessToken("owner",
-                        Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(1)))
-            }
-        }
-    }
-
-    private val configurationPath: String by lazy {
-        if (blocksPath.isNullOrBlank()) "blocks" else blocksPath
-    }
-
+class ConferencePropertiesLoader {
     @Bean
-    fun conferenceProperties(): ConferenceProperties = getOrCreateProperties()
-
-    private fun getConferenceFromYaml(): ConferenceProperties {
+    fun conferenceProperties(): ConferenceProperties {
         return ConferenceProperties(
-                constants = "$configurationPath/constants.yaml".readResourceValue(),
-                blocks = renderProperties.index,
-                conference = "$configurationPath/index/conference.yaml".readResourceValue(),
-                gallery = "$configurationPath/index/gallery.yaml".readResourceValue(),
-                organizers = "$configurationPath/index/organizers.yaml".readResourceValue(),
-                partners = "$configurationPath/index/partners.yaml".readResourceValues(),
-                resources = "$configurationPath/index/resources.yaml".readResourceValues(),
-                statistics = "$configurationPath/index/statistics.yaml".readResourceValue(),
-                tickets = "$configurationPath/index/tickets.yaml".readResourceValue(),
-                venue = "$configurationPath/index/venue.yaml".readResourceValue(),
-                schedule = "$configurationPath/schedule/schedule.yaml".readResourceValues(),
-                commonSessions = "$configurationPath/sessions/common-sessions.yaml".readResourceValues(),
-                sessions = "$configurationPath/sessions/speaker-sessions.yaml".readResourceValues(),
-                speakers = "$configurationPath/speakers/speakers.yaml".readResourceValues(),
-                teams = "$configurationPath/team/team.yaml".readResourceValues()
+                constants = "blocks/constants.yaml".readProperty(),
+                blocks = "blocks/blocks.yaml".readProperty(),
+                conference = "blocks/index/conference.yaml".readProperty(),
+                gallery = "blocks/index/gallery.yaml".readProperty(),
+                organizers = "blocks/index/organizers.yaml".readProperty(),
+                partners = "blocks/index/partners.yaml".readProperty(),
+                resources = "blocks/index/resources.yaml".readProperty(),
+                statistics = "blocks/index/statistics.yaml".readProperty(),
+                tickets = "blocks/index/tickets.yaml".readProperty(),
+                venue = "blocks/index/venue.yaml".readProperty(),
+                schedule = "blocks/schedule/schedule.yaml".readProperty(),
+                commonSessions = "blocks/sessions/common-sessions.yaml".readProperty(),
+                speakerSessions = "blocks/sessions/speaker-sessions.yaml".readProperty(),
+                speakers = "blocks/speakers/speakers.yaml".readProperty(),
+                teams = "blocks/team/team.yaml".readProperty()
         )
     }
 
-    private fun getOrCreateProperties(): ConferenceProperties {
-        val local = getConferenceFromYaml()
+    private inline fun <reified T : Any> String.readProperty(): T {
+        val fileName: String = this.substringAfterLast("/").substringBeforeLast(".")
+
+        val local: T = this.readPropertyFromFile()
 
         try {
             val documentSnapshot = firestore
                     .collection(FirestoreCollectionName)
-                    .document(FirestoreDocumentName)
+                    .document(fileName)
                     .get()
                     .get(1, TimeUnit.SECONDS)
 
             if (documentSnapshot.exists()) {
-                log.warn("Document data: ${documentSnapshot.data}")
-                println("Document data: ${documentSnapshot.data}")
-                return ConferenceProperties.fromDto(documentSnapshot.toObject(ConferencePropertiesDto::class.java)!!)
+                log.info("$fileName data: ${documentSnapshot.data}")
+                return documentSnapshot.data!!.toDataClass()
             } else {
-                log.warn("No document exists, adding from local")
-                println("No document exists, adding from local")
+                log.info("No $fileName exists, adding from local")
 
                 val writeResult = firestore
                         .collection(FirestoreCollectionName)
-                        .document(FirestoreDocumentName)
-                        .set(local.toDto(), SetOptions.merge())
+                        .document(fileName)
+                        .set(local.toMap(), SetOptions.merge())
                         .get(1, TimeUnit.SECONDS)
 
-                log.warn("Document added at ${writeResult.updateTime}")
-                println("Document added at ${writeResult.updateTime}")
+                log.info("$fileName added at ${writeResult.updateTime}")
 
                 return local
             }
         } catch (e: Exception) {
-            log.error("Failed to read properties from Firestore: ${e.message}, falling back to local properties", e)
-            println("Failed to read properties from Firestore: ${e.message}, falling back to local properties")
+            log.error("Failed to load $fileName -> ${e.message}")
+            log.trace(e.message, e)
+
             return local
         }
     }
 
-    private inline fun <reified T> String.readResourceValue(): T {
-        require(!this.isBlank()) {
-            "Resource is empty"
-        }
+    private inline fun <reified T> String.readPropertyFromFile(): T {
+        require(!this.isBlank()) { "Resource name is not defined" }
 
-        val typeReference = object : TypeReference<T>() {}
-
-        return if (configurationPath.startsWith("/")) {
-            try {
-                File(this).toURI().toURL()
-            } catch (e: Exception) {
-                log.error(e.message, e)
-                null
-            }
-        } else {
-            ClassLoader.getSystemClassLoader().getResource(this)
-        }?.run {
-            yamlMapper.readValue(this, typeReference)
+        return ClassLoader.getSystemClassLoader().getResource(this)?.run {
+            yamlMapper.readValue(this, object : TypeReference<T>() {})
         } ?: error("Cannot load $this resource")
     }
 
-    private inline fun <reified T> String.readResourceValues(): List<T> {
-        require(!this.isBlank()) {
-            "Resource is empty"
-        }
+    private inline fun <reified T : Any> T.toMap(): Map<String, Any> {
+        return yamlMapper.convertValue(this, object : TypeReference<Map<String, Any>>() {})
+    }
 
-        val javaType = yamlMapper.typeFactory.constructType(object : TypeReference<T>() {})
-        val collectionType = yamlMapper.typeFactory.constructCollectionType(List::class.java, javaType)
+    private inline fun <reified T> Map<String, Any>.toDataClass(): T {
+        val json = yamlMapper.writeValueAsString(this)
+        return yamlMapper.readValue(json, object : TypeReference<T>() {})
+    }
 
-        return if (configurationPath.startsWith("/")) {
-            try {
-                File(this).toURI().toURL()
-            } catch (e: Exception) {
-                log.error(e.message, e)
-                null
+    private fun Map<String, Any>.prettyPrint(): String {
+        val sb = StringBuilder()
+        val iter: Iterator<Map.Entry<String, Any>> = this.entries.iterator()
+        while (iter.hasNext()) {
+            val entry: Map.Entry<String, Any> = iter.next()
+            sb.append(entry.key)
+            sb.append('=').append('"')
+            sb.append(entry.value)
+            sb.append('"')
+            if (iter.hasNext()) {
+                sb.append(',').append(' ')
             }
-        } else {
-            ClassLoader.getSystemClassLoader().getResource(this)
-        }?.run {
-            yamlMapper.readValue(this, collectionType) as List<T>
-        } ?: error("Cannot load $this resource")
+        }
+        return sb.toString()
     }
 
     companion object {
@@ -185,7 +112,22 @@ class ConferencePropertiesLoader(
 
         private val yamlMapper: ObjectMapper = ObjectMapper(YAMLFactory())
 
+        private const val FirestoreCredentialsFileName = "firebase-adminsdk.json"
+
         private const val FirestoreCollectionName = "microkonf"
-        private const val FirestoreDocumentName = "properties"
+
+        private val firestore: Firestore by lazy {
+            ClassLoader.getSystemClassLoader()
+                    .getResourceAsStream(FirestoreCredentialsFileName)
+                    ?.run {
+                        FirebaseApp.initializeApp(
+                                FirebaseOptions.Builder()
+                                        .setCredentials(GoogleCredentials.fromStream(this))
+                                        .build()
+                        )
+                    }
+
+            FirestoreClient.getFirestore()
+        }
     }
 }

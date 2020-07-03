@@ -1,104 +1,106 @@
-- date: '21-09-2019'
-  tracks:
-    - Volga hall
-    - Oka hall
-  timeslots:
-    - period: '10:00 - 11:00'
-      sessions:
-        - title: 'Kotlin/Everywhere Gorky Registration / Coffee / Opening'
-    - period: '11:10 - 12:00'
-      sessions:
-        - title: 'Coroutining Android Apps'
-    - period: '12:10 - 13:00'
-      sessions:
-        - title: 'Design of kotlinx.serialization'
-    - period: '13:00 - 14:00'
-      sessions:
-        - title: 'Lunch'
-    - period: '14:00 - 14:40'
-      sessions:
-        - title: 'Mobile Applications Development with Kotlin Multiplatform'
-    - period: '14:50 - 15:30'
-      sessions:
-        - title: 'Coroutines - Compile and Decompile'
-    - period: '15:40 - 16:00'
-      sessions:
-        - title: 'Coffee break'
-    - period: '16:10 - 16:50'
-      sessions:
-        - title: 'Language basics or how to fall in love with Kotlin'
-        - title: 'Kotlin Multiplatform by JetBrains'
-    - period: '17:00 - 17:40'
-      sessions:
-        - title: 'Writing Kotlin DSL for RecyclerView adapters testtesttesttesttesttesttesttesttesttest'
-        - title: 'Kotlin Spring Boot + Google Kubernetes Engine'
-    - period: '18:30 - 22:30'
-      sessions:
-        - title: 'Afterparty'
-- date: '22-09-2019'
-  tracks:
-    - Volga hall
-    - Oka hall
-    - Third hall
-  timeslots:
-    - period: '09:30 - 10:10'
-      sessions:
-        - title: 1
-    - period: '10:10 - 10:50'
-      sessions:
-        - title: 2
-        - title: 3
-        - title: 4
-    - period: '11:00 - 11:40'
-      sessions:
-        - title: 5
-        - title: 6
-          slotSpan: 1
-        - title: 7
-          slotSpan: 2
-    - period: '11:50 - 12:30'
-      sessions:
-        - title: 8
-    - period: '12:30 - 14:00'
-      sessions:
-        - title: 9
-    - period: '14:00 - 14:40'
-      sessions:
-        - title: 10
-          slotSpan: 2
-        - title: 11
-          slotSpan: 1
-        - title: 12
-    - period: '14:50 - 15:30'
-      sessions:
-        - title: 13
-    - period: '15:30 - 16:00'
-      sessions:
-        - title: 14
-    - period: '16:00 - 16:40'
-      sessions:
-        - title: 15
-          slotSpan: 1
-        - title: 16
-    - period: '16:50 - 17:30'
-      sessions:
-        - title: 17
-        - title: 18
-          slotSpan: 1
-    - period: '17:40 - 18:20'
-      sessions:
-        - title: 19
-    - period: '18:30 - 18:40'
-      sessions:
-        - title: 20
-          slotSpan: 1
-          tracksSpan: 1
-        - title: 21
-    - period: '18:30 - 18:40'
-      sessions:
-        - title: 22
-          slotSpan: 1
-    - period: '18:30 - 18:40'
-      sessions:
-        - title: 23
-        - title: 24
+days:
+  - date: '21-09-2019'
+    tracks:
+      - Volga hall
+      - Oka hall
+    timeslots:
+      - period: '10:00 - 11:00'
+        sessions:
+          - title: 'Kotlin/Everywhere Gorky Registration / Coffee / Opening'
+      - period: '11:10 - 12:00'
+        sessions:
+          - title: 'Coroutining Android Apps'
+      - period: '12:10 - 13:00'
+        sessions:
+          - title: 'Design of kotlinx.serialization'
+      - period: '13:00 - 14:00'
+        sessions:
+          - title: 'Lunch'
+      - period: '14:00 - 14:40'
+        sessions:
+          - title: 'Mobile Applications Development with Kotlin Multiplatform'
+      - period: '14:50 - 15:30'
+        sessions:
+          - title: 'Coroutines - Compile and Decompile'
+      - period: '15:40 - 16:00'
+        sessions:
+          - title: 'Coffee break'
+      - period: '16:10 - 16:50'
+        sessions:
+          - title: 'Language basics or how to fall in love with Kotlin'
+          - title: 'Kotlin Multiplatform by JetBrains'
+      - period: '17:00 - 17:40'
+        sessions:
+          - title: 'Writing Kotlin DSL for RecyclerView adapters testtesttesttesttesttesttesttesttesttest'
+          - title: 'Kotlin Spring Boot + Google Kubernetes Engine'
+      - period: '18:30 - 22:30'
+        sessions:
+          - title: 'Afterparty'
+
+  - date: '22-09-2019'
+    tracks:
+      - Volga hall
+      - Oka hall
+      - Third hall
+    timeslots:
+      - period: '09:30 - 10:10'
+        sessions:
+          - title: 1
+      - period: '10:10 - 10:50'
+        sessions:
+          - title: 2
+          - title: 3
+          - title: 4
+      - period: '11:00 - 11:40'
+        sessions:
+          - title: 5
+          - title: 6
+            slotSpan: 1
+          - title: 7
+            slotSpan: 2
+      - period: '11:50 - 12:30'
+        sessions:
+          - title: 8
+      - period: '12:30 - 14:00'
+        sessions:
+          - title: 9
+      - period: '14:00 - 14:40'
+        sessions:
+          - title: 10
+            slotSpan: 2
+          - title: 11
+            slotSpan: 1
+          - title: 12
+      - period: '14:50 - 15:30'
+        sessions:
+          - title: 13
+      - period: '15:30 - 16:00'
+        sessions:
+          - title: 14
+      - period: '16:00 - 16:40'
+        sessions:
+          - title: 15
+            slotSpan: 1
+          - title: 16
+      - period: '16:50 - 17:30'
+        sessions:
+          - title: 17
+          - title: 18
+            slotSpan: 1
+      - period: '17:40 - 18:20'
+        sessions:
+          - title: 19
+      - period: '18:30 - 18:40'
+        sessions:
+          - title: 20
+            slotSpan: 1
+            tracksSpan: 1
+          - title: 21
+      - period: '18:30 - 18:40'
+        sessions:
+          - title: 22
+            slotSpan: 1
+      - period: '18:30 - 18:40'
+        sessions:
+          - title: 23
+          - title: 24

@@ -7,6 +7,11 @@ import io.micronaut.core.annotation.Introspected
 import ru.kugnn.microkonf.Utils.generateHash
 
 @Introspected
+data class SpeakerSessions @JsonCreator constructor(
+        @JsonProperty("sessions") val sessions: List<Session>
+)
+
+@Introspected
 data class Session @JsonCreator constructor(
         @JsonProperty("title") val title: String,
         @JsonProperty("description") val description: String,
@@ -20,10 +25,10 @@ data class Session @JsonCreator constructor(
     val id: String by lazy {
         generateHash(title + hashCode())
     }
-
-    @Introspected
-    data class Resources @JsonCreator constructor(
-            @JsonProperty("presentation") val presentation: String?,
-            @JsonProperty("video") val video: String?
-    )
 }
+
+@Introspected
+data class Resources @JsonCreator constructor(
+        @JsonProperty("presentation") val presentation: String?,
+        @JsonProperty("video") val video: String?
+)

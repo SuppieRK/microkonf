@@ -16,6 +16,21 @@ import java.util.regex.Pattern
 import kotlin.math.min
 
 @Introspected
+data class Schedule @JsonCreator constructor(
+        @JsonProperty("days") val days: List<ScheduleDay>
+) {
+    fun toDto(): ScheduleDto {
+        return ScheduleDto(days.map { it.toDto() })
+    }
+
+    companion object {
+        fun fromDto(dto: ScheduleDto): Schedule {
+            return Schedule(dto.days.map { ScheduleDay.fromDto(it) })
+        }
+    }
+}
+
+@Introspected
 data class ScheduleDay @JsonCreator constructor(
         @JsonProperty("date") @JsonDeserialize(using = LocalDateDeserializer::class) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ParseDateFormat) val date: LocalDate,
         @JsonProperty("tracks") val tracks: List<String>,
@@ -38,62 +53,6 @@ data class ScheduleDay @JsonCreator constructor(
             )
         }
     }
-
-    @Introspected
-    data class Timeslot @JsonCreator constructor(
-            @JsonProperty("period") private val period: String,
-            @JsonProperty("sessions") val sessions: List<SessionCell>
-    ) {
-        private val parsedPeriod: Pair<LocalTime, LocalTime> by lazy {
-            val split = period.replace(PeriodExclusionRegex, "").split("-")
-
-            require(split.size == 2) {
-                "Period '$period' does not contains two time definitions"
-            }
-
-            LocalTime.parse(split[0], LocalTimeFormat) to LocalTime.parse(split[1], LocalTimeFormat)
-        }
-
-        @get:JsonIgnore
-        val startsAt: LocalTime by lazy { parsedPeriod.first }
-
-        @get:JsonIgnore
-        val endsAt: LocalTime by lazy { parsedPeriod.second }
-
-        fun durationString(): String {
-            val duration: Duration = Duration.between(startsAt, endsAt).abs()
-
-            val hours: Int = duration.toHoursPart()
-            val minutes: Int = duration.toMinutesPart()
-
-            val builder: StringBuilder = StringBuilder()
-
-            if (hours == 1) {
-                builder.append(hours).append(" hour ")
-            } else if (hours > 1) {
-                builder.append(hours).append(" hours ")
-            }
-
-            if (minutes == 1) {
-                builder.append(minutes).append(" minute")
-            } else if (minutes > 1) {
-                builder.append(minutes).append(" minutes")
-            }
-
-            return builder.toString()
-        }
-
-        companion object {
-            private val PeriodExclusionRegex: Regex = Pattern.compile("[^0-9:-]").toRegex()
-        }
-    }
-
-    @Introspected
-    data class SessionCell @JsonCreator constructor(
-            @JsonProperty("title") val title: String,
-            @JsonProperty("slotSpan") val slotSpan: Int?,
-            @JsonProperty("tracksSpan") val tracksSpan: Int?
-    )
 
     // Internal data structures
     @get:JsonIgnore
@@ -118,20 +77,6 @@ data class ScheduleDay @JsonCreator constructor(
             )
         }
     }
-
-    @Introspected
-    data class TimeslotDescription(
-            val rowIndex: Int,
-            val period: Timeslot,
-            val sessions: Set<TimeslotSession>
-    )
-
-    @Introspected
-    data class TimeslotSession(
-            val title: String,
-            val tracks: List<String>,
-            val gridArea: GridArea
-    )
 
     private fun createSessionsMatrix(): List<MutableList<String?>> {
         @Suppress("USELESS_CAST")
@@ -226,8 +171,83 @@ data class ScheduleDay @JsonCreator constructor(
 }
 
 @Introspected
+data class Timeslot @JsonCreator constructor(
+        @JsonProperty("period") private val period: String,
+        @JsonProperty("sessions") val sessions: List<SessionCell>
+) {
+    private val parsedPeriod: Pair<LocalTime, LocalTime> by lazy {
+        val split = period.replace(PeriodExclusionRegex, "").split("-")
+
+        require(split.size == 2) {
+            "Period '$period' does not contains two time definitions"
+        }
+
+        LocalTime.parse(split[0], LocalTimeFormat) to LocalTime.parse(split[1], LocalTimeFormat)
+    }
+
+    @get:JsonIgnore
+    val startsAt: LocalTime by lazy { parsedPeriod.first }
+
+    @get:JsonIgnore
+    val endsAt: LocalTime by lazy { parsedPeriod.second }
+
+    fun durationString(): String {
+        val duration: Duration = Duration.between(startsAt, endsAt).abs()
+
+        val hours: Int = duration.toHoursPart()
+        val minutes: Int = duration.toMinutesPart()
+
+        val builder: StringBuilder = StringBuilder()
+
+        if (hours == 1) {
+            builder.append(hours).append(" hour ")
+        } else if (hours > 1) {
+            builder.append(hours).append(" hours ")
+        }
+
+        if (minutes == 1) {
+            builder.append(minutes).append(" minute")
+        } else if (minutes > 1) {
+            builder.append(minutes).append(" minutes")
+        }
+
+        return builder.toString()
+    }
+
+    companion object {
+        private val PeriodExclusionRegex: Regex = Pattern.compile("[^0-9:-]").toRegex()
+    }
+}
+
+@Introspected
+data class SessionCell @JsonCreator constructor(
+        @JsonProperty("title") val title: String,
+        @JsonProperty("slotSpan") val slotSpan: Int?,
+        @JsonProperty("tracksSpan") val tracksSpan: Int?
+)
+
+@Introspected
+data class TimeslotDescription(
+        val rowIndex: Int,
+        val period: Timeslot,
+        val sessions: Set<TimeslotSession>
+)
+
+@Introspected
+data class TimeslotSession(
+        val title: String,
+        val tracks: List<String>,
+        val gridArea: GridArea
+)
+
+@Introspected
+data class ScheduleDto(
+        val days: List<ScheduleDayDto>
+)
+
+@Introspected
 data class ScheduleDayDto(
         var date: Long,
         val tracks: List<String>,
-        val timeslots: List<ScheduleDay.Timeslot>
+        val timeslots: List<Timeslot>
 )

@@ -1,25 +1,20 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <body>
-        <!--/*@thymesVar id="gallery" type="ru.kugnn.microkonf.config.blocks.index.Gallery"*/-->
-        <div class="container pb-4" id="gallery" th:if="${gallery.enabled}">
-            <div class="row mx-auto">
-                <h1 class="container-title" th:text="|#${gallery.hashTag}|"></h1>
-                <p class="text-justify" th:text="${gallery.description}"></p>
-            </div>
-            <div class="carousel"
-                 data-flickity='{ "wrapAround": true, "autoPlay": true, "prevNextButtons": false, "lazyLoad": 1 }'>
-                <div class="carousel-cell" th:each="entry : ${gallery.images}">
-                    <img class="carousel-cell-image" th:attr="data-flickity-lazyload=${entry.key}"/>
-                </div>
-            </div>
-            <div class="row mx-auto" style="margin-top: 2.3rem !important;">
-                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
-                <a class="btn btn-primary"
-                   target="_blank"
-                   th:href="${gallery.galleryUrl}"
-                   th:text="${constants.gallery.fullCollection}"></a>
-            </div>
+<!--/*@thymesVar id="gallery" type="ru.kugnn.microkonf.config.blocks.index.Gallery"*/-->
+<div xmlns:th="http://www.thymeleaf.org" th:if="${gallery.enabled}" class="container pb-4" id="gallery">
+    <div class="row mx-auto">
+        <h1 class="container-title" th:text="|#${gallery.hashTag}|"></h1>
+        <p class="text-justify" th:text="${gallery.description}"></p>
+    </div>
+    <div class="carousel"
+         data-flickity='{ "wrapAround": true, "autoPlay": true, "prevNextButtons": false, "lazyLoad": 1 }'>
+        <div class="carousel-cell" th:each="entry : ${gallery.images}">
+            <img class="carousel-cell-image" th:attr="data-flickity-lazyload=${entry.key}"/>
         </div>
-    </body>
-</html>
+    </div>
+    <div class="row mx-auto" style="margin-top: 2.3rem !important;">
+        <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
+        <a class="btn btn-primary"
+           target="_blank"
+           th:href="${gallery.galleryUrl}"
+           th:text="${constants.gallery.fullCollection}"></a>
+    </div>
+</div>

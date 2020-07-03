@@ -16,20 +16,12 @@ micronaut:
         paths:
           - classpath:public/js/sw
 
+datasources:
+  gcp:
+    firestore:
+      sa: firebase-adminsdk.json
+
 render:
-  # Defines order of elements rendering on the page
-  # Must cooperate with files from /views/blocks
-  blocks:
-    path: ${BLOCKS_CONFIGURATION:}
-    index:
-      - welcome
-      - about
-      - social
-      - tickets
-      - organizers
-      - gallery
-      - venue
-      - partners
   cache:
     folder: public
     excludeHaving:

@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <body>
-        <!--/*@thymesVar id="page" type="java.lang.String"*/-->
-        <div class="page schedule" th:style="((${page} == 'schedule') ? 'display: block' : 'display: none')">
-            <div class="container px-0 pb-4">
-                <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
-                <h1 class="page-header" th:text="${constants.schedule.title}"></h1>
-            </div>
-            <!--/*@thymesVar id="scheduleTable" type="java.lang.String"*/-->
-            <th:block th:utext="${scheduleTable}"></th:block>
-        </div>
-    </body>
-</html>
+<!--/*@thymesVar id="page" type="java.lang.String"*/-->
+<div xmlns:th="http://www.thymeleaf.org" class="page schedule" th:style="((${page} == 'schedule') ? 'display: block' : 'display: none')">
+    <div class="container px-0 pb-4">
+        <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
+        <h1 class="page-header" th:text="${constants.schedule.title}"></h1>
+    </div>
+    <!--/*@thymesVar id="scheduleTable" type="java.lang.String"*/-->
+    <th:block th:utext="${scheduleTable}"></th:block>
+</div>

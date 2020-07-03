@@ -8,10 +8,10 @@ import io.micronaut.core.annotation.Introspected
 data class Statistics @JsonCreator constructor(
         @JsonProperty("enabled") var enabled: Boolean = true,
         @JsonProperty("items") var items: List<PreviousItem>
-) {
-    @Introspected
-    data class PreviousItem @JsonCreator constructor(
-            @JsonProperty("number") var number: Int,
-            @JsonProperty("label") var label: String
-    )
-}
+)
+
+@Introspected
+data class PreviousItem @JsonCreator constructor(
+        @JsonProperty("number") var number: Int,
+        @JsonProperty("label") var label: String
+)

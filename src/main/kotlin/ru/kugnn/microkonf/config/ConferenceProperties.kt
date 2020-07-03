@@ -6,14 +6,20 @@ import io.micronaut.core.annotation.Introspected
 import kotlinx.html.*
 import kotlinx.html.stream.createHTML
 import ru.kugnn.microkonf.config.blocks.index.*
+import ru.kugnn.microkonf.config.blocks.schedule.Schedule
 import ru.kugnn.microkonf.config.blocks.schedule.ScheduleDay
-import ru.kugnn.microkonf.config.blocks.schedule.ScheduleDayDto
+import ru.kugnn.microkonf.config.blocks.schedule.ScheduleDto
+import ru.kugnn.microkonf.config.blocks.schedule.TimeslotDescription
 import ru.kugnn.microkonf.config.blocks.sessions.CommonSession
-import ru.kugnn.microkonf.config.blocks.sessions.CommonSessionSvg
+import ru.kugnn.microkonf.config.blocks.sessions.CommonSessions
 import ru.kugnn.microkonf.config.blocks.sessions.Session
+import ru.kugnn.microkonf.config.blocks.sessions.SpeakerSessions
 import ru.kugnn.microkonf.config.blocks.speakers.Speaker
-import ru.kugnn.microkonf.config.blocks.team.Team
+import ru.kugnn.microkonf.config.blocks.speakers.Speakers
+import ru.kugnn.microkonf.config.blocks.team.Teams
+import ru.kugnn.microkonf.config.style.Blocks
 import ru.kugnn.microkonf.config.style.Constants
+import ru.kugnn.microkonf.render.CommonSessionSvg
 import ru.kugnn.microkonf.render.GridArea
 import java.time.LocalTime
 
@@ -22,24 +28,24 @@ data class ConferenceProperties(
         @get:JsonIgnore var page: String = "home",
         // General properties
         val constants: Constants,
-        val blocks: List<String>,
+        val blocks: Blocks,
         val conference: Conference,
         val gallery: Gallery,
         val organizers: Organizers,
-        val partners: List<Partners>,
-        val resources: List<Resource>,
+        val partners: Partners,
+        val resources: Resources,
         val statistics: Statistics,
         val tickets: Tickets,
         val venue: Venue,
         // Schedule
-        val schedule: List<ScheduleDay>,
+        val schedule: Schedule,
         // Sessions
-        val commonSessions: List<CommonSession>,
-        val sessions: List<Session>,
+        val commonSessions: CommonSessions,
+        val speakerSessions: SpeakerSessions,
         // Speakers
-        val speakers: List<Speaker>,
+        val speakers: Speakers,
         // Teams
-        val teams: List<Team>
+        val teams: Teams
 ) {
     fun toDto(): ConferencePropertiesDto {
         return ConferencePropertiesDto(
@@ -53,9 +59,9 @@ data class ConferenceProperties(
                 statistics,
                 tickets.toDto(),
                 venue,
-                schedule.map { it.toDto() },
+                schedule.toDto(),
                 commonSessions,
-                sessions,
+                speakerSessions,
                 speakers,
                 teams
         )
@@ -74,17 +80,17 @@ data class ConferenceProperties(
                     statistics = dto.statistics,
                     tickets = Tickets.fromDto(dto.tickets),
                     venue = dto.venue,
-                    schedule = dto.schedule.map { ScheduleDay.fromDto(it) },
+                    schedule = Schedule.fromDto(dto.schedule),
                     commonSessions = dto.commonSessions,
-                    sessions = dto.sessions,
+                    speakerSessions = dto.sessions,
                     speakers = dto.speakers,
                     teams = dto.teams
             )
         }
     }
 
-    private val scheduleData: Map<ScheduleDay, List<ScheduleDay.TimeslotDescription>> by lazy {
-        schedule.map { day -> day to day.timeslotDescriptions }.sortedBy { it.first.date }.toMap()
+    private val scheduleData: Map<ScheduleDay, List<TimeslotDescription>> by lazy {
+        schedule.days.map { day -> day to day.timeslotDescriptions }.sortedBy { it.first.date }.toMap()
     }
 
     // Modal windows creation
@@ -93,13 +99,13 @@ data class ConferenceProperties(
         createHTML().div {
             id = "speakerSessionModals"
 
-            schedule.forEach { scheduleDay ->
+            schedule.days.forEach { scheduleDay ->
                 scheduleDay.timeslots.forEach { timeslot ->
                     timeslot.sessions.withIndex().map { (index, sessionCell) ->
-                        index to sessions.find { it.title == sessionCell.title }
+                        index to speakerSessions.sessions.find { it.title == sessionCell.title }
                     }.filter { (_, session) ->
                         session != null
-                    }.forEach { (index, session) ->
+                    }.forEach { (_, session) ->
                         buildModalBaseFrame(
                                 modalId = session!!.id,
                                 modalTitle = session.title
@@ -121,7 +127,7 @@ data class ConferenceProperties(
                             }
 
                             session.speakers?.mapNotNull { speakerName ->
-                                speakers.find { speakerName == it.name }
+                                speakers.speakers.find { speakerName == it.name }
                             }?.apply {
                                 p {
                                     +"Speakers"
@@ -143,7 +149,7 @@ data class ConferenceProperties(
         createHTML().div {
             id = "speakerModals"
 
-            speakers.forEach { speaker ->
+            speakers.speakers.forEach { speaker ->
                 buildModalBaseFrame(
                         modalId = speaker.id,
                         modalTitle = speaker.name
@@ -195,7 +201,7 @@ data class ConferenceProperties(
                         }
                     }
 
-                    sessions.find { session ->
+                    speakerSessions.sessions.find { session ->
                         session.speakers?.any { speakerName -> speakerName == speaker.name } ?: false
                     }?.apply {
                         div(classes = "row mx-auto") {
@@ -312,8 +318,8 @@ data class ConferenceProperties(
     }
 
     private fun FlowContent.buildSession(tracks: List<String>, sessionTitle: String, duration: String) {
-        val speakerSession: Session? = sessions.find { it.title == sessionTitle }
-        val commonSession: CommonSession? = commonSessions.find { it.title == sessionTitle }
+        val speakerSession: Session? = speakerSessions.sessions.find { it.title == sessionTitle }
+        val commonSession: CommonSession? = commonSessions.sessions.find { it.title == sessionTitle }
 
         div(classes = "card h-100") {
             style = "transform: rotate(0);" // Prevent stretched link to go beyond this DIV (for safety reasons)
@@ -362,7 +368,7 @@ data class ConferenceProperties(
             }
 
             session.speakers?.mapNotNull { speakerName ->
-                speakers.find { speakerName == it.name }
+                speakers.speakers.find { speakerName == it.name }
             }?.forEach { speaker ->
                 buildShortSpeakerRow(speaker)
             }
@@ -490,22 +496,22 @@ data class ConferenceProperties(
 data class ConferencePropertiesDto(
         // General properties
         val constants: Constants,
-        val blocks: List<String>,
+        val blocks: Blocks,
         val conference: ConferenceDto,
         val gallery: Gallery,
         val organizers: Organizers,
-        val partners: List<Partners>,
-        val resources: List<Resource>,
+        val partners: Partners,
+        val resources: Resources,
         val statistics: Statistics,
         val tickets: TicketsDto,
         val venue: Venue,
         // Schedule
-        val schedule: List<ScheduleDayDto>,
+        val schedule: ScheduleDto,
         // Sessions
-        val commonSessions: List<CommonSession>,
-        val sessions: List<Session>,
+        val commonSessions: CommonSessions,
+        val sessions: SpeakerSessions,
         // Speakers
-        val speakers: List<Speaker>,
+        val speakers: Speakers,
         // Teams
-        val teams: List<Team>
+        val teams: Teams
 )

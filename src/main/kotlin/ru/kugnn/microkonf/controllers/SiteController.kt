@@ -49,7 +49,7 @@ class SiteController(
     @Get("/speakers/{speakerName}")
     @View("index")
     fun speaker(@PathVariable("speakerName") speakerName: String): Speaker? {
-        return conferenceProperties.speakers.find {
+        return conferenceProperties.speakers.speakers.find {
             it.name == speakerName
         }
     }

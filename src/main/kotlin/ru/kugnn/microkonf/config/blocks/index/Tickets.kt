@@ -40,64 +40,64 @@ data class Tickets @JsonCreator constructor(
             )
         }
     }
+}
 
-    @Introspected
-    data class Item @JsonCreator constructor(
-            @JsonProperty("title") var title: String,
-            @JsonProperty("price") var price: String,
-            @JsonProperty("featureText") var featureText: String,
-            @JsonProperty("startDate") @JsonDeserialize(using = LocalDateDeserializer::class) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ParseDateFormat) var startDate: LocalDate,
-            @JsonProperty("endDate") @JsonDeserialize(using = LocalDateDeserializer::class) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ParseDateFormat) var endDate: LocalDate,
-            @JsonProperty("note") var note: String
-    ) {
-        // Complex calculable fields
-        @get:JsonIgnore
-        val upcoming: Boolean by lazy {
-            LocalDate.now().run {
-                startDate.isBefore(this) && endDate.isBefore(this)
-            }
+@Introspected
+data class Item @JsonCreator constructor(
+        @JsonProperty("title") var title: String,
+        @JsonProperty("price") var price: String,
+        @JsonProperty("featureText") var featureText: String,
+        @JsonProperty("startDate") @JsonDeserialize(using = LocalDateDeserializer::class) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ParseDateFormat) var startDate: LocalDate,
+        @JsonProperty("endDate") @JsonDeserialize(using = LocalDateDeserializer::class) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ParseDateFormat) var endDate: LocalDate,
+        @JsonProperty("note") var note: String
+) {
+    // Complex calculable fields
+    @get:JsonIgnore
+    val upcoming: Boolean by lazy {
+        LocalDate.now().run {
+            startDate.isBefore(this) && endDate.isBefore(this)
         }
+    }
 
-        @get:JsonIgnore
-        val missed: Boolean by lazy {
-            LocalDate.now().run {
-                startDate.isAfter(this) && endDate.isAfter(this)
-            }
+    @get:JsonIgnore
+    val missed: Boolean by lazy {
+        LocalDate.now().run {
+            startDate.isAfter(this) && endDate.isAfter(this)
         }
+    }
 
-        @get:JsonIgnore
-        val active: Boolean by lazy {
-            !missed && !upcoming
-        }
+    @get:JsonIgnore
+    val active: Boolean by lazy {
+        !missed && !upcoming
+    }
 
-        @get:JsonIgnore
-        val saleFor: String by lazy {
-            val (start, end) = Utils.getSortedDateBounds(startDate, endDate)
-            "${TicketDateFormat.format(start)} - ${TicketDateFormat.format(end)}"
-        }
+    @get:JsonIgnore
+    val saleFor: String by lazy {
+        val (start, end) = Utils.getSortedDateBounds(startDate, endDate)
+        "${TicketDateFormat.format(start)} - ${TicketDateFormat.format(end)}"
+    }
 
-        fun toDto(): TicketsDto.ItemDto {
-            return TicketsDto.ItemDto(
-                    title,
-                    price,
-                    featureText,
-                    startDate.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli(),
-                    endDate.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli(),
-                    note
+    fun toDto(): TicketsDto.ItemDto {
+        return TicketsDto.ItemDto(
+                title,
+                price,
+                featureText,
+                startDate.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli(),
+                endDate.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli(),
+                note
+        )
+    }
+
+    companion object {
+        fun fromDto(dto: TicketsDto.ItemDto): Item {
+            return Item(
+                    dto.title,
+                    dto.price,
+                    dto.featureText,
+                    LocalDate.ofInstant(Instant.ofEpochMilli(dto.startDate), ZoneOffset.UTC),
+                    LocalDate.ofInstant(Instant.ofEpochMilli(dto.endDate), ZoneOffset.UTC),
+                    dto.note
             )
-        }
-
-        companion object {
-            fun fromDto(dto: TicketsDto.ItemDto): Item {
-                return Item(
-                        dto.title,
-                        dto.price,
-                        dto.featureText,
-                        LocalDate.ofInstant(Instant.ofEpochMilli(dto.startDate), ZoneOffset.UTC),
-                        LocalDate.ofInstant(Instant.ofEpochMilli(dto.endDate), ZoneOffset.UTC),
-                        dto.note
-                )
-            }
         }
     }
 }

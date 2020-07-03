@@ -1,4 +1,4 @@
-package ru.kugnn.microkonf.config.blocks.sessions
+package ru.kugnn.microkonf.render
 
 object CommonSessionSvg {
     private const val openingSvg: String = """

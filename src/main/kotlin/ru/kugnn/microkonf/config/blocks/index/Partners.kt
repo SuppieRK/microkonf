@@ -6,13 +6,18 @@ import io.micronaut.core.annotation.Introspected
 
 @Introspected
 data class Partners @JsonCreator constructor(
+        @JsonProperty("partners") var partners: List<Partner>
+)
+
+@Introspected
+data class Partner @JsonCreator constructor(
         @JsonProperty("name") var name: String,
         @JsonProperty("items") var items: List<Info>
-) {
-    @Introspected
-    data class Info @JsonCreator constructor(
-            @JsonProperty("name") var name: String,
-            @JsonProperty("url") var url: String,
-            @JsonProperty("logo") var logo: String
-    )
-}
+)
+
+@Introspected
+data class Info @JsonCreator constructor(
+        @JsonProperty("name") var name: String,
+        @JsonProperty("url") var url: String,
+        @JsonProperty("logo") var logo: String
+)

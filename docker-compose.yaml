@@ -3,7 +3,7 @@ services:
   cloud-firestore:
     build:
       context: .
-      dockerfile: DockerfileFirebaseEmulator
+      dockerfile: firestore/Dockerfile
     image: cloud-firestore
     ports:
       - 4000:4000
@@ -22,7 +22,6 @@ services:
     ports:
       - 8081:8081
     environment:
-      FIREBASE_DATABASE_EMULATOR_HOST: cloud-firestore:9000
       FIRESTORE_EMULATOR_HOST: cloud-firestore:8080
       GOOGLE_CLOUD_PROJECT: local
       MICRONAUT_ENVIRONMENTS: dev

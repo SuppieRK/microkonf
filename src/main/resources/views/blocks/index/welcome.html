@@ -1,23 +1,18 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <body>
-        <div class="welcome d-flex justify-content-center flex-column">
-            <img class="conference-logo" src="/public/images/assets/event-logo.svg"/>
+<div xmlns:th="http://www.thymeleaf.org" class="welcome d-flex justify-content-center flex-column">
+    <img class="conference-logo" src="/public/images/assets/event-logo.svg"/>
 
-            <div class="inner-wrapper mt-auto">
-                <!--/*@thymesVar id="conference" type="ru.kugnn.microkonf.config.blocks.index.Conference"*/-->
-                <p class="slide-in visible mb-1" th:text="${conference.conferenceWhere}"></p>
-                <p class="slide-in visible mb-1" th:text="${conference.conferenceWhen}"></p>
+    <div class="inner-wrapper mt-auto">
+        <!--/*@thymesVar id="conference" type="ru.kugnn.microkonf.config.blocks.index.Conference"*/-->
+        <p class="slide-in visible mb-1" th:text="${conference.conferenceWhere}"></p>
+        <p class="slide-in visible mb-1" th:text="${conference.conferenceWhen}"></p>
 
-                <div class="action-links slide-in visible mt-3">
-                    <a class="btn btn-primary btn-pill align-self-center mr-2"
-                       href="https://designrevision.com/downloads/shards"
-                       target="_blank">
-                        <i class="fa fa-download mr-1"></i>
-                        Download Now
-                    </a>
-                </div>
-            </div>
+        <div class="action-links slide-in visible mt-3">
+            <a class="btn btn-primary btn-pill align-self-center mr-2"
+               href="https://designrevision.com/downloads/shards"
+               target="_blank">
+                <i class="fa fa-download mr-1"></i>
+                Download Now
+            </a>
         </div>
-    </body>
-</html>
+    </div>
+</div>

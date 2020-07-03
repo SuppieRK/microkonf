@@ -1,44 +1,45 @@
-- name: General Partners
-  items:
-    - name: Google
-      url: https://www.google.com.ua/intl/en/about/
-      logo: /public/images/logos/google.svg
-    - name: JetBrains
-      url: https://www.jetbrains.com/company/
-      logo: /public/images/logos/jetbrains.svg
-    - name: Google
-      url: https://www.google.com.ua/intl/en/about/
-      logo: /public/images/logos/google.svg
-    - name: JetBrains
-      url: https://www.jetbrains.com/company/
-      logo: /public/images/logos/jetbrains.svg
-    - name: Google
-      url: https://www.google.com.ua/intl/en/about/
-      logo: /public/images/logos/google.svg
-    - name: JetBrains
-      url: https://www.jetbrains.com/company/
-      logo: /public/images/logos/jetbrains.svg
+partners:
+  - name: General Partners
+    items:
+      - name: Google
+        url: https://www.google.com.ua/intl/en/about/
+        logo: /public/images/logos/google.svg
+      - name: JetBrains
+        url: https://www.jetbrains.com/company/
+        logo: /public/images/logos/jetbrains.svg
+      - name: Google
+        url: https://www.google.com.ua/intl/en/about/
+        logo: /public/images/logos/google.svg
+      - name: JetBrains
+        url: https://www.jetbrains.com/company/
+        logo: /public/images/logos/jetbrains.svg
+      - name: Google
+        url: https://www.google.com.ua/intl/en/about/
+        logo: /public/images/logos/google.svg
+      - name: JetBrains
+        url: https://www.jetbrains.com/company/
+        logo: /public/images/logos/jetbrains.svg
 
-- name: Venue Partners
-  items:
-    - name: Technopark Ankudinovka
-      url: https://www.itpark-nn.com/
-      logo: /public/images/logos/ankudinovka.png
+  - name: Venue Partners
+    items:
+      - name: Technopark Ankudinovka
+        url: https://www.itpark-nn.com/
+        logo: /public/images/logos/ankudinovka.png
 
-- name: Gold Partner
-  items:
-    - name: EPAM Systems
-      url: https://www.epam.com/
-      logo: /public/images/logos/epam-systems.png
+  - name: Gold Partner
+    items:
+      - name: EPAM Systems
+        url: https://www.epam.com/
+        logo: /public/images/logos/epam-systems.png
 
-- name: Silver Partner
-  items:
-    - name: Five9
-      url: https://www.five9.com/
-      logo: /public/images/logos/five9.png
+  - name: Silver Partner
+    items:
+      - name: Five9
+        url: https://www.five9.com/
+        logo: /public/images/logos/five9.png
 
-- name: Travel Partner
-  items:
-    - name: Humans Net, Inc
-      url: https://humans.net/
-      logo: /public/images/logos/humans.jpg
+  - name: Travel Partner
+    items:
+      - name: Humans Net, Inc
+        url: https://humans.net/
+        logo: /public/images/logos/humans.jpg

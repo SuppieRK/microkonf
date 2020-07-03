@@ -5,9 +5,9 @@ metadata:
 build:
   artifacts:
     - image: cloud-firestore
-      context: .
+      context: ./firestore
       docker:
-        dockerfile: DockerfileFirebaseEmulator
+        dockerfile: Dockerfile
         noCache: false
     - image: microkonf
       context: .

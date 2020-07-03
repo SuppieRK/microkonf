@@ -5,6 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected
 
 @Introspected
+data class Resources @JsonCreator constructor(
+        @JsonProperty("resources") var resources: List<Resource>
+)
+
+@Introspected
 data class Resource @JsonCreator constructor(
         @JsonProperty("name") var name: String,
         @JsonProperty("url") var url: String

@@ -8,6 +8,11 @@ import ru.kugnn.microkonf.Utils.generateHash
 import ru.kugnn.microkonf.config.blocks.Social
 
 @Introspected
+data class Speakers @JsonCreator constructor(
+        @JsonProperty("speakers") val speakers: List<Speaker>
+)
+
+@Introspected
 data class Speaker @JsonCreator constructor(
         @JsonProperty("name") val name: String,
         @JsonProperty("pronouns") val pronouns: String?,
@@ -23,11 +28,11 @@ data class Speaker @JsonCreator constructor(
     val id: String by lazy {
         generateHash(name + hashCode())
     }
-
-    @Introspected
-    data class Company @JsonCreator constructor(
-            @JsonProperty("name") val name: String,
-            @JsonProperty("url") val url: String,
-            @JsonProperty("logo") val logo: String
-    )
 }
+
+@Introspected
+data class Company @JsonCreator constructor(
+        @JsonProperty("name") val name: String,
+        @JsonProperty("url") val url: String,
+        @JsonProperty("logo") val logo: String
+)

@@ -83,20 +83,20 @@ data class Conference @JsonCreator constructor(
             )
         }
     }
+}
 
-    @Introspected
-    data class Series @JsonCreator constructor(
-            @JsonProperty("name") var name: String,
-            @JsonProperty("url") var url: String
-    ) {
-        fun toDto(): ConferenceDto.SeriesDto {
-            return ConferenceDto.SeriesDto(name, url)
-        }
+@Introspected
+data class Series @JsonCreator constructor(
+        @JsonProperty("name") var name: String,
+        @JsonProperty("url") var url: String
+) {
+    fun toDto(): ConferenceDto.SeriesDto {
+        return ConferenceDto.SeriesDto(name, url)
+    }
 
-        companion object {
-            fun fromDto(dto: ConferenceDto.SeriesDto): Series {
-                return Series(dto.name, dto.url)
-            }
+    companion object {
+        fun fromDto(dto: ConferenceDto.SeriesDto): Series {
+            return Series(dto.name, dto.url)
         }
     }
 }

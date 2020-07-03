@@ -1,32 +1,33 @@
-- title: 'Core team'
-  members:
-    - name: 'Aleksandr Denisov'
-      title: Conference program; Work with sponsors
-      photo: /public/images/people/aleksandr_denisov.jpg
-      socials:
-        - type: twitter
-          url: https://twitter.com/ShuregDenisov
-        - type: facebook
-          url: https://www.facebook.com/alde0615
-        - type: vk
-          url: https://vk.com/shureg_denisovich
+teams:
+  - title: 'Core team'
+    members:
+      - name: 'Aleksandr Denisov'
+        title: Conference program; Work with sponsors
+        photo: /public/images/people/aleksandr_denisov.jpg
+        socials:
+          - type: twitter
+            url: https://twitter.com/ShuregDenisov
+          - type: facebook
+            url: https://www.facebook.com/alde0615
+          - type: vk
+            url: https://vk.com/shureg_denisovich
 
-    - name: 'Roman Khlebnov'
-      title: Conference program
-      photo: /public/images/people/roman_khlebnov.jpg
+      - name: 'Roman Khlebnov'
+        title: Conference program
+        photo: /public/images/people/roman_khlebnov.jpg
 
-    - name: 'Ekaterina Maksutova'
-      title: Work with speakers and sponsors; Social networking
-      photo: /public/images/people/ekaterina_maksutova.jpg
-      socials:
-        - type: vk
-          url: https://vk.com/id7179335
+      - name: 'Ekaterina Maksutova'
+        title: Work with speakers and sponsors; Social networking
+        photo: /public/images/people/ekaterina_maksutova.jpg
+        socials:
+          - type: vk
+            url: https://vk.com/id7179335
 
-    - name: 'Roman Khlebnov'
-      title: Conference program; Website
-      photo: /public/images/people/roman_khlebnov.jpg
-      socials:
-        - type: twitter
-          url: https://twitter.com/SuppieRK
-        - type: vk
-          url: https://vk.com/suppie
+      - name: 'Roman Khlebnov'
+        title: Conference program; Website
+        photo: /public/images/people/roman_khlebnov.jpg
+        socials:
+          - type: twitter
+            url: https://twitter.com/SuppieRK
+          - type: vk
+            url: https://vk.com/suppie

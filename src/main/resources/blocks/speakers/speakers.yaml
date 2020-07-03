@@ -1,132 +1,133 @@
-- name: 'Leonid Startsev'
-  photo: /public/images/people/leonid_startsev.jpg
-  bio: Leonid Startsev is working for almost two years in Kotlin Libraries team, focused on creating Kotlin-oriented multiplatform APIs. He is main committer of kotlinx.serialization project.
-  country: Saint Petersburg, Russia
-  jobTitle: Software Developer
-  company:
-    name: JetBrains
-    url: https://www.jetbrains.com/
-    logo: /public/images/logos/jetbrains.svg
-  socials:
-    - type: twitter
-      url: https://twitter.com/sandwwraith
-    - type: github
-      url: https://github.com/sandwwraith
+speakers:
+  - name: 'Leonid Startsev'
+    photo: /public/images/people/leonid_startsev.jpg
+    bio: Leonid Startsev is working for almost two years in Kotlin Libraries team, focused on creating Kotlin-oriented multiplatform APIs. He is main committer of kotlinx.serialization project.
+    country: Saint Petersburg, Russia
+    jobTitle: Software Developer
+    company:
+      name: JetBrains
+      url: https://www.jetbrains.com/
+      logo: /public/images/logos/jetbrains.svg
+    socials:
+      - type: twitter
+        url: https://twitter.com/sandwwraith
+      - type: github
+        url: https://github.com/sandwwraith
 
-- name: 'Kirill Rozov'
-  photo: /public/images/people/kirill_rozov.jpg
-  bio: Android fan and Kotlin Evangelist. Founder of @android_broadcast Telegram channel. GDG Minsk and School.kt lead. Member of Mobile People Talks podcast.
-  country: Minsk, Belarus
-  jobTitle: Lead Software Engineer
-  company:
-    name: Humans Net
-    url: https://humans.net/
-    logo: /public/images/logos/humans.jpg
-  socials:
-    - type: twitter
-      url: https://twitter.com/kirill_rozov
-    - type: facebook
-      url: https://www.facebook.com/kirillrozov1409
-    - type: telegram
-      url: https://tglink.ru/android_broadcast
+  - name: 'Kirill Rozov'
+    photo: /public/images/people/kirill_rozov.jpg
+    bio: Android fan and Kotlin Evangelist. Founder of @android_broadcast Telegram channel. GDG Minsk and School.kt lead. Member of Mobile People Talks podcast.
+    country: Minsk, Belarus
+    jobTitle: Lead Software Engineer
+    company:
+      name: Humans Net
+      url: https://humans.net/
+      logo: /public/images/logos/humans.jpg
+    socials:
+      - type: twitter
+        url: https://twitter.com/kirill_rozov
+      - type: facebook
+        url: https://www.facebook.com/kirillrozov1409
+      - type: telegram
+        url: https://tglink.ru/android_broadcast
 
-- name: 'Andrey Beryukhov'
-  photo: /public/images/people/andrey_beryukhov.jpg
-  bio: Android Developer in Kaspersky. Master student in HSE. Believes in multiplatform future of software development. Likes to try new approaches; compare and combine them with well-established techniques. For 2 years has become from testing intern to Android middle developer.
-  country: Moscow, Russia
-  jobTitle: Android Developer
-  company:
-    name: Kaspersky
-    url: https://usa.kaspersky.com/
-    logo: /public/images/logos/kaspersky.svg
-  socials:
-    - type: github
-      url: https://github.com/AndreySBer
-    - type: link
-      url: https://beryukhov.ru/
+  - name: 'Andrey Beryukhov'
+    photo: /public/images/people/andrey_beryukhov.jpg
+    bio: Android Developer in Kaspersky. Master student in HSE. Believes in multiplatform future of software development. Likes to try new approaches; compare and combine them with well-established techniques. For 2 years has become from testing intern to Android middle developer.
+    country: Moscow, Russia
+    jobTitle: Android Developer
+    company:
+      name: Kaspersky
+      url: https://usa.kaspersky.com/
+      logo: /public/images/logos/kaspersky.svg
+    socials:
+      - type: github
+        url: https://github.com/AndreySBer
+      - type: link
+        url: https://beryukhov.ru/
 
-- name: 'Denis Aleksandrov'
-  photo: /public/images/people/denis_aleksandrov.png
-  bio: KUG Taganrog organizer, mobile developer, teaching informatics
-  country: Taganrog, Russia
-  jobTitle: Android Developer
-  company:
-    name: Arcadia
-    url: https://softwarecountry.ru/
-    logo: /public/images/logos/arcadia.png
-  socials:
-    - type: github
-      url: https://github.com/d-aleksandrov
-    - type: vk
-      url: https://vk.com/d_aleksandrov
+  - name: 'Denis Aleksandrov'
+    photo: /public/images/people/denis_aleksandrov.png
+    bio: KUG Taganrog organizer, mobile developer, teaching informatics
+    country: Taganrog, Russia
+    jobTitle: Android Developer
+    company:
+      name: Arcadia
+      url: https://softwarecountry.ru/
+      logo: /public/images/logos/arcadia.png
+    socials:
+      - type: github
+        url: https://github.com/d-aleksandrov
+      - type: vk
+        url: https://vk.com/d_aleksandrov
 
-- name: 'Denis Ustavschikov'
-  photo: /public/images/people/denis_ustavschikov.jpg
-  bio: Senior Software Developer with 6 years of experience in development Android and iOS applications
-  country: Nizhny Novgorod, Russia
-  jobTitle: Senior Software Developer
-  company:
-    name: EPAM Systems
-    url: https://www.epam.com/
-    logo: /public/images/logos/epam-systems.png
-  socials:
-    - type: linkedin
-      url: https://www.linkedin.com/in/denis-ustavschikov-b93a39131
+  - name: 'Denis Ustavschikov'
+    photo: /public/images/people/denis_ustavschikov.jpg
+    bio: Senior Software Developer with 6 years of experience in development Android and iOS applications
+    country: Nizhny Novgorod, Russia
+    jobTitle: Senior Software Developer
+    company:
+      name: EPAM Systems
+      url: https://www.epam.com/
+      logo: /public/images/logos/epam-systems.png
+    socials:
+      - type: linkedin
+        url: https://www.linkedin.com/in/denis-ustavschikov-b93a39131
 
-- name: 'Ilya Bulatov'
-  photo: /public/images/people/ilya_bulatov.jpg
-  bio: Ilya has 4 years of expertise in Android development. He has good knowledge of Java and Kotlin.
-    He has an experience working in international projects. He currently works on a mobile app for big marketplace.
-  country: Nizhny Novgorod, Russia
-  jobTitle: Senior Software Developer
-  company:
-    name: EPAM Systems
-    url: https://www.epam.com/
-    logo: /public/images/logos/epam-systems.png
-  socials:
-    - type: vk
-      url: https://vk.com/bulatov.ilya
-    - type: telegram
-      url: https://tglink.ru/ivbulatov
+  - name: 'Ilya Bulatov'
+    photo: /public/images/people/ilya_bulatov.jpg
+    bio: Ilya has 4 years of expertise in Android development. He has good knowledge of Java and Kotlin.
+      He has an experience working in international projects. He currently works on a mobile app for big marketplace.
+    country: Nizhny Novgorod, Russia
+    jobTitle: Senior Software Developer
+    company:
+      name: EPAM Systems
+      url: https://www.epam.com/
+      logo: /public/images/logos/epam-systems.png
+    socials:
+      - type: vk
+        url: https://vk.com/bulatov.ilya
+      - type: telegram
+        url: https://tglink.ru/ivbulatov
 
-- name: 'Alexander Davydov'
-  photo: /public/images/people/alexander_davydov.jpg
-  bio: Alexander Davydov have a good knowledge of Java and Kotlin.
-    Have 7 years of expertise in Android Development. Has experience in working in international teams on big multimedia and retail projects.
-  country: Nizhny Novgorod, Russia
-  jobTitle: Software Developer
-  company:
-    name: EPAM Systems
-    url: https://www.epam.com/
-    logo: /public/images/logos/epam-systems.png
-  socials:
-    - type: linkedin
-      url: https://www.linkedin.com/in/alexander-davydov-461773160
+  - name: 'Alexander Davydov'
+    photo: /public/images/people/alexander_davydov.jpg
+    bio: Alexander Davydov have a good knowledge of Java and Kotlin.
+      Have 7 years of expertise in Android Development. Has experience in working in international teams on big multimedia and retail projects.
+    country: Nizhny Novgorod, Russia
+    jobTitle: Software Developer
+    company:
+      name: EPAM Systems
+      url: https://www.epam.com/
+      logo: /public/images/logos/epam-systems.png
+    socials:
+      - type: linkedin
+        url: https://www.linkedin.com/in/alexander-davydov-461773160
 
-- name: 'Daniil Emelyanov'
-  photo: /public/images/people/daniil_emelyanov.jpg
-  bio: Android developer, student.
-  country: Nizhny Novgorod, Russia
-  jobTitle: Junior Software Developer
-  company:
-    name: Neuron
-    url: https://neuron.digital/
-    logo: /public/images/logos/neuron.png
-  socials:
-    - type: github
-      url: https://github.com/Defolters
+  - name: 'Daniil Emelyanov'
+    photo: /public/images/people/daniil_emelyanov.jpg
+    bio: Android developer, student.
+    country: Nizhny Novgorod, Russia
+    jobTitle: Junior Software Developer
+    company:
+      name: Neuron
+      url: https://neuron.digital/
+      logo: /public/images/logos/neuron.png
+    socials:
+      - type: github
+        url: https://github.com/Defolters
 
-- name: 'Roman Khlebnov'
-  photo: /public/images/people/roman_khlebnov.jpg
-  bio: Passionate software developer, organizer of Scala and Kotlin user groups in Nizhny Novgorod
-  country: Nizhny Novgorod, Russia
-  jobTitle: Software Developer
-  company:
-    name: Five9
-    url: https://www.five9.com/
-    logo: /public/images/logos/five9.png
-  socials:
-    - type: twitter
-      url: https://twitter.com/SuppieRK
-    - type: vk
-      url: https://vk.com/suppie
+  - name: 'Roman Khlebnov'
+    photo: /public/images/people/roman_khlebnov.jpg
+    bio: Passionate software developer, organizer of Scala and Kotlin user groups in Nizhny Novgorod
+    country: Nizhny Novgorod, Russia
+    jobTitle: Software Developer
+    company:
+      name: Five9
+      url: https://www.five9.com/
+      logo: /public/images/logos/five9.png
+    socials:
+      - type: twitter
+        url: https://twitter.com/SuppieRK
+      - type: vk
+        url: https://vk.com/suppie

@@ -5,6 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected
 
 @Introspected
+data class CommonSessions @JsonCreator constructor(
+        @JsonProperty("sessions") val sessions: List<CommonSession>
+)
+
+@Introspected
 data class CommonSession @JsonCreator constructor(
         @JsonProperty("title") val title: String,
         @JsonProperty("location") val location: String?,
