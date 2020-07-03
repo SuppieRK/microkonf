@@ -2,7 +2,6 @@ package ru.kugnn.microkonf
 
 import org.commonmark.parser.Parser
 import org.commonmark.renderer.html.HtmlRenderer
-import ru.kugnn.microkonf.config.blocks.schedule.Timeslot
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.time.Duration
@@ -11,7 +10,6 @@ import java.time.LocalTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.regex.Pattern
-
 
 object Utils {
     // Date formatting

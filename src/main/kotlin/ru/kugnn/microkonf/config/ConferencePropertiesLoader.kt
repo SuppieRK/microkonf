@@ -14,8 +14,6 @@ import com.google.gson.reflect.TypeToken
 import io.micronaut.context.annotation.Bean
 import io.micronaut.context.annotation.Factory
 import org.slf4j.LoggerFactory
-import java.util.concurrent.TimeUnit
-
 
 @Factory
 class ConferencePropertiesLoader {
