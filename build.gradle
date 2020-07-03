@@ -40,8 +40,8 @@ dependencies {
     implementation("io.micronaut.kotlin:micronaut-kotlin-extension-functions")
     implementation("io.micronaut:micronaut-views-thymeleaf")
 
-    implementation(enforcedPlatform("com.google.cloud:libraries-bom:$googleCloudVersion"))
-    implementation("com.google.cloud:google-cloud-firestore")
+//    implementation(enforcedPlatform("com.google.cloud:libraries-bom:$googleCloudVersion"))
+    implementation("com.google.firebase:firebase-admin:6.14.0")
 
     implementation("javax.annotation:javax.annotation-api")
 

@@ -6,20 +6,23 @@ services:
       dockerfile: DockerfileFirebaseEmulator
     image: cloud-firestore
     ports:
-      - 8081:8080
+      - 4000:4000
+      - 5000:5000
+      - 5001:5001
+      - 8080:8080
+      - 8085:8085
+      - 9000:9000
     environment:
-      CLOUDSDK_CORE_PROJECT: microkonf-local
+      CLOUDSDK_CORE_PROJECT: local
 
   microkonf:
-    build:
-      context: .
-      dockerfile: DockerfileSimple
-    image: microkonf
+    image: microkonf:test
     depends_on:
       - cloud-firestore
     ports:
-      - 8080:8080
+      - 8081:8081
     environment:
-      FIRESTORE_EMULATOR_HOST: cloud-firestore:8081
-      GOOGLE_CLOUD_PROJECT: microkonf-local
+      FIREBASE_DATABASE_EMULATOR_HOST: cloud-firestore:9000
+      FIRESTORE_EMULATOR_HOST: cloud-firestore:8080
+      GOOGLE_CLOUD_PROJECT: local
       MICRONAUT_ENVIRONMENTS: dev

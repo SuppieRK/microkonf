@@ -3,16 +3,23 @@ package ru.kugnn.microkonf.config
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
-import com.google.cloud.NoCredentials
+import com.google.auth.oauth2.AccessToken
+import com.google.auth.oauth2.GoogleCredentials
+import com.google.cloud.ServiceOptions
 import com.google.cloud.firestore.Firestore
-import com.google.cloud.firestore.FirestoreOptions
 import com.google.cloud.firestore.SetOptions
+import com.google.common.collect.ImmutableMap
+import com.google.firebase.FirebaseApp
+import com.google.firebase.FirebaseOptions
+import com.google.firebase.cloud.FirestoreClient
 import io.micronaut.context.annotation.Bean
 import io.micronaut.context.annotation.Factory
 import io.micronaut.context.annotation.Property
 import org.slf4j.LoggerFactory
 import ru.kugnn.microkonf.config.application.RenderProperties
 import java.io.File
+import java.io.IOException
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 @Factory
@@ -23,14 +30,49 @@ class ConferencePropertiesLoader(
         private var firestoreEmulatorEnabled: Boolean = false,
         private val renderProperties: RenderProperties
 ) {
-    private val firestore: Firestore = FirestoreOptions.getDefaultInstance().run {
-        if (firestoreEmulatorEnabled) {
-            log.warn("Using Firestore emulator")
-            this.toBuilder().setCredentials(NoCredentials.getInstance()).build()
-        } else {
-            this
+    private val firestore: Firestore = {
+        val options = FirebaseOptions.builder()
+                .setProjectId(ServiceOptions.getDefaultProjectId())
+                .run {
+                    if (firestoreEmulatorEnabled) {
+                        this.setCredentials(EmulatorCredentials())
+                    } else {
+                        this.setCredentials(GoogleCredentials.getApplicationDefault())
+                    }
+                }
+                .build()
+
+//        val options = FirestoreOptions.getDefaultInstance().run {
+//            if (firestoreEmulatorEnabled) {
+//                log.warn("Using Firestore emulator")
+//                this.toBuilder().setCredentials(NoCredentials.getInstance()).build()
+//            } else {
+//                this
+//            }
+//        }
+
+        FirebaseApp.initializeApp(options)
+
+        FirestoreClient.getFirestore()
+    }.invoke()
+
+    private class EmulatorCredentials internal constructor() : GoogleCredentials(newToken()) {
+        override fun refreshAccessToken(): AccessToken {
+            return newToken()
         }
-    }.service
+
+        @Throws(IOException::class)
+        override fun getRequestMetadata(): Map<String, List<String>> {
+            return ImmutableMap.of()
+        }
+
+        companion object {
+            private fun newToken(): AccessToken {
+                return AccessToken("owner",
+                        Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(1)))
+            }
+        }
+    }
 
     private val configurationPath: String by lazy {
         if (blocksPath.isNullOrBlank()) "blocks" else blocksPath
