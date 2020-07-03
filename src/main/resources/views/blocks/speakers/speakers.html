@@ -32,7 +32,7 @@
                         </div>
                         <div class="card-footer bg-transparent mt-auto" style="padding: 0">
                             <ul class="list-group list-group-flush" style="border: none">
-                                <a target="_blank" th:href="${speaker.company.url}">
+                                <a target="_blank" rel="noopener noreferrer" th:href="${speaker.company.url}">
                                     <li class="list-group-item d-flex mx-auto align-items-center speakerCompanyItem"
                                         style="border-top: none; border-left: none; border-right: none;">
                                         <img class="speakerCompany lazyload"
@@ -45,6 +45,7 @@
                                     <ul class="nav justify-content-center">
                                         <li class="nav-item" th:each="item : ${speaker.socials}">
                                             <a class="nav-link teamSocial"
+                                               rel="noopener noreferrer"
                                                style="font-size: 20px !important; line-height: 20px !important;"
                                                target="_blank"
                                                th:href="${item.url}">

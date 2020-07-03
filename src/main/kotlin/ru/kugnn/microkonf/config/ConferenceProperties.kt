@@ -39,17 +39,20 @@ data class ConferenceProperties(
 ) {
     // Modal windows creation
     @get:JsonIgnore
+    @delegate:Transient
     val speakerModals: String by lazy {
         ModalsRenderer.renderSpeakerModals(speakers, speakerSessions)
     }
 
     @get:JsonIgnore
+    @delegate:Transient
     val speakerSessionModals: String by lazy {
         ModalsRenderer.renderSpeakerSessionModals(schedule, speakers, speakerSessions)
     }
 
     // Schedule table must be code generated and not templated due to its complexity
     @get:JsonIgnore
+    @delegate:Transient
     val scheduleTable: String by lazy {
         ScheduleRenderer.renderSchedule(schedule, speakers, commonSessions, speakerSessions)
     }

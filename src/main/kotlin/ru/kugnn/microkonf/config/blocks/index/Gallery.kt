@@ -14,6 +14,7 @@ data class Gallery @JsonCreator constructor(
         @JsonProperty("localImages") @get:JsonIgnore var localImages: List<String>
 ) {
     @get:JsonIgnore
+    @delegate:Transient
     val images: Map<String, Int> by lazy {
         val foundImages: Map<String, Int> = localImages.mapIndexed { index, path -> path to index }.toMap()
 

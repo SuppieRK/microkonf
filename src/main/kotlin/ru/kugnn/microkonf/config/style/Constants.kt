@@ -70,6 +70,7 @@ data class Speakers @JsonCreator constructor(
         @JsonProperty("description") var unescapedDescription: String
 ) {
     @get:JsonIgnore
+    @delegate:Transient
     val description: String by lazy {
         markdownToHtml(unescapedDescription)
     }
@@ -86,6 +87,7 @@ data class Team @JsonCreator constructor(
         @JsonProperty("description") var unescapedDescription: String
 ) {
     @get:JsonIgnore
+    @delegate:Transient
     val description: String by lazy {
         markdownToHtml(unescapedDescription)
     }

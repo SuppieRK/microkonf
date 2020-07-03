@@ -25,6 +25,8 @@ dependencies {
     kapt("io.micronaut:micronaut-validation")
     kapt("io.micronaut:micronaut-graal")
 
+    implementation 'com.google.code.gson:gson:2.8.6'
+
     compileOnly(enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion"))
     compileOnly("org.graalvm.nativeimage:svm")
 

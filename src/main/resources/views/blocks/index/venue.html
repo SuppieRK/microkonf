@@ -8,11 +8,12 @@
         <div class="col-12">
             <div class="card h-100">
                 <!--/*@thymesVar id="venue" type="ru.kugnn.microkonf.config.blocks.index.Venue"*/-->
-                <img class="card-img-top venueImg lazyload" th:attr="data-src=${venue.image}">
+                <img class="card-img-top venueImg lazyload" alt="Venue Image" th:attr="data-src=${venue.image}">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${venue.name}"></h5>
                     <p class="card-text text-justify" th:text="${venue.description}"></p>
                     <a class="btn btn-primary mt-auto"
+                       rel="noopener noreferrer"
                        target="_blank"
                        th:href="${venue.mapLink}"
                        th:text="${venue.address}"></a>

@@ -7,12 +7,13 @@
     <div class="carousel"
          data-flickity='{ "wrapAround": true, "autoPlay": true, "prevNextButtons": false, "lazyLoad": 1 }'>
         <div class="carousel-cell" th:each="entry : ${gallery.images}">
-            <img class="carousel-cell-image" th:attr="data-flickity-lazyload=${entry.key}"/>
+            <img class="carousel-cell-image" alt="Gallery Image" th:attr="data-flickity-lazyload=${entry.key}"/>
         </div>
     </div>
     <div class="row mx-auto" style="margin-top: 2.3rem !important;">
         <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
         <a class="btn btn-primary"
+           rel="noopener noreferrer"
            target="_blank"
            th:href="${gallery.galleryUrl}"
            th:text="${constants.gallery.fullCollection}"></a>

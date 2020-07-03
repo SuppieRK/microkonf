@@ -9,6 +9,8 @@ import com.google.cloud.firestore.SetOptions
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import com.google.firebase.cloud.FirestoreClient
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import io.micronaut.context.annotation.Bean
 import io.micronaut.context.annotation.Factory
 import org.slf4j.LoggerFactory
@@ -43,18 +45,12 @@ class ConferencePropertiesLoader {
 
         val local: T = this.readPropertyFromFile()
 
-//        log.warn("$fileName conversion test:")
-//        val map = local.toMap()
-//        log.warn("$fileName map -> \n$map")
-//        val objectM = map.toDataClass<T>()
-//        log.warn("$fileName object -> $objectM")
-
         try {
             val documentSnapshot = firestore
                     .collection(FirestoreCollectionName)
                     .document(fileName)
                     .get()
-                    .get(1, TimeUnit.SECONDS)
+                    .get()
 
             if (documentSnapshot.exists()) {
                 log.info("$fileName data: ${documentSnapshot.data}")
@@ -66,7 +62,7 @@ class ConferencePropertiesLoader {
                         .collection(FirestoreCollectionName)
                         .document(fileName)
                         .set(local.toMap(), SetOptions.merge())
-                        .get(1, TimeUnit.SECONDS)
+                        .get()
 
                 log.info("$fileName added at ${writeResult.updateTime}")
 
@@ -88,16 +84,22 @@ class ConferencePropertiesLoader {
         } ?: error("Cannot load $this resource")
     }
 
-    private inline fun <reified T : Any> T.toMap(): Map<String, Any> {
-        return yamlMapper.convertValue(this, object : TypeReference<Map<String, Any>>() {})
+    private fun <T> T.toMap(): Map<String, Any> {
+        return convert()
     }
 
     private inline fun <reified T> Map<String, Any>.toDataClass(): T {
-        val json = yamlMapper.writeValueAsString(this)
-        return yamlMapper.readValue(json, T::class.java)
+        return convert()
+    }
+
+    private inline fun <I, reified O> I.convert(): O {
+        val json = gson.toJson(this)
+        return gson.fromJson(json, object : TypeToken<O>() {}.type)
     }
 
     companion object {
+        val gson by lazy { Gson() }
+
         private val log = LoggerFactory.getLogger(ConferencePropertiesLoader::class.java)
 
         private val yamlMapper: ObjectMapper = ObjectMapper(YAMLFactory())

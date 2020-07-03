@@ -5,6 +5,7 @@
         <!--/*@thymesVar id="conference" type="ru.kugnn.microkonf.config.blocks.index.Conference"*/-->
         <p class="text-justify" th:text="${conference.description}"></p>
         <a class="btn btn-primary"
+           rel="noopener noreferrer"
            target="_blank"
            th:href="${conference.series.url}"
            th:if="${conference.series != null}"

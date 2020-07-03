@@ -123,7 +123,7 @@ object ScheduleRenderer {
 
             div(classes = "card-body d-flex flex-column") {
                 when {
-                    // TODO document this behavior later (we pick only first track for speaker session from the list)
+                    // We pick only first track for speaker session from the list due to rendering logic
                     speakerSession != null -> buildSpeakerSessionCardBody(speakers, tracks[0], duration, speakerSession)
                     commonSession != null -> buildCommonSessionCardBody(duration, commonSession)
                     else -> buildPlaceholderSessionCardBody()

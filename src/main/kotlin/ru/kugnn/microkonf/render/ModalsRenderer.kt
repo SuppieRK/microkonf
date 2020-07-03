@@ -100,6 +100,7 @@ object ModalsRenderer {
                                     a(classes = "nav-link teamSocial") {
                                         style = "font-size: 20px !important; line-height: 20px !important;"
                                         target = "_blank"
+                                        rel = "noopener noreferrer"
                                         href = social.url
 
                                         i(classes = "fa fa-${social.type} mr-sm-1")
