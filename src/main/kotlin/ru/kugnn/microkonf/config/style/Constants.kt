@@ -8,85 +8,85 @@ import ru.kugnn.microkonf.Utils.markdownToHtml
 
 @Introspected
 data class Constants @JsonCreator constructor(
-        @JsonProperty("event") val event: Event,
-        @JsonProperty("social") val social: Social,
-        @JsonProperty("organizers") val organizers: Organizers,
-        @JsonProperty("tickets") val tickets: Tickets,
-        @JsonProperty("gallery") val gallery: Gallery,
-        @JsonProperty("partners") val partners: Partners,
-        @JsonProperty("venue") val venue: Venue,
-        @JsonProperty("speakers") val speakers: Speakers,
-        @JsonProperty("schedule") val schedule: Schedule,
-        @JsonProperty("team") val team: Team,
-        @JsonProperty("readMore") val readMore: String,
-        @JsonProperty("copyright") val copyright: String
+        @JsonProperty("event") var event: Event,
+        @JsonProperty("social") var social: Social,
+        @JsonProperty("organizers") var organizers: Organizers,
+        @JsonProperty("tickets") var tickets: Tickets,
+        @JsonProperty("gallery") var gallery: Gallery,
+        @JsonProperty("partners") var partners: Partners,
+        @JsonProperty("venue") var venue: Venue,
+        @JsonProperty("speakers") var speakers: Speakers,
+        @JsonProperty("schedule") var schedule: Schedule,
+        @JsonProperty("team") var team: Team,
+        @JsonProperty("readMore") var readMore: String,
+        @JsonProperty("copyright") var copyright: String
+)
+
+@Introspected
+data class Event @JsonCreator constructor(
+        @JsonProperty("descriptionTitle") var descriptionTitle: String
+)
+
+@Introspected
+data class Social @JsonCreator constructor(
+        @JsonProperty("subscriptionTitle") var subscriptionTitle: String
+)
+
+@Introspected
+data class Organizers @JsonCreator constructor(
+        @JsonProperty("singleTitle") var singleTitle: String,
+        @JsonProperty("pluralTitle") var pluralTitle: String
+)
+
+@Introspected
+data class Tickets @JsonCreator constructor(
+        @JsonProperty("title") var title: String,
+        @JsonProperty("notification") var notification: String,
+        @JsonProperty("buy") var buy: String,
+        @JsonProperty("get") var get: String,
+        @JsonProperty("sold") var sold: String,
+        @JsonProperty("upcoming") var upcoming: String
+)
+
+@Introspected
+data class Gallery @JsonCreator constructor(
+        @JsonProperty("fullCollection") var fullCollection: String
+)
+
+@Introspected
+data class Partners @JsonCreator constructor(
+        @JsonProperty("title") var title: String,
+        @JsonProperty("join") var join: String
+)
+
+@Introspected
+data class Venue @JsonCreator constructor(
+        @JsonProperty("title") var title: String
+)
+
+@Introspected
+data class Speakers @JsonCreator constructor(
+        @JsonProperty("title") var title: String,
+        @JsonProperty("description") var unescapedDescription: String
 ) {
-    @Introspected
-    data class Event @JsonCreator constructor(
-            @JsonProperty("descriptionTitle") val descriptionTitle: String
-    )
-
-    @Introspected
-    data class Social @JsonCreator constructor(
-            @JsonProperty("subscriptionTitle") val subscriptionTitle: String
-    )
-
-    @Introspected
-    data class Organizers @JsonCreator constructor(
-            @JsonProperty("singleTitle") val singleTitle: String,
-            @JsonProperty("pluralTitle") val pluralTitle: String
-    )
-
-    @Introspected
-    data class Tickets @JsonCreator constructor(
-            @JsonProperty("title") val title: String,
-            @JsonProperty("notification") val notification: String,
-            @JsonProperty("buy") val buy: String,
-            @JsonProperty("get") val get: String,
-            @JsonProperty("sold") val sold: String,
-            @JsonProperty("upcoming") val upcoming: String
-    )
-
-    @Introspected
-    data class Gallery @JsonCreator constructor(
-            @JsonProperty("fullCollection") val fullCollection: String
-    )
-
-    @Introspected
-    data class Partners @JsonCreator constructor(
-            @JsonProperty("title") val title: String,
-            @JsonProperty("join") val join: String
-    )
-
-    @Introspected
-    data class Venue @JsonCreator constructor(
-            @JsonProperty("title") val title: String
-    )
-
-    @Introspected
-    data class Speakers @JsonCreator constructor(
-            @JsonProperty("title") val title: String,
-            @JsonProperty("description") val unescapedDescription: String
-    ) {
-        @get:JsonIgnore
-        val description: String by lazy {
-            markdownToHtml(unescapedDescription)
-        }
+    @get:JsonIgnore
+    val description: String by lazy {
+        markdownToHtml(unescapedDescription)
     }
+}
 
-    @Introspected
-    data class Schedule @JsonCreator constructor(
-            @JsonProperty("title") val title: String
-    )
+@Introspected
+data class Schedule @JsonCreator constructor(
+        @JsonProperty("title") var title: String
+)
 
-    @Introspected
-    data class Team @JsonCreator constructor(
-            @JsonProperty("title") val title: String,
-            @JsonProperty("description") val unescapedDescription: String
-    ) {
-        @get:JsonIgnore
-        val description: String by lazy {
-            markdownToHtml(unescapedDescription)
-        }
+@Introspected
+data class Team @JsonCreator constructor(
+        @JsonProperty("title") var title: String,
+        @JsonProperty("description") var unescapedDescription: String
+) {
+    @get:JsonIgnore
+    val description: String by lazy {
+        markdownToHtml(unescapedDescription)
     }
 }

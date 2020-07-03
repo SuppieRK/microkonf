@@ -43,6 +43,12 @@ class ConferencePropertiesLoader {
 
         val local: T = this.readPropertyFromFile()
 
+//        log.warn("$fileName conversion test:")
+//        val map = local.toMap()
+//        log.warn("$fileName map -> \n$map")
+//        val objectM = map.toDataClass<T>()
+//        log.warn("$fileName object -> $objectM")
+
         try {
             val documentSnapshot = firestore
                     .collection(FirestoreCollectionName)
@@ -88,23 +94,7 @@ class ConferencePropertiesLoader {
 
     private inline fun <reified T> Map<String, Any>.toDataClass(): T {
         val json = yamlMapper.writeValueAsString(this)
-        return yamlMapper.readValue(json, object : TypeReference<T>() {})
-    }
-
-    private fun Map<String, Any>.prettyPrint(): String {
-        val sb = StringBuilder()
-        val iter: Iterator<Map.Entry<String, Any>> = this.entries.iterator()
-        while (iter.hasNext()) {
-            val entry: Map.Entry<String, Any> = iter.next()
-            sb.append(entry.key)
-            sb.append('=').append('"')
-            sb.append(entry.value)
-            sb.append('"')
-            if (iter.hasNext()) {
-                sb.append(',').append(' ')
-            }
-        }
-        return sb.toString()
+        return yamlMapper.readValue(json, T::class.java)
     }
 
     companion object {
