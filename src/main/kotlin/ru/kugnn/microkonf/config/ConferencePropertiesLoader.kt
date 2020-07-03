@@ -25,6 +25,7 @@ class ConferencePropertiesLoader(
 ) {
     private val firestore: Firestore = FirestoreOptions.getDefaultInstance().run {
         if (firestoreEmulatorEnabled) {
+            log.warn("Using Firestore emulator")
             this.toBuilder().setCredentials(NoCredentials.getInstance()).build()
         } else {
             this
@@ -70,9 +71,11 @@ class ConferencePropertiesLoader(
 
             if (documentSnapshot.exists()) {
                 log.warn("Document data: ${documentSnapshot.data}")
+                println("Document data: ${documentSnapshot.data}")
                 return ConferenceProperties.fromDto(documentSnapshot.toObject(ConferencePropertiesDto::class.java)!!)
             } else {
                 log.warn("No document exists, adding from local")
+                println("No document exists, adding from local")
 
                 val writeResult = firestore
                         .collection(FirestoreCollectionName)
@@ -81,11 +84,13 @@ class ConferencePropertiesLoader(
                         .get(1, TimeUnit.SECONDS)
 
                 log.warn("Document added at ${writeResult.updateTime}")
+                println("Document added at ${writeResult.updateTime}")
 
                 return local
             }
         } catch (e: Exception) {
             log.error("Failed to read properties from Firestore: ${e.message}, falling back to local properties", e)
+            println("Failed to read properties from Firestore: ${e.message}, falling back to local properties")
             return local
         }
     }

@@ -26,7 +26,7 @@ spec:
             - name: FIREBASE_DATABASE_EMULATOR_HOST
               value: cloud-firestore:9000
             - name: FIRESTORE_EMULATOR_HOST
-              value: cloud-firestore:8081
+              value: cloud-firestore:8080
             - name: GOOGLE_CLOUD_PROJECT
               value: local
             - name: MICRONAUT_ENVIRONMENTS
@@ -35,7 +35,7 @@ spec:
           imagePullPolicy: ""
           name: microkonf
           ports:
-            - containerPort: 8080
+            - containerPort: 8081
           resources: {}
       restartPolicy: Always
       serviceAccountName: ""

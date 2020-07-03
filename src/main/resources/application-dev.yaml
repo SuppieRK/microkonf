@@ -1,6 +1,6 @@
 micronaut:
   server:
-    port: 8080
+    port: 8081
   application:
     name: microkonf
   router:
@@ -15,6 +15,12 @@ micronaut:
         mapping: /**
         paths:
           - classpath:public/js/sw
+
+datasources:
+  gcp:
+    firestore:
+      emulator:
+        enabled: true
 
 render:
   # Defines order of elements rendering on the page
