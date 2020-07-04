@@ -6,7 +6,8 @@
             <h1 class="container-title" th:text="${constants.organizers.pluralTitle}"></h1>
         </div>
         <div class="row mx-auto">
-            <p class="text-justify" th:text="${organizers.description}"></p>
+            <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
+            <p class="text-justify" th:text="${constants.organizers.description}"></p>
         </div>
         <div class="row mx-auto justify-content-around">
             <div class="col-12 col-sm-6 pb-4" th:each="entry: ${organizers.userGroups}">
@@ -33,7 +34,7 @@
             <div class="col-12 col-sm-6 pb-4">
                 <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
                 <h1 class="container-title" th:text="${constants.organizers.singleTitle}"></h1>
-                <p th:text="${organizers.description}"></p>
+                <p th:text="${constants.organizers.description}"></p>
             </div>
             <div class="col-12 col-sm-6 pb-4" th:each="entry: ${organizers.userGroups}">
                 <div class="card">

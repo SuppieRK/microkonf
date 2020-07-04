@@ -35,7 +35,8 @@ data class Social @JsonCreator constructor(
 @Introspected
 data class Organizers @JsonCreator constructor(
         @JsonProperty("singleTitle") var singleTitle: String,
-        @JsonProperty("pluralTitle") var pluralTitle: String
+        @JsonProperty("pluralTitle") var pluralTitle: String,
+        @JsonProperty("description") var description: String
 )
 
 @Introspected
@@ -67,12 +68,11 @@ data class Venue @JsonCreator constructor(
 @Introspected
 data class Speakers @JsonCreator constructor(
         @JsonProperty("title") var title: String,
-        @JsonProperty("description") var unescapedDescription: String
+        @JsonProperty("description") var markdownDescription: String
 ) {
     @get:JsonIgnore
-    @delegate:Transient
     val description: String by lazy {
-        markdownToHtml(unescapedDescription)
+        markdownToHtml(markdownDescription)
     }
 }
 
@@ -84,11 +84,10 @@ data class Schedule @JsonCreator constructor(
 @Introspected
 data class Team @JsonCreator constructor(
         @JsonProperty("title") var title: String,
-        @JsonProperty("description") var unescapedDescription: String
+        @JsonProperty("description") var markdownDescription: String
 ) {
     @get:JsonIgnore
-    @delegate:Transient
     val description: String by lazy {
-        markdownToHtml(unescapedDescription)
+        markdownToHtml(markdownDescription)
     }
 }

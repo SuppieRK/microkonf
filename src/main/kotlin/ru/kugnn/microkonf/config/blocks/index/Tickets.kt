@@ -27,20 +27,17 @@ data class Item @JsonCreator constructor(
         @JsonProperty("note") var note: String
 ) {
     @get:JsonIgnore
-    @delegate:Transient
     val startDate: LocalDate by lazy {
         LocalDate.parse(start, ParseDateFormatter)
     }
 
     @get:JsonIgnore
-    @delegate:Transient
     val endDate: LocalDate by lazy {
         LocalDate.parse(end, ParseDateFormatter)
     }
 
     // Complex calculable fields
     @get:JsonIgnore
-    @delegate:Transient
     val upcoming: Boolean by lazy {
         LocalDate.now().run {
             startDate.isBefore(this) && endDate.isBefore(this)
@@ -48,7 +45,6 @@ data class Item @JsonCreator constructor(
     }
 
     @get:JsonIgnore
-    @delegate:Transient
     val missed: Boolean by lazy {
         LocalDate.now().run {
             startDate.isAfter(this) && endDate.isAfter(this)
@@ -56,13 +52,11 @@ data class Item @JsonCreator constructor(
     }
 
     @get:JsonIgnore
-    @delegate:Transient
     val active: Boolean by lazy {
         !missed && !upcoming
     }
 
     @get:JsonIgnore
-    @delegate:Transient
     val saleFor: String by lazy {
         val (start, end) = Utils.getSortedDateBounds(startDate, endDate)
         "${TicketDateFormat.format(start)} - ${TicketDateFormat.format(end)}"

@@ -7,7 +7,6 @@ import ru.kugnn.microkonf.config.blocks.Social
 
 @Introspected
 data class Organizers @JsonCreator constructor(
-        @JsonProperty("description") var description: String,
         @JsonProperty("userGroups") var userGroups: List<Organizer>
 )
 

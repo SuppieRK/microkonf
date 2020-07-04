@@ -2,7 +2,7 @@ enabled: true
 hashTag: "KotlinEverywhereGorky"
 description: |
   This year's conference brought lots of excitement. Check out photos from featured talks and hands-on learning sessions.
-galleryUrl: https://photos.app.goo.gl/AYBq22sVG658Fhs2
+url: https://photos.app.goo.gl/AYBq22sVG658Fhs2
 localImages:
   - public/images/gallery/IMG_6619.jpg
   - public/images/gallery/IMG_8169.jpg

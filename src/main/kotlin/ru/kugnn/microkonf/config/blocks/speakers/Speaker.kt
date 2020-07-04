@@ -25,7 +25,6 @@ data class Speaker @JsonCreator constructor(
         @JsonProperty("socials") val socials: List<Social>?
 ) {
     @get:JsonIgnore
-    @delegate:Transient
     val id: String by lazy {
         generateHash(name + hashCode())
     }

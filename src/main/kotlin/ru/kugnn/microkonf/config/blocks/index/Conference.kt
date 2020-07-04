@@ -24,19 +24,16 @@ data class Conference @JsonCreator constructor(
         @JsonProperty("series") var series: Series?
 ) {
     @get:JsonIgnore
-    @delegate:Transient
     val startDate: LocalDate by lazy {
         LocalDate.parse(start, Utils.ParseDateFormatter)
     }
 
     @get:JsonIgnore
-    @delegate:Transient
     val endDate: LocalDate? by lazy {
         end?.run { LocalDate.parse(this, Utils.ParseDateFormatter) }
     }
 
     @get:JsonIgnore
-    @delegate:Transient
     val conferenceWhere: String by lazy {
         if (country.isNullOrBlank()) {
             city
@@ -46,7 +43,6 @@ data class Conference @JsonCreator constructor(
     }
 
     @get:JsonIgnore
-    @delegate:Transient
     val conferenceWhen: String by lazy {
         if (endDate == null || endDate == startDate) {
             DisplayDateFormat.format(startDate)

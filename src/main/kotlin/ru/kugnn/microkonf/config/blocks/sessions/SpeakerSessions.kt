@@ -22,7 +22,6 @@ data class Session @JsonCreator constructor(
         @JsonProperty("resources") val resources: Resources?
 ) {
     @get:JsonIgnore
-    @delegate:Transient
     val id: String by lazy {
         generateHash(title + hashCode())
     }

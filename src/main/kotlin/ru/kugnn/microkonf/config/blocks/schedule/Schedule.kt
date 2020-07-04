@@ -22,20 +22,17 @@ data class ScheduleDay @JsonCreator constructor(
         @JsonProperty("timeslots") val timeslots: List<Timeslot>
 ) {
     @get:JsonIgnore
-    @delegate:Transient
     val date: LocalDate by lazy {
         LocalDate.parse(dayDate, Utils.ParseDateFormatter)
     }
 
     // Internal data structures
     @get:JsonIgnore
-    @delegate:Transient
     val dayString: String by lazy {
         ScheduleDateFormat.format(date)
     }
 
     @get:JsonIgnore
-    @delegate:Transient
     val dayId: String by lazy {
         dayString.replace(" ", "").toLowerCase()
     }
@@ -47,13 +44,11 @@ data class Timeslot @JsonCreator constructor(
         @JsonProperty("sessions") val sessions: List<SessionCell>
 ) {
     @get:JsonIgnore
-    @delegate:Transient
     val startsAt: LocalTime by lazy {
         parsePeriod(period).first
     }
 
     @get:JsonIgnore
-    @delegate:Transient
     val endsAt: LocalTime by lazy {
         parsePeriod(period).second
     }

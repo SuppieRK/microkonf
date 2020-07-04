@@ -16,7 +16,6 @@ data class Venue @JsonCreator constructor(
         @JsonProperty("longitude") var longitude: Double = 0.0
 ) {
     @get:JsonIgnore
-    @delegate:Transient
     val mapLink: String by lazy {
         "https://maps.google.com/?ll=$latitude,$longitude"
     }
