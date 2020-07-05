@@ -1,11 +1,6 @@
-.page-header {
-    margin-top: 144px;
-    margin-bottom: 80px;
-    font-size: 40px;
-}
-
 .page-description {
-    margin-bottom: 30px;
+    margin-top: 5.2rem;
+    margin-bottom: 2rem;
     background: #f2f2f2;
 }
 
@@ -526,4 +521,21 @@
 #scheduleNav > li > .nav-link {
     background-color: transparent !important;
     border: none;
+}
+
+@media screen and (min-width: 992px) {
+    .main-nav-item.active {
+        border-bottom: 4px solid violet;
+        padding-bottom: 4px;
+    }
+}
+
+nav.sticky-header > .hiding-navbar-brand {
+    display: none !important;
+}
+
+@media screen and (min-width: 992px) {
+    nav.sticky-header.active > .hiding-navbar-brand {
+        display: block !important;
+    }
 }

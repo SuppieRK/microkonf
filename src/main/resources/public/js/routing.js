@@ -10,6 +10,12 @@ function toggleContentVisibility(targetPageClassName) {
 
     $('.main-nav-item').removeClass('active');
     $('#' + targetPageClassName + 'NavItem').addClass('active')
+
+    if (targetPageClassName === 'home') {
+        $('#convenientNavbarBrand').addClass('hiding-navbar-brand')
+    } else {
+        $('#convenientNavbarBrand').removeClass('hiding-navbar-brand')
+    }
 }
 
 function switchPage(targetPageClassName) {

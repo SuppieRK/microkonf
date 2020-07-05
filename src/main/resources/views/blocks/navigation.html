@@ -1,34 +1,35 @@
-<nav class="sticky-header navbar navbar-expand-lg navbar-light justify-content-sm-start"
+<nav class="sticky-header navbar navbar-expand-lg navbar-light justify-content-sm-start pb-0"
      xmlns:th="http://www.thymeleaf.org">
     <!--/*@thymesVar id="conference" type="ru.kugnn.microkonf.config.Conferences"*/-->
-    <a class="navbar-brand d-none d-lg-block order-1 order-lg-0 ml-lg-0 ml-2 mr-auto py-0" href="./"
+    <a class="navbar-brand order-1 order-lg-0 ml-lg-0 ml-2 mr-auto pt-0 pb-2" href="./"
+       id="convenientNavbarBrand"
        onclick="return switchPage('home')">
         <img data-src="/public/images/assets/event-logo-monochrome.svg" alt="Navigation Bar Logo" class="lazyload"/>
     </a>
 
-    <button class="navbar-toggler align-self-start" type="button">
+    <button class="navbar-toggler align-self-start mb-2" type="button">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse d-flex flex-column flex-lg-row justify-content-lg-end p-3 p-lg-0 p-xl-0 mt-lg-0 mt-xl-0 mobileMenu"
          id="navbarSupportedContent">
         <ul class="navbar-nav align-self-stretch">
-            <li class="nav-item d-block d-lg-none">
+            <li class="nav-item d-block d-lg-none mb-4">
                 <a class="navbar-brand order-1 order-lg-0 ml-lg-0 ml-2 mr-auto py-0" href="./"
                    onclick="return switchPage('home')">
                     <img data-src="/public/images/assets/event-logo-monochrome.svg" alt="Navigation Bar Logo" class="lazyload"/>
                 </a>
             </li>
-            <li class="nav-item main-nav-item" id="homeNavItem">
+            <li class="nav-item main-nav-item mb-2 mb-lg-0" id="homeNavItem">
                 <a class="nav-link" href="./" onclick="return switchPage('home')">Home</a>
             </li>
-            <li class="nav-item main-nav-item" id="scheduleNavItem">
+            <li class="nav-item main-nav-item mb-2 mb-lg-0" id="scheduleNavItem">
                 <a class="nav-link" href="./schedule" onclick="return switchPage('schedule')">Schedule</a>
             </li>
-            <li class="nav-item main-nav-item" id="speakersNavItem">
+            <li class="nav-item main-nav-item mb-2 mb-lg-0" id="speakersNavItem">
                 <a class="nav-link" href="./speakers" onclick="return switchPage('speakers')">Speakers</a>
             </li>
-            <li class="nav-item main-nav-item" id="teamNavItem">
+            <li class="nav-item main-nav-item mb-2 mb-lg-0" id="teamNavItem">
                 <a class="nav-link" href="./team" onclick="return switchPage('team')">Team</a>
             </li>
             <!--/*@thymesVar id="tickets" type="ru.kugnn.microkonf.config.blocks.index.Tickets"*/-->
