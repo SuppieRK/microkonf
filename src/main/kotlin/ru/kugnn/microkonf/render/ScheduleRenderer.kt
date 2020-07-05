@@ -5,6 +5,7 @@ import kotlinx.html.*
 import kotlinx.html.stream.createHTML
 import ru.kugnn.microkonf.Utils.durationString
 import ru.kugnn.microkonf.config.blocks.schedule.Schedule
+import ru.kugnn.microkonf.config.blocks.schedule.ScheduleDay
 import ru.kugnn.microkonf.config.blocks.sessions.CommonSession
 import ru.kugnn.microkonf.config.blocks.sessions.CommonSessions
 import ru.kugnn.microkonf.config.blocks.sessions.Session
@@ -15,12 +16,8 @@ import ru.kugnn.microkonf.render.CommonRenderers.rawHtml
 import java.time.LocalTime
 
 object ScheduleRenderer {
-    fun renderSchedule(schedule: Schedule, speakers: Speakers, commonSessions: CommonSessions, speakerSessions: SpeakerSessions): String {
-        val sortedSchedule = schedule.days.map { day ->
-            day to TimeslotsHelper.generateTimeslots(day)
-        }.sortedBy {
-            it.first.date
-        }.toMap().entries.withIndex()
+    fun renderSchedule(mappedSchedule: Map<ScheduleDay, List<TimeslotDescription>>, speakers: Speakers, commonSessions: CommonSessions, speakerSessions: SpeakerSessions): String {
+        val sortedSchedule = mappedSchedule.entries.withIndex()
 
         return createHTML().div(classes = "container px-0 pb-4") {
             id = "schedule"
@@ -123,7 +120,9 @@ object ScheduleRenderer {
 
             div(classes = "card-body d-flex flex-column") {
                 when {
-                    // We pick only first track for speaker session from the list due to rendering logic
+                    // We pick only first track for speaker session
+                    // Table if filled from the top to the bottom, from left to right
+                    // First available track is the one that is going to be used
                     speakerSession != null -> buildSpeakerSessionCardBody(speakers, tracks[0], duration, speakerSession)
                     commonSession != null -> buildCommonSessionCardBody(duration, commonSession)
                     else -> buildPlaceholderSessionCardBody()

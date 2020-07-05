@@ -348,6 +348,8 @@
 
 .teamSocial {
     color: #1f2429;
+    font-size: 28px !important;
+    line-height: 28px !important;
 }
 
 .speakerImg {
@@ -364,7 +366,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 4; /* max number of lines to show */
+    -webkit-line-clamp: 3; /* max number of lines to show */
     -webkit-box-orient: vertical;
 }
 

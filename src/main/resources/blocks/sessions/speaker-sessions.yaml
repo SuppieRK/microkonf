@@ -5,6 +5,7 @@ sessions:
     description: Kotlin Coroutines is the most trending solution for asynchrony programming in Android development for now. Developers of many existed apps already add them and new apps use Coroutines instead of RxJava by default. But how to make that work with Coroutines the most efficient and get the most effective architecture? Kirill has few rules and best practices of how to do that.
     speakers:
       - 'Kirill Rozov'
+      - 'Leonid Startsev'
     tags:
       - Talk
       - Android

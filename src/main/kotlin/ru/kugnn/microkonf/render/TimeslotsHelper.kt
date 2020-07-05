@@ -3,6 +3,7 @@ package ru.kugnn.microkonf.render
 import io.micronaut.core.annotation.Introspected
 import ru.kugnn.microkonf.config.blocks.schedule.ScheduleDay
 import ru.kugnn.microkonf.config.blocks.schedule.Timeslot
+import ru.kugnn.microkonf.config.blocks.sessions.Session
 import kotlin.math.min
 
 @Introspected

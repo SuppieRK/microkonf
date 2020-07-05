@@ -8,8 +8,7 @@
                               th:text="|FOLLOW ${entry.shortName}|"></span>
                 <ul class="nav align-self-center">
                     <li class="nav-item" th:each="item : ${entry.links}">
-                        <a class="nav-link"
-                           style="font-size: 32px !important; line-height: 32px !important;"
+                        <a class="nav-link teamSocial"
                            rel="noopener noreferrer"
                            target="_blank"
                            th:href="${item.url}"
