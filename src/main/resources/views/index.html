@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
+        <!--/*@thymesVar id="conference" type="ru.kugnn.microkonf.config.blocks.index.Conference"*/-->
+        <title th:text="${conference.name}"></title>
+
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
@@ -10,7 +13,8 @@
         <meta name="theme-color" content="#448aff">
 
         <!-- Font -->
-        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans" rel="stylesheet"
+              type="text/css">
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="/public/css/bootstrap.min.css">
@@ -46,10 +50,8 @@
         <!-- PWA Web Manifest-->
         <link rel="manifest" href="/public/manifest.json">
 
-        <!--/*@thymesVar id="conference" type="ru.kugnn.microkonf.config.blocks.index.Conference"*/-->
-        <title th:text="${conference.name}"></title>
-
         <script defer src="/public/js/routing.js"></script>
+        <script defer src="/public/js/service-worker-main.js"></script>
     </head>
     <body>
         <th:block th:replace="/blocks/navigation.html"/>
@@ -67,7 +69,6 @@
         <script defer src="/public/js/lazysizes.min.js"></script>
         <script defer src="/public/js/custom.js"></script>
         <script defer src="/public/js/sidenav.js"></script>
-        <script defer src="/public/js/service-worker-main.js"></script>
 
         <!-- Modals -->
         <th:block th:utext="${speakerModals}"></th:block>

@@ -9,11 +9,12 @@
                 <ul class="nav align-self-center">
                     <li class="nav-item" th:each="item : ${entry.links}">
                         <a class="nav-link"
-                           style="font-size: 30px !important; line-height: 30px !important;"
+                           style="font-size: 32px !important; line-height: 32px !important;"
                            rel="noopener noreferrer"
                            target="_blank"
                            th:href="${item.url}"
-                           th:if="${!item.featured}">
+                           th:if="${!item.featured}"
+                           th:attr="aria-label=${item.type}">
                             <i th:class="|fa fa-${item.type} mr-sm-1|"></i>
                         </a>
                     </li>

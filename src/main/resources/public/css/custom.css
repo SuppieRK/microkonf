@@ -480,7 +480,7 @@
 }
 
 .footerLogo {
-    height: 48px;
+    height: 3rem;
     object-fit: scale-down;
 }
 
@@ -531,7 +531,7 @@
 }
 
 nav.sticky-header > .hiding-navbar-brand {
-    display: none !important;
+    display: none;
 }
 
 @media screen and (min-width: 992px) {
