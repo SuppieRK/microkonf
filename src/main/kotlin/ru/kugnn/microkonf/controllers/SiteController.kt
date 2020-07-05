@@ -12,12 +12,8 @@ import ru.kugnn.microkonf.config.blocks.speakers.Speaker
 @Controller
 class SiteController(
         private val conferenceProperties: ConferenceProperties,
-        private val cacheableResources: CacheableResources,
-        private val objectMapper: ObjectMapper
+        private val cacheableResources: CacheableResources
 ) {
-    @Get("/properties")
-    fun props() = objectMapper.writeValueAsString(conferenceProperties)
-
     @Get
     @View("index")
     fun index(): ConferenceProperties {

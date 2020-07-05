@@ -513,3 +513,17 @@
         grid-template-columns: repeat(var(--tracks-number), minmax(0, 1fr));
     }
 }
+
+#scheduleNav {
+    border: none;
+    margin-bottom: 1rem;
+}
+
+#scheduleNav > li > .nav-link.active {
+    border-bottom: 4px solid violet !important;
+}
+
+#scheduleNav > li > .nav-link {
+    background-color: transparent !important;
+    border: none;
+}

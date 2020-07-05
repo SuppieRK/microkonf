@@ -22,18 +22,20 @@ object ModalsRenderer {
                             modalId = session!!.id,
                             modalTitle = session.title
                     ) {
-                        div(classes = "row mx-auto mt-4") {
-                            p {
+                        div(classes = "row mx-auto") {
+                            style = "display: block"
+
+                            h4 {
                                 +"${scheduleDay.dayString}, ${timeslot.startsAt} - ${timeslot.endsAt}"
                             }
 
                             session.complexity?.apply {
-                                p {
+                                h6(classes = "mt-3") {
                                     +"Content level: ${this@apply}"
                                 }
                             }
 
-                            p {
+                            p(classes = "my-4") {
                                 +session.description
                             }
                         }
@@ -41,7 +43,7 @@ object ModalsRenderer {
                         session.speakers?.mapNotNull { speakerName ->
                             speakers.speakers.find { speakerName == it.name }
                         }?.apply {
-                            p {
+                            h5(classes = "mb-3") {
                                 +"Speakers"
                             }
 
@@ -163,7 +165,7 @@ object ModalsRenderer {
                             }
                         }
                     }
-                    div(classes = "modal-body") {
+                    div(classes = "modal-body p-5") {
                         div(classes = "container-fluid") {
                             block.invoke(this)
                         }
