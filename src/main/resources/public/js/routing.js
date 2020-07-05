@@ -14,7 +14,9 @@ function toggleContentVisibility(targetPageClassName) {
     if (targetPageClassName === 'home') {
         $('.hiding-navbar-brand').css('display', 'none');
     } else {
-        $('.hiding-navbar-brand').css('display', 'block');
+        if (document.documentElement.clientWidth > 975) {
+            $('.hiding-navbar-brand').css('display', 'block');
+        }
     }
 }
 

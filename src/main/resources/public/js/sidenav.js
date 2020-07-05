@@ -27,6 +27,15 @@ $(document).ready(function () {
         if (document.documentElement.clientWidth > 975) {
             $(".sticky-header").removeClass("activeMobile")
             $(".mobileMenu, .overlay").removeClass("open")
+
+            let currentPage = window.location.pathname.replace(/\//g, "")
+            if (currentPage === "") {
+                $('.hiding-navbar-brand').css('display', 'none');
+            } else {
+                $('.hiding-navbar-brand').css('display', 'block');
+            }
+        } else {
+            $('.hiding-navbar-brand').css('display', 'none');
         }
     });
 
