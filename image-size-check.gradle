@@ -1,0 +1,53 @@
+import groovy.io.FileType
+
+import javax.imageio.ImageIO
+import java.awt.image.BufferedImage
+
+task verifyImageSizes() {
+    [
+            file('src/main/resources/public/images/gallery'),
+            file('src/main/resources/public/images/people'),
+            file('src/main/resources/public/images/logos')
+    ].forEach { directory ->
+        directory.eachFileRecurse(FileType.FILES) { image ->
+            if (image.name.endsWith(".jpeg") || image.name.endsWith(".jpg") || image.name.endsWith(".png")) {
+                int imageSizeKb = (image.length() / 1024).round().toInteger()
+
+                BufferedImage bimg = ImageIO.read(image)
+                int width = bimg.getWidth()
+                int height = bimg.getHeight()
+
+                int baseMaxHeight = 450
+
+                if (imageSizeKb > 128 || height > 512) {
+                    int calculatedWidth = ((baseMaxHeight * width) / height).round().toInteger()
+                    logger.warn("WARNING: {} has size of {} KB at {}x{}. For beter UX resize it to {}x{}", image.path, imageSizeKb, width, height, calculatedWidth, baseMaxHeight)
+                }
+            }
+        }
+    }
+
+    [
+            file('src/main/resources/public/images/assets'),
+            file('src/main/resources/public/images/organizers')
+    ].forEach { directory ->
+        directory.eachFileRecurse(FileType.FILES) { image ->
+            if (image.name.endsWith(".jpeg") || image.name.endsWith(".jpg") || image.name.endsWith(".png")) {
+                int imageSizeKb = (image.length() / 1024).round().toInteger()
+
+                BufferedImage bimg = ImageIO.read(image)
+                int width = bimg.getWidth()
+                int height = bimg.getHeight()
+
+                int baseMaxWidth = 1200
+
+                if (imageSizeKb > 128 && width > baseMaxWidth) {
+                    int calculatedHeight = ((baseMaxWidth * height) / width).round().toInteger()
+                    logger.warn("WARNING: {} has size of {} KB at {}x{}. For beter UX resize it to {}x{}", image.path, imageSizeKb, width, height, baseMaxWidth, calculatedHeight)
+                }
+            }
+        }
+    }
+}
+
+classes.dependsOn verifyImageSizes
