@@ -13,26 +13,26 @@
     <div class="collapse navbar-collapse d-flex flex-column flex-lg-row justify-content-lg-end p-3 p-lg-0 p-xl-0 mt-lg-0 mt-xl-0 mobileMenu"
          id="navbarSupportedContent">
         <ul class="navbar-nav align-self-stretch">
-            <li class="nav-item active d-block d-lg-none">
+            <li class="nav-item d-block d-lg-none">
                 <a class="navbar-brand order-1 order-lg-0 ml-lg-0 ml-2 mr-auto py-0" href="./"
                    onclick="return switchPage('home')">
                     <img data-src="/public/images/assets/event-logo-monochrome.svg" alt="Navigation Bar Logo" class="lazyload"/>
                 </a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item main-nav-item" id="homeNavItem">
                 <a class="nav-link" href="./" onclick="return switchPage('home')">Home</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item main-nav-item" id="scheduleNavItem">
                 <a class="nav-link" href="./schedule" onclick="return switchPage('schedule')">Schedule</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item main-nav-item" id="speakersNavItem">
                 <a class="nav-link" href="./speakers" onclick="return switchPage('speakers')">Speakers</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item main-nav-item" id="teamNavItem">
                 <a class="nav-link" href="./team" onclick="return switchPage('team')">Team</a>
             </li>
             <!--/*@thymesVar id="tickets" type="ru.kugnn.microkonf.config.blocks.index.Tickets"*/-->
-            <li class="nav-item active" th:if="${tickets.enabled}">
+            <li class="nav-item" th:if="${tickets.enabled}">
                 <a class="btn btn-outline-primary" rel="noopener noreferrer" target="_blank" th:href="${tickets.orderUrl}">
                     <i th:class="|fa fa-${tickets.free ? 'id-card' : 'cart-arrow-down'} mr-1|"></i>
                     <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->

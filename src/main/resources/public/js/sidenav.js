@@ -1,4 +1,12 @@
 $(document).ready(function () {
+    // Fix for routing.js, since this scripts loads after page loading is completed unlike routing.js
+    let currentPage = window.location.pathname.replace(/\//g, "")
+    if (currentPage === "") {
+        switchPage("home")
+    } else {
+        switchPage(currentPage)
+    }
+
     var fixHeight = function () {
         $(".navbar-nav").css(
             "max-height",
