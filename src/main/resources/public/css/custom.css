@@ -38,14 +38,13 @@
 }
 
 .main-nav-item {
-    min-width: 85px;
-    text-align: center;
+    text-align: left;
     text-transform: uppercase;
 }
 
 @media screen and (min-width: 992px) {
     .main-nav-item {
-        text-align: left;
+        text-align: center;
     }
 
     .main-nav-item.active {

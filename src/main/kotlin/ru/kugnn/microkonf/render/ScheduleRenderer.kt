@@ -52,7 +52,7 @@ object ScheduleRenderer {
     fun renderSchedule(mappedSchedule: Map<ScheduleDay, List<TimeslotDescription>>, speakers: Speakers, commonSessions: CommonSessions, speakerSessions: SpeakerSessions): String {
         val sortedSchedule = mappedSchedule.entries.withIndex()
 
-        return createHTML().div(classes = "container px-0 pb-4") {
+        return createHTML().div(classes = "container px-4 px-lg-0 pb-4") {
             id = "schedule"
 
 //            ul(classes = "nav nav-tabs") {

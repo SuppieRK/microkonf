@@ -1,13 +1,13 @@
 <!--/*@thymesVar id="page" type="java.lang.String"*/-->
 <div xmlns:th="http://www.thymeleaf.org" class="page speakers"
      th:style="((${page} == 'speakers') ? 'display: block' : 'display: none')">
-    <div class="page-description">
+    <div class="page-description px-4 px-lg-0">
         <div class="container px-0 pt-1 pb-1">
             <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->
             <p th:utext="${constants.speakers.description}"></p>
         </div>
     </div>
-    <div class="container px-0 pb-4" id="speakers">
+    <div class="container px-4 px-lg-0 pb-4" id="speakers">
         <div class="row mx-auto">
             <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
                 <!--/*@thymesVar id="speakers" type="ru.kugnn.microkonf.config.blocks.speakers.Speakers"*/-->
