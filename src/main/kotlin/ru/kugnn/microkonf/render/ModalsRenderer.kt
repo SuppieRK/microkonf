@@ -84,22 +84,27 @@ object ModalsRenderer {
             buildModalBaseFrame(
                     modalId = speaker.id,
                     header = {
-                        div(classes = "p-0") {
-                            img(classes = "speakerImg lazyload m-0") {
-                                alt = speaker.name
-                                attributes["data-src"] = speaker.photo
+                        div {
+                            style = "min-width: 100% !important"
+
+                            div(classes = "speakerImgWrapper p-0 d-inline-block text-center") {
+                                img(classes = "speakerImg lazyload m-0") {
+                                    alt = speaker.name
+                                    attributes["data-src"] = speaker.photo
+                                }
                             }
-                        }
-                        div(classes = "ml-3 mt-0 align-self-center text-nowrap") {
-                            h5(classes = "modal-title m-0") {
-                                +speaker.name
+                            div(classes = "speakerDescriptionWrapper ml-0 ml-lg-3 mt-0 align-self-center d-inline-block align-middle text-center text-lg-left") {
+                                h5(classes = "modal-title m-0") {
+                                    +speaker.name
+                                }
+                                h6(classes = "m-0 mt-1") {
+                                    +speaker.country
+                                }
+                                p(classes = "m-0 mt-1") {
+                                    +"${speaker.jobTitle}${speaker.company?.run { " • ${this.name}" } ?: ""}${speaker.pronouns?.run { " • $this" } ?: ""}"
+                                }
                             }
-                            h6(classes = "m-0 mt-1") {
-                                +speaker.country
-                            }
-                            p(classes = "m-0 mt-1") {
-                                +"${speaker.jobTitle}${speaker.company?.run { " • ${this.name}" } ?: ""}${speaker.pronouns?.run { " • $this" } ?: ""}"
-                            }
+                            div(classes = "clearfix") { }
                         }
                     },
                     body = {
@@ -181,7 +186,7 @@ object ModalsRenderer {
     }
 
     private fun FlowContent.buildModalBaseFrame(modalId: String, header: DIV.() -> Unit = {}, body: DIV.() -> Unit = {}) {
-        div(classes = "modal") {
+        div(classes = "modal p-0") {
             id = "modal$modalId"
 
             attributes["tabindex"] = "-1"
@@ -193,8 +198,10 @@ object ModalsRenderer {
                 div(classes = "modal-content") {
                     div(classes = "modal-header p-4") {
                         header.invoke(this)
-                        button(classes = "close") {
+                        button(classes = "close m-0 p-0") {
                             type = ButtonType.button
+
+                            style = "margin-left: -1.1rem !important"
 
                             attributes["data-dismiss"] = "modal"
                             attributes["aria-label"] = "Close"

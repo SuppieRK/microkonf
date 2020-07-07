@@ -382,6 +382,24 @@
     margin-right: auto;
 }
 
+.speakerImgWrapper {
+    width: 100%;
+}
+
+.speakerDescriptionWrapper {
+    width: 100%;
+}
+
+@media screen and (min-width: 992px) {
+    .speakerImgWrapper {
+        width: auto;
+    }
+
+    .speakerDescriptionWrapper {
+        width: auto;
+    }
+}
+
 .speakerBio {
     overflow: hidden;
     text-overflow: ellipsis;

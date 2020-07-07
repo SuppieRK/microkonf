@@ -55,34 +55,6 @@ object ScheduleRenderer {
         return createHTML().div(classes = "container px-4 px-lg-0 pb-4") {
             id = "schedule"
 
-//            ul(classes = "nav nav-tabs") {
-//                id = "scheduleNav"
-//
-//                attributes["role"] = "tablist"
-//
-//                sortedSchedule.forEach { (index, entry) ->
-//                    li(classes = "nav-item") {
-//                        a(href = "#${entry.key.dayId}", classes = "nav-link") {
-//                            id = "${entry.key.dayId}tab"
-//
-//                            attributes["data-toggle"] = "tab"
-//                            attributes["role"] = "tab"
-//                            attributes["aria-controls"] = entry.key.dayId
-//
-//                            if (index == 0) {
-//                                classes = classes + "active"
-//
-//                                attributes["aria-selected"] = true.toString()
-//                            } else {
-//                                attributes["aria-selected"] = false.toString()
-//                            }
-//
-//                            +entry.key.dayString
-//                        }
-//                    }
-//                }
-//            }
-
             div(classes = "tab-content") {
                 id = "scheduleNavContent"
 
