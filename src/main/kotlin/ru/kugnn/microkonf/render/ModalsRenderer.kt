@@ -84,23 +84,21 @@ object ModalsRenderer {
             buildModalBaseFrame(
                     modalId = speaker.id,
                     header = {
-                        div(classes = "row px-4 text-center text-lg-left") {
-                            div(classes = "col-12 col-lg-4 p-0") {
-                                img(classes = "speakerImg lazyload m-0") {
-                                    alt = speaker.name
-                                    attributes["data-src"] = speaker.photo
-                                }
+                        div(classes = "p-0") {
+                            img(classes = "speakerImg lazyload m-0") {
+                                alt = speaker.name
+                                attributes["data-src"] = speaker.photo
                             }
-                            div(classes = "col-12 col-lg-8 mt-3 mt-lg-0 align-self-center text-nowrap") {
-                                h5(classes = "modal-title m-0") {
-                                    +speaker.name
-                                }
-                                h6(classes = "m-0 mt-1") {
-                                    +speaker.country
-                                }
-                                p(classes = "m-0 mt-1") {
-                                    +"${speaker.jobTitle}${speaker.company?.run { " • ${this.name}" } ?: ""}${speaker.pronouns?.run { " • $this" } ?: ""}"
-                                }
+                        }
+                        div(classes = "ml-3 mt-0 align-self-center text-nowrap") {
+                            h5(classes = "modal-title m-0") {
+                                +speaker.name
+                            }
+                            h6(classes = "m-0 mt-1") {
+                                +speaker.country
+                            }
+                            p(classes = "m-0 mt-1") {
+                                +"${speaker.jobTitle}${speaker.company?.run { " • ${this.name}" } ?: ""}${speaker.pronouns?.run { " • $this" } ?: ""}"
                             }
                         }
                     },
@@ -193,7 +191,7 @@ object ModalsRenderer {
 
             div(classes = "modal-dialog modal-dialog-centered modal-lg") {
                 div(classes = "modal-content") {
-                    div(classes = "modal-header") {
+                    div(classes = "modal-header p-4") {
                         header.invoke(this)
                         button(classes = "close") {
                             type = ButtonType.button

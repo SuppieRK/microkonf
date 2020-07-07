@@ -4,7 +4,6 @@ import com.neovisionaries.i18n.LanguageAlpha3Code
 import kotlinx.html.*
 import kotlinx.html.stream.createHTML
 import ru.kugnn.microkonf.Utils.durationString
-import ru.kugnn.microkonf.config.blocks.schedule.Schedule
 import ru.kugnn.microkonf.config.blocks.schedule.ScheduleDay
 import ru.kugnn.microkonf.config.blocks.sessions.CommonSession
 import ru.kugnn.microkonf.config.blocks.sessions.CommonSessions
@@ -16,13 +15,11 @@ import ru.kugnn.microkonf.render.CommonRenderers.rawHtml
 import java.time.LocalTime
 
 object ScheduleRenderer {
-    fun renderSchedule(mappedSchedule: Map<ScheduleDay, List<TimeslotDescription>>, speakers: Speakers, commonSessions: CommonSessions, speakerSessions: SpeakerSessions): String {
+    fun renderScheduleHeader(mappedSchedule: Map<ScheduleDay, List<TimeslotDescription>>): String {
         val sortedSchedule = mappedSchedule.entries.withIndex()
 
-        return createHTML().div(classes = "container px-0 pb-4") {
-            id = "schedule"
-
-            ul(classes = "nav nav-tabs") {
+        return createHTML().div(classes = "scheduleNavBar") {
+            ul(classes = "container nav nav-tabs") {
                 id = "scheduleNav"
 
                 attributes["role"] = "tablist"
@@ -49,6 +46,42 @@ object ScheduleRenderer {
                     }
                 }
             }
+        }
+    }
+
+    fun renderSchedule(mappedSchedule: Map<ScheduleDay, List<TimeslotDescription>>, speakers: Speakers, commonSessions: CommonSessions, speakerSessions: SpeakerSessions): String {
+        val sortedSchedule = mappedSchedule.entries.withIndex()
+
+        return createHTML().div(classes = "container px-0 pb-4") {
+            id = "schedule"
+
+//            ul(classes = "nav nav-tabs") {
+//                id = "scheduleNav"
+//
+//                attributes["role"] = "tablist"
+//
+//                sortedSchedule.forEach { (index, entry) ->
+//                    li(classes = "nav-item") {
+//                        a(href = "#${entry.key.dayId}", classes = "nav-link") {
+//                            id = "${entry.key.dayId}tab"
+//
+//                            attributes["data-toggle"] = "tab"
+//                            attributes["role"] = "tab"
+//                            attributes["aria-controls"] = entry.key.dayId
+//
+//                            if (index == 0) {
+//                                classes = classes + "active"
+//
+//                                attributes["aria-selected"] = true.toString()
+//                            } else {
+//                                attributes["aria-selected"] = false.toString()
+//                            }
+//
+//                            +entry.key.dayString
+//                        }
+//                    }
+//                }
+//            }
 
             div(classes = "tab-content") {
                 id = "scheduleNavContent"

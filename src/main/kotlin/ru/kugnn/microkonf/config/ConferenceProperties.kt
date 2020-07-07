@@ -57,6 +57,11 @@ data class ConferenceProperties(
         ModalsRenderer.renderSpeakerSessionModals(mappedSchedule, speakers, speakerSessions)
     }
 
+    @get:JsonIgnore
+    val scheduleTableHeader: String by lazy {
+        ScheduleRenderer.renderScheduleHeader(mappedSchedule)
+    }
+
     // Schedule table must be code generated and not templated due to its complexity
     @get:JsonIgnore
     val scheduleTable: String by lazy {

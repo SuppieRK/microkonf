@@ -513,7 +513,7 @@
 
 #scheduleNav {
     border: none;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
 }
 
 #scheduleNav > li > .nav-link.active {
@@ -523,6 +523,15 @@
 #scheduleNav > li > .nav-link {
     background-color: transparent !important;
     border: none;
+}
+
+.scheduleNavBar {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 56px;
+    z-index: 1000;
+    background: rgba(255, 255, 255, .975);
+    box-shadow: 0 15px 5px 0 rgba(40, 47, 60, .05)
 }
 
 @media screen and (min-width: 992px) {

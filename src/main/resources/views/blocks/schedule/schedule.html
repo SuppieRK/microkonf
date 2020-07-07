@@ -1,6 +1,8 @@
 <!--/*@thymesVar id="page" type="java.lang.String"*/-->
 <div xmlns:th="http://www.thymeleaf.org" class="page schedule" th:style="((${page} == 'schedule') ? 'display: block' : 'display: none')">
-    <div class="page-description"></div>
+    <div class="page-description" style="margin-top: 3.2rem !important"></div>
+    <!--/*@thymesVar id="scheduleTableHeader" type="java.lang.String"*/-->
+    <th:block th:utext="${scheduleTableHeader}"></th:block>
     <!--/*@thymesVar id="scheduleTable" type="java.lang.String"*/-->
     <th:block th:utext="${scheduleTable}"></th:block>
 </div>
