@@ -27,6 +27,7 @@ $(document).ready(function () {
         if (document.documentElement.clientWidth > 975) {
             $(".sticky-header").removeClass("activeMobile")
             $(".mobileMenu, .overlay").removeClass("open")
+            $('.scheduleNavBar').removeClass("d-none")
 
             let currentPage = window.location.pathname.replace(/\//g, "")
             if (currentPage === "") {
@@ -46,6 +47,7 @@ $(document).ready(function () {
     $(".navbar-toggler, .overlay").on("click", function () {
         var header = $(".sticky-header");
         header.toggleClass("activeMobile", !header.hasClass("activeMobile"));
+        $('.scheduleNavBar').toggleClass("d-none", header.hasClass("activeMobile"));
 
         $(".mobileMenu, .overlay").toggleClass("open");
     });

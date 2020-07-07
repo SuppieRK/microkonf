@@ -19,20 +19,20 @@
                     <img data-src="/public/images/assets/event-logo-monochrome.svg" alt="Navigation Bar Logo" class="lazyload"/>
                 </a>
             </li>
-            <li class="nav-item main-nav-item mb-2 mb-lg-0" id="homeNavItem">
+            <li class="nav-item main-nav-item mb-2 mb-lg-0 ml-2 ml-lg-0" id="homeNavItem">
                 <a class="nav-link" href="./" onclick="return switchPage('home')">Home</a>
             </li>
-            <li class="nav-item main-nav-item mb-2 mb-lg-0" id="scheduleNavItem">
+            <li class="nav-item main-nav-item mb-2 mb-lg-0 ml-2 ml-lg-0" id="scheduleNavItem">
                 <a class="nav-link" href="./schedule" onclick="return switchPage('schedule')">Schedule</a>
             </li>
-            <li class="nav-item main-nav-item mb-2 mb-lg-0" id="speakersNavItem">
+            <li class="nav-item main-nav-item mb-2 mb-lg-0 ml-2 ml-lg-0" id="speakersNavItem">
                 <a class="nav-link" href="./speakers" onclick="return switchPage('speakers')">Speakers</a>
             </li>
-            <li class="nav-item main-nav-item mb-2 mb-lg-0" id="teamNavItem">
+            <li class="nav-item main-nav-item mb-2 mb-lg-0 ml-2 ml-lg-0" id="teamNavItem">
                 <a class="nav-link" href="./team" onclick="return switchPage('team')">Team</a>
             </li>
             <!--/*@thymesVar id="tickets" type="ru.kugnn.microkonf.config.blocks.index.Tickets"*/-->
-            <li class="nav-item" th:if="${tickets.enabled}">
+            <li class="nav-item ml-2 ml-lg-0" th:if="${tickets.enabled}">
                 <a class="btn btn-outline-primary" rel="noopener noreferrer" target="_blank" th:href="${tickets.orderUrl}">
                     <i th:class="|fa fa-${tickets.free ? 'id-card' : 'cart-arrow-down'} mr-1|"></i>
                     <!--/*@thymesVar id="constants" type="ru.kugnn.microkonf.config.style.Constants"*/-->

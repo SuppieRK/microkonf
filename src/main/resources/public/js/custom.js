@@ -386,12 +386,22 @@
                     }, 1e3)
                 });
             var e = t(".sticky-header");
+            var h = t(".scheduleNavBar");
             t(window).scroll(function () {
                 let scroll = t(window).scrollTop();
                 if (scroll <= 50) {
+                    e.removeClass("activeNoShadow")
                     e.removeClass("active")
+                    h.removeClass("active")
                 } else {
-                    e.addClass("active")
+                    let currentPage = window.location.pathname.replace(/\//g, "")
+                    if (currentPage === "schedule") {
+                        e.addClass("activeNoShadow")
+                    } else {
+                        e.addClass("active")
+                    }
+
+                    h.addClass("active")
                 }
             });
             t(window).scroll();
