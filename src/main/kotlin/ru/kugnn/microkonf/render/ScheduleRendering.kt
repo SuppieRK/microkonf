@@ -119,8 +119,10 @@ object ScheduleRendering {
                     }
                 }
 
-                schedule.getSpeakers(speakerSession).forEach { speaker ->
-                    buildShortSpeakerRow(speaker)
+                schedule.ifHasSpeakers(speakerSession) { speakers ->
+                    speakers.forEach { speaker ->
+                        buildShortSpeakerRow(speaker)
+                    }
                 }
             }
 

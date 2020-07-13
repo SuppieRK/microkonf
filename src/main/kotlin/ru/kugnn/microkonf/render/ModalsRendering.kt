@@ -43,12 +43,12 @@ object ModalsRendering {
                             }
                         }
 
-                        if (hasSpeakers(speakerSession)) {
+                        ifHasSpeakers(speakerSession) { speakers ->
                             h5(classes = "mb-3") {
                                 +"Speakers"
                             }
 
-                            getSpeakers(speakerSession).forEach { speaker ->
+                            speakers.forEach { speaker ->
                                 buildShortSpeakerRow(speaker, withModalToggle = true)
                             }
                         }

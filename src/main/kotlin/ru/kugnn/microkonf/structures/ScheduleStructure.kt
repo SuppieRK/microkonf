@@ -16,28 +16,18 @@ data class ScheduleStructure(
         val sessions: Map<String, GenericSession>,
         private val relationships: RelationshipStructure
 ) {
-    fun getSpeakers(session: GenericSession): Set<Speaker> {
-        return relationships.getSpeakerIds(session.id).mapNotNull {
+    fun ifHasSpeakers(session: GenericSession, block: (Set<Speaker>) -> Unit) {
+        val speakers = relationships.getSpeakerIds(session.id).mapNotNull {
             speakers[it]
         }.toSet()
-    }
 
-    fun hasSpeakers(session: GenericSession): Boolean {
-        return relationships.getSpeakerIds(session.id).isNotEmpty()
-    }
-
-    fun getSessions(speaker: Speaker): Set<SpeakerSession> {
-        return relationships.getSessionIds(speaker.id).mapNotNull {
-            sessions[it] as? SpeakerSession
-        }.toSet()
+        if (speakers.isNotEmpty()) {
+            block.invoke(speakers)
+        }
     }
 
     fun hasSessions(speaker: Speaker): Boolean {
         return relationships.getSessionIds(speaker.id).isNotEmpty()
-    }
-
-    fun GenericSession.isRelatedTo(speaker: Speaker): Boolean {
-        return relationships.getSpeakerIds(this.id).contains(speaker.id)
     }
 
     fun Speaker.isRelatedTo(session: GenericSession): Boolean {
