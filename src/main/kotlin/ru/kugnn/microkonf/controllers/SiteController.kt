@@ -1,6 +1,5 @@
 package ru.kugnn.microkonf.controllers
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.PathVariable
@@ -8,12 +7,23 @@ import io.micronaut.views.View
 import ru.kugnn.microkonf.config.ConferenceProperties
 import ru.kugnn.microkonf.config.application.CacheableResources
 import ru.kugnn.microkonf.config.blocks.speakers.Speaker
+import ru.kugnn.microkonf.structures.ScheduleStructure
 
 @Controller
 class SiteController(
         private val conferenceProperties: ConferenceProperties,
         private val cacheableResources: CacheableResources
 ) {
+    @Get("test")
+    fun testProps(): ScheduleStructure {
+        return ScheduleStructure.create(
+                schedule = conferenceProperties.schedule,
+                speakers = conferenceProperties.speakers,
+                speakerSessions = conferenceProperties.speakerSessions,
+                commonSessions = conferenceProperties.commonSessions
+        )
+    }
+
     @Get
     @View("index")
     fun index(): ConferenceProperties {

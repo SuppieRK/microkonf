@@ -1,10 +1,9 @@
 package ru.kugnn.microkonf.config.blocks.speakers
 
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected
-import ru.kugnn.microkonf.Utils.generateHash
+import ru.kugnn.microkonf.config.Identifiable
 import ru.kugnn.microkonf.config.blocks.Social
 
 @Introspected
@@ -23,11 +22,8 @@ data class Speaker @JsonCreator constructor(
         @JsonProperty("featured") val featured: Boolean?,
         @JsonProperty("company") val company: Company?,
         @JsonProperty("socials") val socials: List<Social>?
-) {
-    @get:JsonIgnore
-    val id: String by lazy {
-        generateHash(name + hashCode())
-    }
+) : Identifiable() {
+    override fun getIdentifier(): String = name
 }
 
 @Introspected

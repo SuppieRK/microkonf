@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected
 import ru.kugnn.microkonf.Utils
-import ru.kugnn.microkonf.Utils.ScheduleDateFormat
 import ru.kugnn.microkonf.Utils.parsePeriod
 import java.time.LocalDate
 import java.time.LocalTime
@@ -24,17 +23,6 @@ data class ScheduleDay @JsonCreator constructor(
     @get:JsonIgnore
     val date: LocalDate by lazy {
         LocalDate.parse(dayDate, Utils.ParseDateFormatter)
-    }
-
-    // Internal data structures
-    @get:JsonIgnore
-    val dayString: String by lazy {
-        ScheduleDateFormat.format(date)
-    }
-
-    @get:JsonIgnore
-    val dayId: String by lazy {
-        dayString.replace(" ", "").toLowerCase()
     }
 }
 

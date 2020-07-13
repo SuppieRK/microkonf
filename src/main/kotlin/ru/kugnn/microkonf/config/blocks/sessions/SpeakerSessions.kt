@@ -1,31 +1,24 @@
 package ru.kugnn.microkonf.config.blocks.sessions
 
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected
-import ru.kugnn.microkonf.Utils.generateHash
 
 @Introspected
 data class SpeakerSessions @JsonCreator constructor(
-        @JsonProperty("sessions") val sessions: List<Session>
+        @JsonProperty("sessions") val sessions: List<SpeakerSession>
 )
 
 @Introspected
-data class Session @JsonCreator constructor(
-        @JsonProperty("title") val title: String,
+data class SpeakerSession @JsonCreator constructor(
+        @JsonProperty("title") override val title: String,
         @JsonProperty("description") val description: String,
         @JsonProperty("complexity") val complexity: String?,
         @JsonProperty("language") val language: String?,
         @JsonProperty("tags") val tags: List<String>?,
         @JsonProperty("speakers") val speakers: List<String>?,
         @JsonProperty("resources") val resources: Resources?
-) {
-    @get:JsonIgnore
-    val id: String by lazy {
-        generateHash(title + hashCode())
-    }
-}
+) : GenericSession()
 
 @Introspected
 data class Resources @JsonCreator constructor(

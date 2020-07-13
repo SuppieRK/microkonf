@@ -3,7 +3,7 @@ package ru.kugnn.microkonf.render
 import kotlinx.html.*
 import ru.kugnn.microkonf.config.blocks.speakers.Speaker
 
-object CommonRenderers {
+object CommonRenderingUtils {
     fun FlowContent.buildShortSpeakerRow(speaker: Speaker, withModalToggle: Boolean = false) {
         div(classes = "sessionSpeaker row") {
             if (withModalToggle) {

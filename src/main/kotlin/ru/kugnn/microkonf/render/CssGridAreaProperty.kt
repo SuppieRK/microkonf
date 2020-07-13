@@ -6,7 +6,7 @@ import io.micronaut.core.annotation.Introspected
  * @see <a href="https://css-tricks.com/snippets/css/complete-guide-grid/">CSS Grid Area guide</a>
  */
 @Introspected
-data class GridArea(
+data class CssGridAreaProperty(
         val rowStart: Int,
         val columnStart: Int,
         val rowEnd: Int? = null,

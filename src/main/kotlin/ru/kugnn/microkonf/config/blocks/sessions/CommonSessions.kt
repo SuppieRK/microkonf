@@ -11,9 +11,9 @@ data class CommonSessions @JsonCreator constructor(
 
 @Introspected
 data class CommonSession @JsonCreator constructor(
-        @JsonProperty("title") val title: String,
+        @JsonProperty("title") override val title: String,
         @JsonProperty("location") val location: String?,
         @JsonProperty("description") val description: String?,
         @JsonProperty("icon") val icon: String?,
         @JsonProperty("image") val image: String?
-)
+) : GenericSession()

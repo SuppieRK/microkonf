@@ -1,6 +1,6 @@
 package ru.kugnn.microkonf.render
 
-object CommonSessionSvg {
+object CommonSessionSvgs {
     private const val openingSvg: String = """
     <svg viewBox="0 0 24 24">
         <g>
