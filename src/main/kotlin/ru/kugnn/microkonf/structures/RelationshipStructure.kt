@@ -45,7 +45,7 @@ data class RelationshipStructure(
             )
         }
 
-        private inline fun <T1, T2, K, V> Iterable<Pair<T1, T2>>.groupBy(
+        private fun <T1, T2, K, V> Iterable<Pair<T1, T2>>.groupBy(
                 keySelector: (Pair<T1, T2>) -> K,
                 valueSelector: (Pair<T1, T2>) -> V
         ): Map<K, Set<V>> = this.groupBy {
