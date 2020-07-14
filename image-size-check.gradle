@@ -31,6 +31,7 @@ task verifyImageSizes() {
 
     [
             file('src/main/resources/public/images/assets'),
+            file('src/main/resources/public/images/background'),
             file('src/main/resources/public/images/organizers')
     ].forEach { directory ->
         directory.eachFileRecurse(FileType.FILES) { image ->
