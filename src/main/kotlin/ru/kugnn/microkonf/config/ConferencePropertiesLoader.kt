@@ -8,7 +8,7 @@ import io.micronaut.context.annotation.Factory
 
 @Factory
 class ConferencePropertiesLoader {
-    private val yamlMapper: ObjectMapper by lazy { ObjectMapper(YAMLFactory()) }
+    private val yamlMapper: ObjectMapper = ObjectMapper(YAMLFactory())
 
     @Bean
     fun conferenceProperties(): ConferenceProperties = ConferenceProperties(
