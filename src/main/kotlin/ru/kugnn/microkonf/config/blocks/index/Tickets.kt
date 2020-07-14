@@ -27,38 +27,28 @@ data class Item @JsonCreator constructor(
         @JsonProperty("note") var note: String
 ) {
     @get:JsonIgnore
-    val startDate: LocalDate by lazy {
-        LocalDate.parse(start, ParseDateFormatter)
-    }
+    val startDate: LocalDate = LocalDate.parse(start, ParseDateFormatter)
 
     @get:JsonIgnore
-    val endDate: LocalDate by lazy {
-        LocalDate.parse(end, ParseDateFormatter)
-    }
+    val endDate: LocalDate = LocalDate.parse(end, ParseDateFormatter)
 
     // Complex calculable fields
     @get:JsonIgnore
-    val upcoming: Boolean by lazy {
-        LocalDate.now().run {
-            startDate.isBefore(this) && endDate.isBefore(this)
-        }
+    val upcoming: Boolean = LocalDate.now().run {
+        startDate.isBefore(this) && endDate.isBefore(this)
     }
 
     @get:JsonIgnore
-    val missed: Boolean by lazy {
-        LocalDate.now().run {
-            startDate.isAfter(this) && endDate.isAfter(this)
-        }
+    val missed: Boolean = LocalDate.now().run {
+        startDate.isAfter(this) && endDate.isAfter(this)
     }
 
     @get:JsonIgnore
-    val active: Boolean by lazy {
-        !missed && !upcoming
-    }
+    val active: Boolean = !missed && !upcoming
 
     @get:JsonIgnore
-    val saleFor: String by lazy {
+    val saleFor: String = {
         val (start, end) = Utils.getSortedDateBounds(startDate, endDate)
         "${TicketDateFormat.format(start)} - ${TicketDateFormat.format(end)}"
-    }
+    }.invoke()
 }

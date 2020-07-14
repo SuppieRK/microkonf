@@ -6,7 +6,7 @@ import kotlinx.html.stream.createHTML
 import ru.kugnn.microkonf.Utils.durationString
 import ru.kugnn.microkonf.config.blocks.sessions.CommonSession
 import ru.kugnn.microkonf.config.blocks.sessions.SpeakerSession
-import ru.kugnn.microkonf.render.CommonRenderingUtils.buildShortSpeakerRow
+import ru.kugnn.microkonf.render.CommonRenderingUtils.renderSpeakerInfoRow
 import ru.kugnn.microkonf.render.CommonRenderingUtils.rawHtml
 import ru.kugnn.microkonf.structures.ScheduleStructure
 import java.time.LocalTime
@@ -63,7 +63,7 @@ object ScheduleRendering {
                         style = "--tracks-number: ${day.tracks.size};"
 
                         day.timeslots.forEach { timeslot ->
-                            buildStartTimeCell(timeslot.index, timeslot.startsAt)
+                            renderStartTimeCell(timeslot.index, timeslot.startsAt)
 
                             timeslot.sessions.forEach { (cellId, cell) ->
                                 div(classes = "session") {
@@ -73,9 +73,9 @@ object ScheduleRendering {
                                     val duration = with(timeslot) { durationString(startsAt, endsAt) }
 
                                     when (session) {
-                                        is SpeakerSession -> buildSpeakerSessionCardBody(this@renderSchedule, cell.tracks[0], duration, session)
-                                        is CommonSession -> buildCommonSessionCardBody(duration, session)
-                                        else -> buildPlaceholderSessionCardBody()
+                                        is SpeakerSession -> renderSpeakerSessionCardBody(this@renderSchedule, cell.tracks[0], duration, session)
+                                        is CommonSession -> renderCommonSessionCardBody(duration, session)
+                                        else -> renderPlaceholderSessionCardBody()
                                     }
                                 }
                             }
@@ -86,8 +86,8 @@ object ScheduleRendering {
         }
     }
 
-    private fun FlowContent.buildSpeakerSessionCardBody(schedule: ScheduleStructure, track: String, duration: String, speakerSession: SpeakerSession) {
-        buildCardWrapper {
+    private fun FlowContent.renderSpeakerSessionCardBody(schedule: ScheduleStructure, track: String, duration: String, speakerSession: SpeakerSession) {
+        withCardWrapper {
             div(classes = "card-header sessionHeader") {
                 div(classes = "clearfix") {
                     h5(classes = "sessionTitle") {
@@ -121,7 +121,7 @@ object ScheduleRendering {
 
                 schedule.ifHasSpeakers(speakerSession) { speakers ->
                     speakers.forEach { speaker ->
-                        buildShortSpeakerRow(speaker)
+                        renderSpeakerInfoRow(speaker)
                     }
                 }
             }
@@ -133,8 +133,8 @@ object ScheduleRendering {
         }
     }
 
-    private fun FlowContent.buildCommonSessionCardBody(duration: String, commonSession: CommonSession) {
-        buildCardWrapper {
+    private fun FlowContent.renderCommonSessionCardBody(duration: String, commonSession: CommonSession) {
+        withCardWrapper {
             div(classes = "card-header mt-auto sessionHeader") {
                 h5 {
                     +commonSession.title
@@ -169,15 +169,15 @@ object ScheduleRendering {
         }
     }
 
-    private fun FlowContent.buildPlaceholderSessionCardBody() {
-        buildCardWrapper {
+    private fun FlowContent.renderPlaceholderSessionCardBody() {
+        withCardWrapper {
             h5(classes = "card-title card-header sessionHeader") {
                 +"To be discussed"
             }
         }
     }
 
-    private fun FlowContent.buildStartTimeCell(rowIndex: Int, timeslotStartsAt: LocalTime) {
+    private fun FlowContent.renderStartTimeCell(rowIndex: Int, timeslotStartsAt: LocalTime) {
         div(classes = "startTime") {
             style = CssGridAreaProperty(
                     rowStart = rowIndex,
@@ -195,7 +195,7 @@ object ScheduleRendering {
         }
     }
 
-    private fun FlowContent.buildCardWrapper(block: DIV.() -> Unit = {}) {
+    private fun FlowContent.withCardWrapper(block: DIV.() -> Unit = {}) {
         div(classes = "card h-100") {
             style = "transform: rotate(0);" // Prevent stretched link to go beyond this DIV (for safety reasons)
 

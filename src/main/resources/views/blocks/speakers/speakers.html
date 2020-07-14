@@ -14,8 +14,8 @@
                 <div class="col mb-4" th:each="speaker : ${speakers.speakers}">
                     <div class="card h-100 text-center">
                         <div style="transform: rotate(0);"> <!-- Limit stretched link to this card level -->
-                            <img class="card-img-top speakerImg lazyload"
-                                 th:attr="data-src=${speaker.photo}"
+                            <img class="card-img-top speakerImg"
+                                 th:src="${speaker.photo}"
                                  th:alt="${speaker.name}">
                             <div class="card-body">
                                 <h5 class="card-title mb-1" th:text="${speaker.name}"></h5>

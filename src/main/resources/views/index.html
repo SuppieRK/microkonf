@@ -54,6 +54,11 @@
         <script defer src="/public/js/service-worker-main.js"></script>
     </head>
     <body>
+        <!-- Modals -->
+        <th:block th:utext="${speakerModals}"></th:block>
+        <th:block th:utext="${speakerSessionModals}"></th:block>
+
+        <!-- Page blocks -->
         <th:block th:replace="/blocks/navigation.html"/>
         <th:block th:replace="/blocks/index/home.html"/>
         <th:block th:replace="/blocks/schedule/schedule.html"/>
@@ -69,9 +74,5 @@
         <script defer src="/public/js/lazysizes.min.js"></script>
         <script defer src="/public/js/custom.js"></script>
         <script defer src="/public/js/sidenav.js"></script>
-
-        <!-- Modals -->
-        <th:block th:utext="${speakerModals}"></th:block>
-        <th:block th:utext="${speakerSessionModals}"></th:block>
     </body>
 </html>

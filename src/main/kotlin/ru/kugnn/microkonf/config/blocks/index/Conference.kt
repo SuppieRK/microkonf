@@ -24,41 +24,33 @@ data class Conference @JsonCreator constructor(
         @JsonProperty("series") var series: Series?
 ) {
     @get:JsonIgnore
-    val startDate: LocalDate by lazy {
-        LocalDate.parse(start, Utils.ParseDateFormatter)
+    val startDate: LocalDate = LocalDate.parse(start, Utils.ParseDateFormatter)
+
+    @get:JsonIgnore
+    val endDate: LocalDate? = end?.run { LocalDate.parse(this, Utils.ParseDateFormatter) }
+
+    @get:JsonIgnore
+    val conferenceWhere: String = if (country.isNullOrBlank()) {
+        city
+    } else {
+        "$city, $country"
     }
 
     @get:JsonIgnore
-    val endDate: LocalDate? by lazy {
-        end?.run { LocalDate.parse(this, Utils.ParseDateFormatter) }
-    }
+    val conferenceWhen: String = if (endDate == null || endDate == startDate) {
+        DisplayDateFormat.format(startDate)
+    } else {
+        val (start, end) = getSortedDateBounds(startDate, endDate!!)
 
-    @get:JsonIgnore
-    val conferenceWhere: String by lazy {
-        if (country.isNullOrBlank()) {
-            city
-        } else {
-            "$city, $country"
-        }
-    }
-
-    @get:JsonIgnore
-    val conferenceWhen: String by lazy {
-        if (endDate == null || endDate == startDate) {
-            DisplayDateFormat.format(startDate)
-        } else {
-            val (start, end) = getSortedDateBounds(startDate, endDate!!)
-
-            when {
-                start.get(ChronoField.YEAR) != end.get(ChronoField.YEAR) -> {
-                    "${DisplayDateFormat.format(start)} - ${DisplayDateFormat.format(end)}"
-                }
-                start.get(ChronoField.MONTH_OF_YEAR) != end.get(ChronoField.MONTH_OF_YEAR) -> {
-                    "${MonthFormat.format(start)} ${DayFormat.format(start)} - ${MonthFormat.format(end)} ${DayFormat.format(start)}, ${YearFormat.format(end)}"
-                }
-                else -> {
-                    "${MonthFormat.format(start)} ${DayFormat.format(start)} - ${DayFormat.format(end)}, ${YearFormat.format(end)}"
-                }
+        when {
+            start.get(ChronoField.YEAR) != end.get(ChronoField.YEAR) -> {
+                "${DisplayDateFormat.format(start)} - ${DisplayDateFormat.format(end)}"
+            }
+            start.get(ChronoField.MONTH_OF_YEAR) != end.get(ChronoField.MONTH_OF_YEAR) -> {
+                "${MonthFormat.format(start)} ${DayFormat.format(start)} - ${MonthFormat.format(end)} ${DayFormat.format(start)}, ${YearFormat.format(end)}"
+            }
+            else -> {
+                "${MonthFormat.format(start)} ${DayFormat.format(start)} - ${DayFormat.format(end)}, ${YearFormat.format(end)}"
             }
         }
     }

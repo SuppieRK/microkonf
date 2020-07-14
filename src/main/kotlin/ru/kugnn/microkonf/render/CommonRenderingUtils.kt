@@ -4,7 +4,7 @@ import kotlinx.html.*
 import ru.kugnn.microkonf.config.blocks.speakers.Speaker
 
 object CommonRenderingUtils {
-    fun FlowContent.buildShortSpeakerRow(speaker: Speaker, withModalToggle: Boolean = false) {
+    fun FlowContent.renderSpeakerInfoRow(speaker: Speaker, withModalToggle: Boolean = false) {
         div(classes = "sessionSpeaker row") {
             if (withModalToggle) {
                 style = "transform: rotate(0);" // Prevent stretched link to go beyond this DIV (for safety reasons)

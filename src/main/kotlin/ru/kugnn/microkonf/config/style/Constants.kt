@@ -71,9 +71,7 @@ data class Speakers @JsonCreator constructor(
         @JsonProperty("description") var markdownDescription: String
 ) {
     @get:JsonIgnore
-    val description: String by lazy {
-        markdownToHtml(markdownDescription)
-    }
+    val description: String = markdownToHtml(markdownDescription)
 }
 
 @Introspected
@@ -87,7 +85,5 @@ data class Team @JsonCreator constructor(
         @JsonProperty("description") var markdownDescription: String
 ) {
     @get:JsonIgnore
-    val description: String by lazy {
-        markdownToHtml(markdownDescription)
-    }
+    val description: String = markdownToHtml(markdownDescription)
 }

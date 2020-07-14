@@ -14,7 +14,7 @@ data class Gallery @JsonCreator constructor(
         @JsonProperty("localImages") @get:JsonIgnore var localImages: List<String>
 ) {
     @get:JsonIgnore
-    val images: Map<String, Int> by lazy {
+    val images: Map<String, Int> = {
         val foundImages: Map<String, Int> = localImages.mapIndexed { index, path -> path to index }.toMap()
 
         require(foundImages.size <= 10) {
@@ -23,5 +23,5 @@ data class Gallery @JsonCreator constructor(
         }
 
         foundImages
-    }
+    }.invoke()
 }

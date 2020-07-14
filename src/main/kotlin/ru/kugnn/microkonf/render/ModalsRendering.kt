@@ -2,7 +2,7 @@ package ru.kugnn.microkonf.render
 
 import kotlinx.html.*
 import kotlinx.html.stream.createHTML
-import ru.kugnn.microkonf.render.CommonRenderingUtils.buildShortSpeakerRow
+import ru.kugnn.microkonf.render.CommonRenderingUtils.renderSpeakerInfoRow
 import ru.kugnn.microkonf.structures.ScheduleStructure
 
 object ModalsRendering {
@@ -10,7 +10,7 @@ object ModalsRendering {
         id = "speakerSessionModals"
 
         forEachSpeakerSession { day, timeslot, cell, speakerSession ->
-            buildModalBaseFrame(
+            renderModalBaseFrame(
                     modalId = speakerSession.id,
                     header = {
                         h5(classes = "modal-title mb-1") {
@@ -49,7 +49,7 @@ object ModalsRendering {
                             }
 
                             speakers.forEach { speaker ->
-                                buildShortSpeakerRow(speaker, withModalToggle = true)
+                                renderSpeakerInfoRow(speaker, withModalToggle = true)
                             }
                         }
                     }
@@ -61,16 +61,16 @@ object ModalsRendering {
         id = "speakerModals"
 
         speakers.forEach { (speakerId, speaker) ->
-            buildModalBaseFrame(
+            renderModalBaseFrame(
                     modalId = speakerId,
                     header = {
                         div {
                             style = "min-width: 100% !important"
 
                             div(classes = "speakerImgWrapper p-0 d-inline-block text-center") {
-                                img(classes = "speakerImg lazyload m-0") {
+                                img(classes = "speakerImg m-0") {
                                     alt = speaker.name
-                                    attributes["data-src"] = speaker.photo
+                                    src = speaker.photo
                                 }
                             }
                             div(classes = "speakerDescriptionWrapper ml-0 ml-lg-3 mt-0 align-self-center d-inline-block align-middle text-center text-lg-left") {
@@ -146,7 +146,7 @@ object ModalsRendering {
         }
     }
 
-    private fun FlowContent.buildModalBaseFrame(modalId: String, header: DIV.() -> Unit = {}, body: DIV.() -> Unit = {}) {
+    private fun FlowContent.renderModalBaseFrame(modalId: String, header: DIV.() -> Unit = {}, body: DIV.() -> Unit = {}) {
         div(classes = "modal p-0") {
             id = "modal$modalId"
 
